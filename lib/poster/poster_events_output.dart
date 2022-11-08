@@ -40,7 +40,9 @@ class _PosterEventsOutputState extends State<PosterEventsOutput> {
                     borderRadius: BorderRadius.circular(Dimensions.radius10)),
                 margin: EdgeInsets.only(bottom: Dimensions.height40),
                 child: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
                     icon: Icon(
                       Icons.arrow_back_ios,
                       color: Colors.white,
@@ -61,7 +63,9 @@ class _PosterEventsOutputState extends State<PosterEventsOutput> {
                         borderRadius: BorderRadius.circular(Dimensions.radius10)),
                     child: Center(
                       child: IconButton(
-                          onPressed: () {},
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
                           icon: Icon(
                             Icons.ios_share,
                             size: Dimensions.iconSize15,

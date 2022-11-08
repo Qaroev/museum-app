@@ -34,7 +34,9 @@ class _HomePageBodyState extends State<HomePageBody> {
                     fontWeight: FontWeight.w800,
                   ),
                   GestureDetector(
-                    onTap: (){},
+                    onTap: (){
+
+                    },
                     child: AppIcon(
                       icon: Icons.arrow_forward,
                       size: Dimensions.font32,

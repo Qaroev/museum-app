@@ -43,10 +43,14 @@ class _SouvenirsEventsOutputState extends State<SouvenirsEventsOutput> {
                       children: [
                         Row(
                           children: [
-                            Icon(
-                              Icons.arrow_back_ios,
-                              color: Colors.black,
-                              size: Dimensions.iconSize20,
+                            IconButton(
+                              icon: Icon(
+                                Icons.arrow_back_ios,
+                                color: Colors.black,
+                                size: Dimensions.iconSize20,
+                              ), onPressed: () {
+                                Navigator.pop(context);
+                            },
                             ),
                             SizedBox(
                               width: Dimensions.width10,
@@ -106,7 +110,9 @@ class _SouvenirsEventsOutputState extends State<SouvenirsEventsOutput> {
                                     color: const Color(0xFF434670).withOpacity(0.25),
                                     borderRadius: BorderRadius.circular(Dimensions.radius10)),
                                 child: IconButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
                                     icon: Icon(
                                       Icons.arrow_back_ios,
                                       color: Colors.white,

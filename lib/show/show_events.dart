@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:museum_resource_center/show/show_events_output.dart';
 
 import '../utils/dimensions.dart';
 import '../widget/big-text-widget.dart';
@@ -63,24 +64,29 @@ class _ShowEventsState extends State<ShowEvents> {
                       mainAxisSpacing: 20),
                   itemCount: 10,
                   itemBuilder: (BuildContext context, index) {
-                    return Container(
-                      width: Dimensions.width178,
-                      height: Dimensions.height186,
-                      alignment: Alignment.bottomLeft,
-                      padding: const EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        color: Colors.red,
-                        borderRadius: BorderRadius.circular(Dimensions.radius15),
-                        image: const DecorationImage(
-                            image: AssetImage("assets/images/show1.png"),
-                            fit: BoxFit.cover
+                    return GestureDetector(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => ShowEventsOutput()));
+                      },
+                      child: Container(
+                        width: Dimensions.width178,
+                        height: Dimensions.height186,
+                        alignment: Alignment.bottomLeft,
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadius.circular(Dimensions.radius15),
+                          image: const DecorationImage(
+                              image: AssetImage("assets/images/show1.png"),
+                              fit: BoxFit.cover
+                          ),
                         ),
-                      ),
-                      child: BigTextWidget(
-                          text: "Вещевая коллекция и этнография",
-                          size: Dimensions.font13,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white
+                        child: BigTextWidget(
+                            text: "Вещевая коллекция и этнография",
+                            size: Dimensions.font13,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white
+                        ),
                       ),
                     );
                   }),

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:museum_resource_center/souvenirs/souvenirs_events_output.dart';
 import 'package:museum_resource_center/widget/small-text-widget.dart';
 
 import '../utils/dimensions.dart';
@@ -66,6 +67,9 @@ class _SouvenirsEventsState extends State<SouvenirsEvents> {
                   itemCount: 10,
                   itemBuilder: (context, index) {
                     return GestureDetector(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => SouvenirsEventsOutput()));
+                      },
                       child: Container(
                         width: Dimensions.width380,
                         height: Dimensions.height106,

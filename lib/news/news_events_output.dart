@@ -43,10 +43,15 @@ class _NewsEventsOutputState extends State<NewsEventsOutput> {
                       children: [
                         Row(
                           children: [
-                            Icon(
-                              Icons.arrow_back_ios,
-                              color: Colors.black,
-                              size: Dimensions.font20,
+                            IconButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              icon: Icon(
+                                Icons.arrow_back_ios,
+                                color: Colors.black,
+                                size: Dimensions.font20,
+                              ),
                             ),
                             SizedBox(width: Dimensions.width10,),
                             SizedBox(
@@ -102,7 +107,9 @@ class _NewsEventsOutputState extends State<NewsEventsOutput> {
                                     color: const Color(0xFF434670).withOpacity(0.25),
                                     borderRadius: BorderRadius.circular(Dimensions.radius10)),
                                 child: IconButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
                                     icon: Icon(
                                       Icons.arrow_back_ios,
                                       color: Colors.white,

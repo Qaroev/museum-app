@@ -27,26 +27,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late List<Widget> _pages;
-  int _selectedPageIndex = 1;
-  @override
-  void initState() {
-    _pages = [
-      SearchPageBody(),
-      HomePageBody(),
-      BasketPageBody(),
-      PosterEvents(),
-      ShowEvents(),
-      CollectionsEvents(),
-      SouvenirsEvents(),
-      NewsEvents()
-    ];}
+  PageController pageController =  PageController(initialPage: 1);
+  var _selectedPageIndex = 1;
 
-  void _selectPage(int index) {
-    setState(() {
-      _selectedPageIndex = index;
-    });
-  }
+  // @override
+  // void dispose() {
+  //   pageController.dispose();
+  //   super.dispose();
+  // }
   @override
   Widget build(BuildContext context) {
     final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
@@ -117,10 +105,10 @@ class _HomePageState extends State<HomePage> {
             decoration:BoxDecoration(
                 color: Colors.transparent
             ) ,
-            child: ListView(
+      child: ListView(
               children: [
                 DrawerHeader(
-                  decoration: BoxDecoration(
+            decoration: BoxDecoration(
                     color: Colors.transparent
                   ),
                   child: Container(
@@ -150,8 +138,7 @@ class _HomePageState extends State<HomePage> {
                         contentPadding: EdgeInsets.zero,
                         onTap: (){
                           _scaffoldKey.currentState!.closeDrawer();
-                          //Navigator.push(context, MaterialPageRoute(builder: (context) => PosterEvents()),);
-
+                          pageController.jumpToPage(3);
                         },
                       ),
                       ListTile(
@@ -168,6 +155,10 @@ class _HomePageState extends State<HomePage> {
                           ],
                         ),
                         contentPadding: EdgeInsets.zero,
+                        onTap: (){
+                          _scaffoldKey.currentState!.closeDrawer();
+                          pageController.jumpToPage(4);
+                        },
                       ),
                       ListTile(
                         title: Column(
@@ -183,6 +174,10 @@ class _HomePageState extends State<HomePage> {
                           ],
                         ),
                         contentPadding: EdgeInsets.zero,
+                        onTap: (){
+                          _scaffoldKey.currentState!.closeDrawer();
+                          pageController.jumpToPage(5);
+                        },
                       ),
                       ListTile(
                         title: Column(
@@ -198,6 +193,10 @@ class _HomePageState extends State<HomePage> {
                           ],
                         ),
                         contentPadding: EdgeInsets.zero,
+                        onTap: (){
+                          _scaffoldKey.currentState!.closeDrawer();
+                          pageController.jumpToPage(6);
+                        },
                       ),
                       ListTile(
                         title: Column(
@@ -212,6 +211,10 @@ class _HomePageState extends State<HomePage> {
                           ],
                         ),
                         contentPadding: EdgeInsets.zero,
+                        onTap: (){
+                          _scaffoldKey.currentState!.closeDrawer();
+                          pageController.jumpToPage(7);
+                        },
                       ),
                       SizedBox(height: Dimensions.height20,),
                       Container(
@@ -263,12 +266,32 @@ class _HomePageState extends State<HomePage> {
           ]
         ),
       ),
-      body: _pages[_selectedPageIndex],
+      body:  PageView(
+        //physics: NeverScrollableScrollPhysics(),
+        controller: pageController,
+        scrollDirection: Axis.horizontal,
+          allowImplicitScrolling: true,
+        children: [
+          SearchPageBody(),
+          HomePageBody(),
+          BasketPageBody(),
+          PosterEvents(),
+          ShowEvents(),
+          CollectionsEvents(),
+          SouvenirsEvents(),
+          NewsEvents()
+        ],
+        onPageChanged: (index){
+          _selectedPageIndex = index;
+        },
+      ),
       bottomNavigationBar: SizedBox(
         height: Dimensions.height92,
         child: BottomNavigationBar(
           currentIndex: _selectedPageIndex,
-          onTap: _selectPage,
+          onTap: (int index){
+              pageController.jumpToPage(index);
+          },
           backgroundColor: Colors.white,
           showSelectedLabels: false,
           showUnselectedLabels: false,
@@ -278,12 +301,11 @@ class _HomePageState extends State<HomePage> {
           type: BottomNavigationBarType.fixed,
           items: [
             BottomNavigationBarItem(
-              icon: Icon(Icons.search),
+              icon:   Icon(Icons.search),
               label: 'Search',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.home_outlined),
-              activeIcon: new Icon(Icons.home_outlined),
               label: 'Home',
             ),
             BottomNavigationBarItem(
@@ -295,6 +317,7 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
 }
 
 

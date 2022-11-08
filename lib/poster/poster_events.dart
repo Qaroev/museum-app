@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:museum_resource_center/poster/poster_events_output.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../utils/dimensions.dart';
@@ -125,6 +126,9 @@ class _PosterEventsState extends State<PosterEvents> {
                   itemCount: 10,
                   itemBuilder: (context, index) {
                     return GestureDetector(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => PosterEventsOutput()));
+                      },
                       child: Container(
                         margin: EdgeInsets.only(bottom: Dimensions.height10),
                         child: Row(

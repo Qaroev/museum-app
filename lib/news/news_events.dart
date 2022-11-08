@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:museum_resource_center/news/news_events_output.dart';
 import 'package:museum_resource_center/utils/dimensions.dart';
 
 import '../widget/big-text-widget.dart';
@@ -33,6 +34,9 @@ class _NewsEventsState extends State<NewsEvents> {
                   itemCount: 10,
                   itemBuilder: (context, index) {
                     return GestureDetector(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => NewsEventsOutput()));
+                      },
                       child: Container(
                         width: Dimensions.width380,
                         height: Dimensions.height106,
