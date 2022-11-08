@@ -251,14 +251,14 @@ class _NewsEventsOutputState extends State<NewsEventsOutput> {
                                       ),
                                     ],
                                   ),
-                                   SizedBox(width: Dimensions.width40,),
+                                   SizedBox(width: Dimensions.width30,),
                                   Container(
                                     alignment: Alignment.center,
-                                    width: Dimensions.width200,
+                                    width: Dimensions.width220,
                                     height: Dimensions.height80,
                                     child: BigTextWidget(
                                       text: "«Определены победители первого этапа конкурса «Красота Божьего мира»»",
-                                      size: Dimensions.font16,
+                                      size: Dimensions.font14,
                                       color: const Color(0xFF120D26),
                                       fontWeight: FontWeight.w400,),
                                   ),
