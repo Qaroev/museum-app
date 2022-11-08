@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../utils/dimensions.dart';
 import '../../widget/big-text-widget.dart';
 
 class SouvenirsPageBody extends StatefulWidget {
@@ -21,14 +22,14 @@ class _SouvenirsPageBodyState extends State<SouvenirsPageBody> {
   }
   Widget _buildSouvenirsItem(){
     return Container(
-      width: 327,
-      height: 132,
-      padding: EdgeInsets.all(10),
-      margin: EdgeInsets.only(right: 10),
+      width: Dimensions.width327,
+      height: Dimensions.height132,
+      padding: const EdgeInsets.all(10),
+      margin: EdgeInsets.only(right: Dimensions.width10),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(Dimensions.radius10),
           color: Colors.white,
-          boxShadow:[
+          boxShadow:const [
             BoxShadow(
                 color: Color(0xFFEFF6F6),
                 blurRadius: 20.0,
@@ -38,29 +39,29 @@ class _SouvenirsPageBodyState extends State<SouvenirsPageBody> {
       ),
       child: Row(
         children: [
-          Container(child: Image.asset("assets/images/image3-home.png")),
-          SizedBox(width: 10,),
-          Container(
-            width: 176,
-            height: 80,
+          Image.asset("assets/images/image3-home.png"),
+          SizedBox(width: Dimensions.width10,),
+          SizedBox(
+            width: Dimensions.width176,
+            height: Dimensions.height80,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 BigTextWidget(
                   text: "Колокольчики",
-                  size: 13,
-                  color: Color(0xFF747688),
+                  size: Dimensions.font13,
+                  color: const Color(0xFF747688),
                 ),
                 BigTextWidget(
                   text: "Настенные часы в технике Фьюзинг",
-                  size: 16,
+                  size: Dimensions.font16,
                   fontWeight: FontWeight.w400,
                   color: Colors.black,
                 ),
                 BigTextWidget(
                   text: "2500 руб",
-                  size: 14,
+                  size: Dimensions.font14,
                   fontWeight: FontWeight.w400,
                   color: Colors.black,
                 ),

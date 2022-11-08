@@ -219,7 +219,7 @@ class _HomePageState extends State<HomePage> {
                         height: Dimensions.height38,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(Dimensions.radius8),
-                          image: DecorationImage(
+                          image: const DecorationImage(
                             image: AssetImage("assets/images/drawer2.png"),
                             fit: BoxFit.cover
                           ),
@@ -242,24 +242,22 @@ class _HomePageState extends State<HomePage> {
             Positioned(
               bottom: Dimensions.height10,
                 left: Dimensions.width20,
-                child: Container(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      BigTextWidget(
-                          text: "Политика конфеденциальности",
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    BigTextWidget(
+                        text: "Политика конфеденциальности",
+                      size: Dimensions.font12,
+                      color: const Color(0xFF818284),
+                      fontWeight: FontWeight.w400,
+                    ),
+                    BigTextWidget(
+                        text: "BinaryDev App 2.1",
                         size: Dimensions.font12,
-                        color: Color(0xFF818284),
+                        color: const Color(0xFF818284),
                         fontWeight: FontWeight.w400,
-                      ),
-                      BigTextWidget(
-                          text: "BinaryDev App 2.1",
-                          size: Dimensions.font12,
-                          color: Color(0xFF818284),
-                          fontWeight: FontWeight.w400,
-                      ),
-                    ],
-                  )
+                    ),
+                  ],
                 )
             )
           ]
@@ -275,7 +273,7 @@ class _HomePageState extends State<HomePage> {
           showSelectedLabels: false,
           showUnselectedLabels: false,
           selectedItemColor: Colors.black,
-          unselectedItemColor: Color(0xFFA5A7B5),
+          unselectedItemColor: const Color(0xFFA5A7B5),
           iconSize: Dimensions.iconSize30,
           type: BottomNavigationBarType.fixed,
           items: [

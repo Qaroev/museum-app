@@ -21,7 +21,7 @@ class _PosterEventsState extends State<PosterEvents> {
     return ListView(
       children: [
         Container(
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           child: Column(
             children: [
               Row(
@@ -29,7 +29,7 @@ class _PosterEventsState extends State<PosterEvents> {
                 children: [
                   BigTextWidget(
                     text: "Афиша событий",
-                    size: 20,
+                    size: Dimensions.font20,
                     fontWeight: FontWeight.w800,
                   ),
                   IconButton(
@@ -41,13 +41,13 @@ class _PosterEventsState extends State<PosterEvents> {
                             context: context,
                             builder: (BuildContext context) {
                               return Container(
-                                  height: 500,
-                                  padding: EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
+                                  height: Dimensions.height500,
+                                  padding: const EdgeInsets.all(10),
+                                  decoration:  BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(30),
-                                        topRight: Radius.circular(30)),
+                                        topLeft: Radius.circular(Dimensions.radius30),
+                                        topRight: Radius.circular(Dimensions.radius30)),
                                   ),
                                   child: Column(
                                     children: [
@@ -56,19 +56,19 @@ class _PosterEventsState extends State<PosterEvents> {
                                           Navigator.pop(context);
                                         },
                                         child: SizedBox(
-                                          width: 30,
+                                          width: Dimensions.width30,
                                           child: Divider(
                                             thickness: 5,
                                             color: Color(0xFFB2B2B2),
                                           ),
                                         ),
                                       ),
-                                      SizedBox(height: 10,),
+                                      SizedBox(height: Dimensions.height10,),
                                       BigTextWidget(
                                         text: "Выбрать дату события",
-                                        size: 24,
+                                        size: Dimensions.font24,
                                         fontWeight: FontWeight.w500,
-                                        color: Color(0xFF120D26),
+                                        color: const Color(0xFF120D26),
                                       ),
                                       TableCalendar(
                                         focusedDay: DateTime.now(),
@@ -77,7 +77,7 @@ class _PosterEventsState extends State<PosterEvents> {
                                         startingDayOfWeek: StartingDayOfWeek.sunday,
                                         sixWeekMonthsEnforced: true,
                                         calendarFormat: CalendarFormat.month,
-                                        headerStyle: HeaderStyle(
+                                        headerStyle: const HeaderStyle(
                                             formatButtonVisible: false,
                                             titleCentered: true,
                                             headerMargin: EdgeInsets.all(10),
@@ -91,38 +91,34 @@ class _PosterEventsState extends State<PosterEvents> {
                   )
                 ],
               ),
-              SizedBox(
-                height: 20,
-              ),
+              SizedBox(height: Dimensions.height20,),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: List.generate(
                     7,
                     (index) => Container(
-                      margin: EdgeInsets.only(right: 20),
+                      margin: EdgeInsets.only(right: Dimensions.width20),
                       child: ElevatedButton(
                         child: Text(
                           "Выставка",
                           style: TextStyle(color: Color(0xFF434670)),
                         ),
-                        onPressed: () => print("it's pressed"),
+                        onPressed: (){},
                         style: ElevatedButton.styleFrom(
                           elevation: 1,
-                          primary: Color(0xFFF3F8F9),
+                          primary: const Color(0xFFF3F8F9),
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50.0),
+                              borderRadius: BorderRadius.circular(Dimensions.radius50),
                               side: BorderSide(
-                              color: Color(0xFF12153D).withOpacity(0.5))),
+                              color: const Color(0xFF12153D).withOpacity(0.5))),
                         ),
                       ),
                     ),
                   ),
                 ),
               ),
-              SizedBox(
-                height: 20,
-              ),
+              SizedBox(height: Dimensions.height20,),
               ListView.builder(
                   physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
@@ -130,26 +126,26 @@ class _PosterEventsState extends State<PosterEvents> {
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       child: Container(
-                        margin: EdgeInsets.only(bottom: 10),
+                        margin: EdgeInsets.only(bottom: Dimensions.height10),
                         child: Row(
                           children: [
                             Container(
-                              width: 92,
-                              height: 92,
-                              decoration: BoxDecoration(
+                              width: Dimensions.width92,
+                              height: Dimensions.height92,
+                              decoration: const BoxDecoration(
                                   image: DecorationImage(
                                       image: AssetImage(
                                           "assets/images/picture.png"))),
                             ),
                             Expanded(
                                 child: Container(
-                              height: 91,
+                              height: Dimensions.height91,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.only(
                                       topRight: Radius.circular(
-                                        10,
+                                        Dimensions.radius10,
                                       ),
-                                      bottomRight: Radius.circular(10)),
+                                      bottomRight: Radius.circular(Dimensions.radius10,)),
                                   color: Colors.white),
                               child: Padding(
                                 padding: const EdgeInsets.all(10),
@@ -163,35 +159,35 @@ class _PosterEventsState extends State<PosterEvents> {
                                       children: [
                                         BigTextWidget(
                                             text: "с 17 апреля по 21 мая",
-                                            size: 11),
+                                            size: Dimensions.font11),
                                         BigTextWidget(
                                           text: "Пушкинская карта",
-                                          size: 11,
+                                          size: Dimensions.font11,
                                         ),
                                       ],
                                     ),
-                                    Spacer(),
+                                    const Spacer(),
                                     BigTextWidget(
                                       text:
                                           "«Цикл лекций по изобразительному искусству «Идем в музей»",
-                                      size: 12,
+                                      size: Dimensions.font12,
                                       color: Colors.black,
                                       fontWeight: FontWeight.w500,
                                     ),
-                                    Spacer(),
+                                    const Spacer(),
                                     Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         BigTextWidget(
                                           text: "Выставка",
-                                          size: 12,
+                                          size: Dimensions.font12,
                                         ),
                                         AppIcon(
                                           icon: Icons.arrow_forward,
-                                          size: 26,
+                                          size: Dimensions.font26,
                                           backgroundColor: Color(0xFFE1E3E4),
-                                          iconSize: 15,
+                                          iconSize: Dimensions.iconSize15,
                                         ),
                                       ],
                                     ),

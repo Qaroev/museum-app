@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../utils/dimensions.dart';
 import '../widget/big-text-widget.dart';
 
 class ShowEvents extends StatefulWidget {
@@ -14,34 +15,34 @@ class _ShowEventsState extends State<ShowEvents> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: EdgeInsets.all(20),
+        margin: const EdgeInsets.all(20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             BigTextWidget(
               text: "Наши выставки",
-              size: 20,
+              size: Dimensions.font20,
               fontWeight: FontWeight.w800,
             ),
-            SizedBox(height: 10,),
+            SizedBox(height: Dimensions.height10,),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: List.generate(
                   7,
                       (index) => Container(
-                    margin: EdgeInsets.only(right: 20),
+                    margin: EdgeInsets.only(right: Dimensions.width20),
                     child: ElevatedButton(
                       child: Text(
                         "Передвижные",
                         style: TextStyle(color: Color(0xFF434670)),
                       ),
-                      onPressed: () => print("it's pressed"),
+                      onPressed: (){},
                       style: ElevatedButton.styleFrom(
                         elevation: 1,
-                        primary: Color(0xFFF3F8F9),
+                        primary: const Color(0xFFF3F8F9),
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50.0),
+                            borderRadius: BorderRadius.circular(Dimensions.radius50),
                             side: BorderSide(
                                 color: Color(0xFF12153D).withOpacity(0.5))),
                       ),
@@ -51,7 +52,7 @@ class _ShowEventsState extends State<ShowEvents> {
               ),
             ),
             SizedBox(
-              height: 20,
+              height: Dimensions.height20,
             ),
             Expanded(
               child: GridView.builder(
@@ -63,21 +64,21 @@ class _ShowEventsState extends State<ShowEvents> {
                   itemCount: 10,
                   itemBuilder: (BuildContext context, index) {
                     return Container(
-                      width: 178,
-                      height: 186,
+                      width: Dimensions.width178,
+                      height: Dimensions.height186,
                       alignment: Alignment.bottomLeft,
-                      padding: EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
                         color: Colors.red,
-                        borderRadius: BorderRadius.circular(15),
-                        image: DecorationImage(
+                        borderRadius: BorderRadius.circular(Dimensions.radius15),
+                        image: const DecorationImage(
                             image: AssetImage("assets/images/show1.png"),
                             fit: BoxFit.cover
                         ),
                       ),
                       child: BigTextWidget(
                           text: "Вещевая коллекция и этнография",
-                          size: 13,
+                          size: Dimensions.font13,
                           fontWeight: FontWeight.w700,
                           color: Colors.white
                       ),

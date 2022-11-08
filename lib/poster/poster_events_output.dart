@@ -1,6 +1,7 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:museum_resource_center/utils/dimensions.dart';
 import 'package:museum_resource_center/widget/big-text-widget.dart';
 import 'package:museum_resource_center/widget/small-text-widget.dart';
 
@@ -17,65 +18,63 @@ class _PosterEventsOutputState extends State<PosterEventsOutput> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFF3F8F9),
+      backgroundColor: const Color(0xFFF3F8F9),
       body: CustomScrollView(scrollDirection: Axis.vertical, slivers: [
         SliverAppBar(
-          toolbarHeight: 80,
+          toolbarHeight: Dimensions.height80,
           toolbarTextStyle: TextStyle(color: Colors.black),
           automaticallyImplyLeading: false,
           primary: true,
           pinned: true,
-          expandedHeight: 270.0,
+          expandedHeight: Dimensions.height270,
           backgroundColor: Colors.white,
           leading: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-                width: 30,
-                height: 30,
+                width: Dimensions.width30,
+                height: Dimensions.height30,
                 decoration: BoxDecoration(
                     color: Colors.white.withOpacity(0.24),
-                    borderRadius: BorderRadius.circular(10)),
-                margin: EdgeInsets.only(bottom: 40),
+                    borderRadius: BorderRadius.circular(Dimensions.radius10)),
+                margin: EdgeInsets.only(bottom: Dimensions.height40),
                 child: IconButton(
                     onPressed: () {},
                     icon: Icon(
                       Icons.arrow_back_ios,
                       color: Colors.white,
-                      size: 15,
+                      size: Dimensions.iconSize15,
                     )),
               )
             ],
           ),
           actions: [Container(
-              margin: EdgeInsets.only(right: 10, bottom: 40),
+              margin: EdgeInsets.only(right: Dimensions.width10, bottom: Dimensions.height40),
               child: Row(
                 children: [
                   Container(
-                    width: 30,
-                    height: 30,
+                    width: Dimensions.width30,
+                    height: Dimensions.height30,
                     decoration: BoxDecoration(
                         color: Colors.white.withOpacity(0.24),
-                        borderRadius: BorderRadius.circular(10)),
+                        borderRadius: BorderRadius.circular(Dimensions.radius10)),
                     child: Center(
                       child: IconButton(
                           onPressed: () {},
                           icon: Icon(
                             Icons.ios_share,
-                            size: 15,
+                            size: Dimensions.iconSize15,
                           )),
                     ),
                   ),
-                  SizedBox(
-                    width: 5,
-                  ),
+                  SizedBox(width: Dimensions.width5,),
                   Container(
-                      width: 30,
-                      height: 30,
+                      width: Dimensions.width30,
+                      height: Dimensions.height30,
                       decoration: BoxDecoration(
                           color: Colors.white.withOpacity(0.24),
-                          borderRadius: BorderRadius.circular(10)),
+                          borderRadius: BorderRadius.circular(Dimensions.radius10)),
                       child: IconButton(
                         onPressed: () {},
                         icon: Image.asset(
@@ -90,7 +89,7 @@ class _PosterEventsOutputState extends State<PosterEventsOutput> {
             builder: (context, constraints) {
               return FlexibleSpaceBar(
                   //centerTitle: true,
-                  titlePadding: EdgeInsets.only(bottom: 20, left: 40),
+                  titlePadding: EdgeInsets.only(bottom: Dimensions.height20, left: Dimensions.width40),
                   title: constraints.maxHeight >= 160
                       ? Container()
                       : Row(
@@ -98,47 +97,41 @@ class _PosterEventsOutputState extends State<PosterEventsOutput> {
                             Icon(
                               Icons.arrow_back_ios,
                               color: Colors.black,
-                              size: 20,
+                              size: Dimensions.iconSize20,
                             ),
+                            SizedBox(width: Dimensions.width10,),
                             SizedBox(
-                              width: 10,
-                            ),
-                            SizedBox(
-                              width: 200,
+                              width: Dimensions.width200,
                               child: BigTextWidget(
                                 text: "Мастерская креативных подарков",
-                                size: 16,
+                                size: Dimensions.font16,
                                 color: Colors.black,
                                 fontWeight: FontWeight.w800,
                               ),
                             ),
-                            SizedBox(
-                              width: 60,
-                            ),
+                            SizedBox(width: Dimensions.width60,),
                             Icon(
                               Icons.ios_share,
-                              size: 20,
+                              size: Dimensions.iconSize20,
                             ),
-                            SizedBox(
-                              width: 5,
-                            ),
+                            SizedBox(width: Dimensions.width5,),
                             Image.asset(
                               "assets/images/menu.png",
                               color: Colors.black,
-                              width: 20,
-                              height: 20,
+                              width: Dimensions.width20,
+                              height: Dimensions.height20,
                             ),
                           ],
                         ),
                   background: Container(
-                    height: 300,
+                    height: Dimensions.height300,
                     child: Stack(
                       children: [
                         Container(
-                          height: 300,
+                          height: Dimensions.height300,
                           padding:
-                              EdgeInsets.only(left: 20, right: 20, bottom: 5),
-                          decoration: BoxDecoration(
+                              EdgeInsets.only(left: Dimensions.width20, right: Dimensions.width20, bottom: Dimensions.height5),
+                          decoration: const BoxDecoration(
                               image: DecorationImage(
                             image: AssetImage(
                               "assets/images/image-poster.png",
@@ -155,28 +148,28 @@ class _PosterEventsOutputState extends State<PosterEventsOutput> {
                                 children: [
                                   SmallTextWidget(
                                     text: "Пушкинская карта",
-                                    size: 11,
+                                    size: Dimensions.font11,
                                     color: Colors.white.withOpacity(0.8),
                                     overflow: TextOverflow.clip,
                                   ),
                                   BigTextWidget(
                                     text: "Выставка",
-                                    size: 15,
+                                    size: Dimensions.font15,
                                     color: Colors.white,
                                     fontWeight: FontWeight.w500,
                                   )
                                 ],
                               ),
                               SizedBox(
-                                width: 287,
+                                width: Dimensions.width287,
                                 child: BigTextWidget(
                                   text: "Мастерская креативных подарков",
-                                  size: 20,
+                                  size: Dimensions.font20,
                                   color: Colors.white,
                                   fontWeight: FontWeight.w800,
                                 ),
                               ),
-                              SizedBox(height: 5,),
+                              SizedBox(height: Dimensions.height5,),
                               DotsIndicator(
                                 position: 1,
                                 dotsCount: 4,
@@ -194,7 +187,7 @@ class _PosterEventsOutputState extends State<PosterEventsOutput> {
                         ),
                         Container(
                           alignment: Alignment.bottomRight,
-                          margin: EdgeInsets.only(right: 20),
+                          margin: EdgeInsets.only(right: Dimensions.width20),
                           child: ElevatedButton(
                             child: Text(
                               "Купить билет",
@@ -208,13 +201,13 @@ class _PosterEventsOutputState extends State<PosterEventsOutput> {
                                   context: context,
                                   builder: (BuildContext context) {
                                     return Container(
-                                        height: 600,
-                                        padding: EdgeInsets.all(20),
+                                        height: Dimensions.height600,
+                                        padding: const EdgeInsets.all(20),
                                         decoration: BoxDecoration(
                                           color: Colors.white,
                                           borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(30),
-                                              topRight: Radius.circular(30)),
+                                              topLeft: Radius.circular(Dimensions.radius30),
+                                              topRight: Radius.circular(Dimensions.radius30)),
                                         ),
                                         child: Column(
                                           children: [
@@ -288,8 +281,8 @@ class _PosterEventsOutputState extends State<PosterEventsOutput> {
                                   });
                             },
                             style: ElevatedButton.styleFrom(
-                              padding: EdgeInsets.only(left: 30, right: 30, top: 10, bottom: 10),
-                              primary: Color(0xFF2F3A4B),
+                              padding: EdgeInsets.only(left: Dimensions.width30, right: Dimensions.width30, top: Dimensions.height10, bottom: Dimensions.height10),
+                              primary: const Color(0xFF2F3A4B),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(14.0),
                               ),
@@ -306,28 +299,26 @@ class _PosterEventsOutputState extends State<PosterEventsOutput> {
           hasScrollBody: false,
           fillOverscroll: false,
           child: Container(
-              padding: EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   BigTextWidget(
                     text: "Расписание",
-                    size: 18,
+                    size: Dimensions.font18,
                     fontWeight: FontWeight.w600,
-                    color: Color(0xFF06070D),
+                    color: const Color(0xFF06070D),
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
+                  SizedBox(height: Dimensions.height10,),
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       children: List.generate(
                           10,
                           (index) => Container(
-                                width: 118,
-                                height: 54,
-                                margin: EdgeInsets.only(right: 10),
+                                width: Dimensions.width118,
+                                height: Dimensions.height54,
+                                margin: EdgeInsets.only(right: Dimensions.width10),
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(5),
                                     border:
@@ -337,64 +328,58 @@ class _PosterEventsOutputState extends State<PosterEventsOutput> {
                                   children: [
                                     BigTextWidget(
                                       text: "Вт, 1 марта",
-                                      size: 15,
-                                      color: Color(0xFF333333),
+                                      size: Dimensions.font15,
+                                      color: const Color(0xFF333333),
                                       fontWeight: FontWeight.w700,
                                     ),
                                     BigTextWidget(
                                       text: "16:20",
                                       color: Colors.black,
-                                      size: 15,
+                                      size: Dimensions.font15,
                                     ),
                                   ],
                                 ),
                               )),
                     ),
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
+                  SizedBox(height: Dimensions.height20,),
                   BigTextWidget(
                     text: "О событии",
-                    size: 18,
-                    color: Color(0xFF06070D),
+                    size: Dimensions.font18,
+                    color: const Color(0xFF06070D),
                     fontWeight: FontWeight.w600,
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
+                  SizedBox(height: Dimensions.height10,),
                   BigTextWidget(
                     text: "Место проведения : МБУК «Музейный ресурсный центр»",
-                    size: 14,
+                    size: Dimensions.font14,
                   ),
                   Divider(thickness: 2),
                   BigTextWidget(
                     text: "Адрес : ул. Советская, 82",
-                    size: 14,
+                    size: Dimensions.font14,
                   ),
                   Divider(thickness: 2),
                   BigTextWidget(
                     text: "Дата события : 23 ноября 2021 по 31 декабря 2022",
-                    size: 14,
+                    size: Dimensions.font14,
                   ),
                   Divider(thickness: 2),
                   BigTextWidget(
                     text: "Контактный телефон : 42-00-10",
-                    size: 14,
+                    size: Dimensions.font14,
                   ),
                   Divider(thickness: 2),
                   BigTextWidget(
                     text: "Возрастное ограничение : 6+",
-                    size: 14,
+                    size: Dimensions.font14,
                   ),
                   Divider(thickness: 2),
                   BigTextWidget(
                     text: "Стоимость билета от : от 121,50 до 455 руб.",
-                    size: 14,
+                    size: Dimensions.font14,
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
+                  SizedBox(height: Dimensions.height20,),
                   BigTextWidget(
                     text:
                         'Enjoy your favorite dishe and a lovely your friends and family and have a great time. Food from local food trucks will be available for purchase. \n\nEnjoy your favorite dishe and a lovely your friends and family and have a great time. Food from local food trucks will be available for purchase.',
@@ -403,9 +388,7 @@ class _PosterEventsOutputState extends State<PosterEventsOutput> {
                     color: Color(0xFF120D26),
                     fontWeight: FontWeight.w400,
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
+                  SizedBox(height: Dimensions.height10,),
                   BigTextWidget(
                     text: 'Рекомендуем еще',
                     size: 18,
@@ -413,7 +396,7 @@ class _PosterEventsOutputState extends State<PosterEventsOutput> {
                     fontWeight: FontWeight.w600,
                   ),
                   SizedBox(
-                    height: 10,
+                    height: Dimensions.height10,
                   ),
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
@@ -421,13 +404,13 @@ class _PosterEventsOutputState extends State<PosterEventsOutput> {
                       children: List.generate(
                           5,
                           (index) => Container(
-                                width: 152,
-                                height: 158,
-                                margin: EdgeInsets.only(right: 10),
-                                padding: EdgeInsets.all(10),
+                                width: Dimensions.width152,
+                                height: Dimensions.height158,
+                                margin: EdgeInsets.only(right: Dimensions.width10),
+                                padding: const EdgeInsets.all(10),
                                 decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
-                                    image: DecorationImage(
+                                    borderRadius: BorderRadius.circular(Dimensions.radius20),
+                                    image: const DecorationImage(
                                         image: AssetImage(
                                             'assets/images/image2-poster.png'))),
                                 child: Column(
@@ -437,12 +420,12 @@ class _PosterEventsOutputState extends State<PosterEventsOutput> {
                                   children: [
                                     SmallTextWidget(
                                       text: 'c 15 по 31 марта',
-                                      size: 12,
+                                      size: Dimensions.font12,
                                       color: Colors.white,
                                     ),
                                     BigTextWidget(
                                       text: 'Декоративно-прикладное искусство',
-                                      size: 13,
+                                      size: Dimensions.font13,
                                       fontWeight: FontWeight.w700,
                                       color: Colors.white,
                                     )
@@ -452,14 +435,14 @@ class _PosterEventsOutputState extends State<PosterEventsOutput> {
                     ),
                   ),
                   SizedBox(
-                    height: 30,
+                    height: Dimensions.height30,
                   ),
                 ],
               )),
         )
       ]),
       bottomNavigationBar: Container(
-        height: 87,
+        height: Dimensions.height87,
         decoration: BoxDecoration(
             color: Colors.white
         ),
@@ -468,13 +451,13 @@ class _PosterEventsOutputState extends State<PosterEventsOutput> {
           child: ElevatedButton(
             child: Text(
               "Купить билет",
-              style: TextStyle(color: Colors.white, fontSize: 13),
+              style: TextStyle(color: Colors.white, fontSize: Dimensions.font13),
             ),
             onPressed: () => print("pressed"),
             style: ElevatedButton.styleFrom(
               padding: EdgeInsets.symmetric(horizontal: 80),
               elevation: 1,
-              primary: Color(0xFF2F3A4B),
+              primary: const Color(0xFF2F3A4B),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(14.0),
               ),

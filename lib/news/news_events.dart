@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:museum_resource_center/utils/dimensions.dart';
 
 import '../widget/big-text-widget.dart';
 
@@ -16,32 +17,30 @@ class _NewsEventsState extends State<NewsEvents> {
     return ListView(
       children: [
         Container(
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               BigTextWidget(
                 text: "Новости музея",
-                size: 20,
+                size: Dimensions.font20,
                 fontWeight: FontWeight.w800,
               ),
-              SizedBox(
-                height: 20,
-              ),
+              SizedBox(height: Dimensions.height20,),
               ListView.builder(
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemCount: 10,
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       child: Container(
-                        width: 380,
-                        height: 106,
-                        margin: EdgeInsets.only(bottom: 10),
-                        padding: EdgeInsets.all(10),
+                        width: Dimensions.width380,
+                        height: Dimensions.height106,
+                        margin: EdgeInsets.only(bottom: Dimensions.height10),
+                        padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
                             color: Colors.white,
-                            borderRadius: BorderRadius.circular(15)
+                            borderRadius: BorderRadius.circular(Dimensions.radius15)
                         ),
                         child: Stack(
                             children: [
@@ -51,11 +50,11 @@ class _NewsEventsState extends State<NewsEvents> {
                                   Stack(
                                     children: [
                                       Container(
-                                        width: 73,
-                                        height: 96,
+                                        width: Dimensions.width73,
+                                        height: Dimensions.height96,
                                         decoration: BoxDecoration(
                                             color: Color(0xFFBEBEBE),
-                                            borderRadius: BorderRadius.circular(15)
+                                            borderRadius: BorderRadius.circular(Dimensions.radius15)
                                         ),
                                       ),
                                       Positioned(
@@ -64,11 +63,11 @@ class _NewsEventsState extends State<NewsEvents> {
                                         bottom: 0,
                                         left: 0,
                                         child: Container(
-                                          width: 73,
-                                          height: 96,
+                                          width: Dimensions.width73,
+                                          height: Dimensions.height96,
                                           decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(15),
-                                              image: DecorationImage(
+                                              borderRadius: BorderRadius.circular(Dimensions.radius15),
+                                              image: const DecorationImage(
                                                   image: AssetImage("assets/images/image3-home.png"),
                                                   fit: BoxFit.cover
                                               )
@@ -77,15 +76,15 @@ class _NewsEventsState extends State<NewsEvents> {
                                       ),
                                     ],
                                   ),
-                                  const SizedBox(width: 40,),
+                                   SizedBox(width: Dimensions.width40,),
                                   Container(
                                     alignment: Alignment.center,
-                                    width: 200,
-                                    height: 80,
+                                    width: Dimensions.width200,
+                                    height: Dimensions.height80,
                                     child: BigTextWidget(
                                       text: "«Определены победители первого этапа конкурса «Красота Божьего мира»»",
-                                      size: 16,
-                                      color: Color(0xFF120D26),
+                                      size: Dimensions.font16,
+                                      color: const Color(0xFF120D26),
                                       fontWeight: FontWeight.w400,),
                                   ),
                                 ],

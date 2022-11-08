@@ -22,7 +22,7 @@ class _HomePageBodyState extends State<HomePageBody> {
     return ListView(
       children: [
         Container(
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           child: Column(
             children: [
               Row(
@@ -38,7 +38,7 @@ class _HomePageBodyState extends State<HomePageBody> {
                     child: AppIcon(
                       icon: Icons.arrow_forward,
                       size: Dimensions.font32,
-                      backgroundColor: Color(0xFFE1E3E4),
+                      backgroundColor: const Color(0xFFE1E3E4),
                       iconSize: Dimensions.iconSize25,
                     ),
                   )

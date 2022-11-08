@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:museum_resource_center/utils/dimensions.dart';
 
 import '../widget/big-text-widget.dart';
 import '../widget/small-text-widget.dart';
@@ -15,18 +16,18 @@ class _CollectionsEventsOutputState extends State<CollectionsEventsOutput> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFF3F8F9),
+      backgroundColor: const Color(0xFFF3F8F9),
       body: CustomScrollView(
         scrollDirection: Axis.vertical,
         slivers: [
           SliverAppBar(
-            toolbarHeight: 80,
+            toolbarHeight: Dimensions.height80,
             foregroundColor: Colors.white,
             toolbarTextStyle: const TextStyle(color: Colors.black),
             automaticallyImplyLeading: false,
             primary: true,
             pinned: true,
-            expandedHeight: 362.0,
+            expandedHeight: Dimensions.height362,
             backgroundColor: Colors.white,
             flexibleSpace: LayoutBuilder(
               builder: (context, constraints) {
@@ -36,7 +37,7 @@ class _CollectionsEventsOutputState extends State<CollectionsEventsOutput> {
                         ? Container()
                         : Container(
                           width: double.infinity,
-                          margin: EdgeInsets.only(left:20, bottom: 10, top: 10, right: 20),
+                          margin: EdgeInsets.only(left:Dimensions.width20, bottom: Dimensions.height10, top: Dimensions.height10, right: Dimensions.width20),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -45,16 +46,14 @@ class _CollectionsEventsOutputState extends State<CollectionsEventsOutput> {
                               Icon(
                                 Icons.arrow_back_ios,
                                 color: Colors.black,
-                                size: 20,
+                                size: Dimensions.font20,
                               ),
+                              SizedBox(width: Dimensions.width10,),
                               SizedBox(
-                                width: 10,
-                              ),
-                              SizedBox(
-                                width: 200,
+                                width: Dimensions.width200,
                                 child: BigTextWidget(
                                   text: "Сумка женская",
-                                  size: 16,
+                                  size: Dimensions.font16,
                                   color: Colors.black,
                                   fontWeight: FontWeight.w800,
                                 ),
@@ -65,16 +64,14 @@ class _CollectionsEventsOutputState extends State<CollectionsEventsOutput> {
                             children: [
                               Icon(
                                 Icons.ios_share,
-                                size: 20,
+                                size: Dimensions.font20,
                               ),
-                              SizedBox(
-                                width: 5,
-                              ),
+                              SizedBox(width: Dimensions.width5,),
                               Image.asset(
                                 "assets/images/menu.png",
                                 color: Colors.black,
-                                width: 20,
-                                height: 20,
+                                width: Dimensions.width20,
+                                height: Dimensions.height20,
                               ),
                             ],
                           ),
@@ -84,7 +81,7 @@ class _CollectionsEventsOutputState extends State<CollectionsEventsOutput> {
                     background: Stack(
                       children: [
                         Container(
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                             image: DecorationImage(
                               image: AssetImage(
                                 "assets/images/collections.png",
@@ -105,51 +102,49 @@ class _CollectionsEventsOutputState extends State<CollectionsEventsOutput> {
                         ),
                       ),
                         Container(
-                          margin: EdgeInsets.only(top: 50, left: 20, right: 20),
+                          margin: EdgeInsets.only(top: Dimensions.height50, left: Dimensions.width20, right: Dimensions.width20),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Container(
-                                width: 40,
-                                height: 40,
+                                width: Dimensions.width40,
+                                height: Dimensions.height40,
                                 decoration: BoxDecoration(
-                                    color: Color(0xFF434670).withOpacity(0.25),
-                                    borderRadius: BorderRadius.circular(10)),
+                                    color: const Color(0xFF434670).withOpacity(0.25),
+                                    borderRadius: BorderRadius.circular(Dimensions.radius10)),
                                 child: IconButton(
                                     onPressed: () {},
                                     icon: Icon(
                                       Icons.arrow_back_ios,
                                       color: Colors.white,
-                                      size: 15,
+                                      size: Dimensions.font15,
                                     )),
                               ),
                               Row(
                                 children: [
                                   Container(
-                                    width: 40,
-                                    height: 40,
+                                    width: Dimensions.width40,
+                                    height: Dimensions.height40,
                                     decoration: BoxDecoration(
-                                        color: Color(0xFF434670).withOpacity(0.25),
-                                        borderRadius: BorderRadius.circular(10)),
+                                        color: const Color(0xFF434670).withOpacity(0.25),
+                                        borderRadius: BorderRadius.circular(Dimensions.radius10)),
                                     child: Center(
                                       child: IconButton(
                                           onPressed: () {},
                                           icon: Icon(
                                             Icons.ios_share,
-                                            size: 15,
+                                            size: Dimensions.font15,
                                             color: Colors.white,
                                           )),
                                     ),
                                   ),
-                                  SizedBox(
-                                    width: 5,
-                                  ),
+                                  SizedBox(width: Dimensions.width5,),
                                   Container(
-                                      width: 40,
-                                      height: 40,
+                                      width: Dimensions.width40,
+                                      height: Dimensions.height40,
                                       decoration: BoxDecoration(
-                                          color: Color(0xFF434670).withOpacity(0.25),
-                                          borderRadius: BorderRadius.circular(10)),
+                                          color: const Color(0xFF434670).withOpacity(0.25),
+                                          borderRadius: BorderRadius.circular(Dimensions.radius10)),
                                       child: IconButton(
                                         onPressed: () {},
                                         icon: Image.asset(
@@ -167,21 +162,21 @@ class _CollectionsEventsOutputState extends State<CollectionsEventsOutput> {
                           children: [
                             Container(
                               width: double.maxFinite,
-                              height: 102,
-                              padding: EdgeInsets.all(20),
+                              height: Dimensions.height102,
+                              padding: const EdgeInsets.all(20),
                               decoration: BoxDecoration(
-                                  color: Color(0xFF434670).withOpacity(0.03)
+                                  color: const Color(0xFF434670).withOpacity(0.03)
                               ),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  BigTextWidget(text: "Вещевая коллекция и этнография", size: 15, color: Colors.white, fontWeight: FontWeight.w500,),
-                                  SizedBox(height: 10,),
+                                  BigTextWidget(text: "Вещевая коллекция и этнография", size: Dimensions.font20, color: Colors.white, fontWeight: FontWeight.w500,),
+                                  SizedBox(height: Dimensions.height20,),
                                   BigTextWidget(
                                     text: "Сумка женская",
-                                    size: 20,
-                                    color: Color(0xFFFFFFFF),
+                                    size: Dimensions.font15,
+                                    color: const Color(0xFFFFFFFF),
                                     fontWeight: FontWeight.w800,),
                                 ],
                               ),
@@ -198,97 +193,91 @@ class _CollectionsEventsOutputState extends State<CollectionsEventsOutput> {
             hasScrollBody: false,
             fillOverscroll: false,
             child: Container(
-                padding: EdgeInsets.all(20),
+                padding: const EdgeInsets.all(20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     BigTextWidget(
                       text: "Об элементе",
-                      size: 18,
+                      size: Dimensions.font18,
                       fontWeight: FontWeight.w600,
                       color: const Color(0xFF06070D),
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
+                     SizedBox(height: Dimensions.height20,),
                     BigTextWidget(
                       text: "Коллекция: Вещевая коллекция и этнография",
-                      size: 14,
+                      size: Dimensions.font14,
                     ),
                     const Divider(thickness: 2),
                     BigTextWidget(
                       text: "Автор / Изготовитель: ручная работа, автор неизвестен",
-                      size: 14,
+                      size: Dimensions.font14,
                     ),
                     const Divider(thickness: 2),
                     BigTextWidget(
                       text: "Время создания:",
-                      size: 14,
+                      size: Dimensions.font14,
                     ),
                     const Divider(thickness: 2),
                     BigTextWidget(
                       text: "Место создания:",
-                      size: 14,
+                      size: Dimensions.font14,
                     ),
                     const Divider(thickness: 2),
                     BigTextWidget(
                       text: "Материал: дерево, кожа, сборка",
-                      size: 14,
+                      size: Dimensions.font14,
                     ),
                     const Divider(thickness: 2),
                     BigTextWidget(
                       text: "Размеры: 8,4х3,5х6,5 см",
-                      size: 14,
+                      size: Dimensions.font14,
                     ),
                     const Divider(thickness: 2),
                     BigTextWidget(
                       text:"Фондовый номер: НМРЦ ОФ-1136",
-                      size: 14,
+                      size: Dimensions.font14,
                       height: 1.6,
-                      color: Color(0xFF120D26),
+                      color: const Color(0xFF120D26),
                       fontWeight: FontWeight.w400,
                     ),
                     const Divider(thickness: 2),
                     BigTextWidget(
                       text:"Дополнительные данные: источник поступления, легенда, прочее:Поступила в фонды в 2000 г.",
-                      size: 14,
+                      size: Dimensions.font14,
                       height: 1.6,
                       color: const Color(0xFF120D26),
                       fontWeight: FontWeight.w400,
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
+                     SizedBox(height: Dimensions.height10,),
                     BigTextWidget(
                       text:"Фонд:",
-                      size: 14,
+                      size: Dimensions.font14,
                       height: 1.6,
                       color: const Color(0xFF120D26),
                       fontWeight: FontWeight.w400,
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
+                     SizedBox(height: Dimensions.height20,),
                     BigTextWidget(
                       text: 'Рекомендуем еще',
-                      size: 18,
+                      size: Dimensions.font18,
                       color: const Color(0xFF06070D),
                       fontWeight: FontWeight.w600,
                     ),
-                    const SizedBox(height: 10,),
+                     SizedBox(height: Dimensions.height10,),
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
                         children: List.generate(
                             5,
                                 (index) => Container(
-                              width: 152,
-                              height: 158,
-                              margin: EdgeInsets.only(right: 10),
-                              padding: EdgeInsets.all(10),
+                              width: Dimensions.width152,
+                              height: Dimensions.height158,
+                              margin: EdgeInsets.only(right: Dimensions.width10),
+                              padding: const EdgeInsets.all(10),
                               decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  image: DecorationImage(
+                                  borderRadius: BorderRadius.circular(Dimensions.radius20),
+                                  image: const DecorationImage(
                                       image: AssetImage(
                                           'assets/images/image2-poster.png'))),
                               child: Column(
@@ -298,12 +287,12 @@ class _CollectionsEventsOutputState extends State<CollectionsEventsOutput> {
                                 children: [
                                   SmallTextWidget(
                                     text: 'c 15 по 31 марта',
-                                    size: 12,
+                                    size: Dimensions.font12,
                                     color: Colors.white,
                                   ),
                                   BigTextWidget(
                                     text: 'Декоративно-прикладное искусство',
-                                    size: 13,
+                                    size: Dimensions.font13,
                                     fontWeight: FontWeight.w700,
                                     color: Colors.white,
                                   )
@@ -312,7 +301,7 @@ class _CollectionsEventsOutputState extends State<CollectionsEventsOutput> {
                             )),
                       ),
                     ),
-                    const SizedBox(height: 100,)
+                     SizedBox(height: Dimensions.height100,)
                   ],
                 )),
           )

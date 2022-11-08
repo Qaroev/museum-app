@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:museum_resource_center/widget/small-text-widget.dart';
 
+import '../utils/dimensions.dart';
 import '../widget/app_Icon.dart';
 import '../widget/big-text-widget.dart';
 
@@ -18,17 +19,17 @@ class _SouvenirsEventsState extends State<SouvenirsEvents> {
     return ListView(
       children: [
         Container(
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               BigTextWidget(
                 text: "Каталог сувениров Музея",
-                size: 20,
+                size: Dimensions.font20,
                 fontWeight: FontWeight.w800,
               ),
               SizedBox(
-                height: 20,
+                height: Dimensions.height20,
               ),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
@@ -36,20 +37,20 @@ class _SouvenirsEventsState extends State<SouvenirsEvents> {
                   children: List.generate(
                     7,
                         (index) => Container(
-                      margin: EdgeInsets.only(right: 20),
+                      margin: EdgeInsets.only(right: Dimensions.width20),
                       child: ElevatedButton(
                         child: Text(
                           "Выставка",
                           style: TextStyle(color: Color(0xFF434670)),
                         ),
-                        onPressed: () => print("it's pressed"),
+                        onPressed: (){},
                         style: ElevatedButton.styleFrom(
                           elevation: 1,
-                          primary: Color(0xFFF3F8F9),
+                          primary: const Color(0xFFF3F8F9),
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50.0),
+                              borderRadius: BorderRadius.circular(Dimensions.radius50),
                               side: BorderSide(
-                                  color: Color(0xFF12153D).withOpacity(0.5))),
+                                  color: const Color(0xFF12153D).withOpacity(0.5))),
                         ),
                       ),
                     ),
@@ -57,22 +58,22 @@ class _SouvenirsEventsState extends State<SouvenirsEvents> {
                 ),
               ),
               SizedBox(
-                height: 20,
+                height: Dimensions.height20,
               ),
               ListView.builder(
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemCount: 10,
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       child: Container(
-                        width: 380,
-                        height: 106,
-                        margin: EdgeInsets.only(bottom: 10),
-                        padding: EdgeInsets.all(10),
+                        width: Dimensions.width380,
+                        height: Dimensions.height106,
+                        margin: EdgeInsets.only(bottom: Dimensions.height10),
+                        padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
                           color: Colors.white,
-                          borderRadius: BorderRadius.circular(15)
+                          borderRadius: BorderRadius.circular(Dimensions.radius15)
                         ),
                         child: Stack(
                           children: [
@@ -82,11 +83,11 @@ class _SouvenirsEventsState extends State<SouvenirsEvents> {
                               Stack(
                                 children: [
                                   Container(
-                                    width: 73,
-                                    height: 96,
+                                    width: Dimensions.width73,
+                                    height: Dimensions.height96,
                                     decoration: BoxDecoration(
-                                      color: Color(0xFFBEBEBE),
-                                      borderRadius: BorderRadius.circular(15)
+                                      color: const Color(0xFFBEBEBE),
+                                      borderRadius: BorderRadius.circular(Dimensions.radius15)
                                     ),
                                   ),
                                   Positioned(
@@ -95,11 +96,11 @@ class _SouvenirsEventsState extends State<SouvenirsEvents> {
                                     bottom: 0,
                                     left: 0,
                                     child: Container(
-                                      width: 73,
-                                      height: 96,
+                                      width: Dimensions.width73,
+                                      height: Dimensions.height96,
                                       decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(15),
-                                        image: DecorationImage(
+                                        borderRadius: BorderRadius.circular(Dimensions.radius15),
+                                        image: const DecorationImage(
                                           image: AssetImage("assets/images/image3-home.png"),
                                           fit: BoxFit.cover
                                         )
@@ -108,17 +109,17 @@ class _SouvenirsEventsState extends State<SouvenirsEvents> {
                                   ),
                                 ],
                               ),
-                              SizedBox(width: 40,),
-                              Container(
-                                width: 180,
-                                height: 80,
+                              SizedBox(width: Dimensions.width40,),
+                              SizedBox(
+                                width: Dimensions.width180,
+                                height: Dimensions.height80,
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    BigTextWidget(text: "Колокольчики", size: 13, color: Color(0xFF747688), fontWeight: FontWeight.w400,),
-                                    BigTextWidget(text: "Настенные часы в технике Фьюзинг", size: 16, fontWeight: FontWeight.w400,),
-                                    BigTextWidget(text: "2500 руб.", size: 16, fontWeight: FontWeight.w600,),
+                                    BigTextWidget(text: "Колокольчики", size: Dimensions.font13, color: const Color(0xFF747688), fontWeight: FontWeight.w400,),
+                                    BigTextWidget(text: "Настенные часы в технике Фьюзинг", size: Dimensions.font16, fontWeight: FontWeight.w400,),
+                                    BigTextWidget(text: "2500 руб.", size: Dimensions.font16, fontWeight: FontWeight.w600,),
                                   ],
                                 ),
                               ),
@@ -126,8 +127,8 @@ class _SouvenirsEventsState extends State<SouvenirsEvents> {
                           ),
                             Container(
                               alignment: Alignment.topRight,
-                                margin: EdgeInsets.only(right: 10,top: 10),
-                                child: Icon(Icons.shopping_cart_outlined)
+                                margin: EdgeInsets.only(right: Dimensions.width10,top: Dimensions.height10),
+                                child: const Icon(Icons.shopping_cart_outlined)
                             )
                           ]
                         ),

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:museum_resource_center/utils/dimensions.dart';
 
 import '../widget/big-text-widget.dart';
 
@@ -14,29 +15,29 @@ class _NewsEventsOutputState extends State<NewsEventsOutput> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFF3F8F9),
+      backgroundColor: const Color(0xFFF3F8F9),
       body: CustomScrollView(
         scrollDirection: Axis.vertical,
         slivers: [
           SliverAppBar(
-            toolbarHeight: 100,
+            toolbarHeight: Dimensions.height100,
             //foregroundColor: Colors.white,
             toolbarTextStyle: const TextStyle(color: Colors.black),
             automaticallyImplyLeading: false,
             primary: false,
             pinned: true,
-            expandedHeight: 362.0,
+            expandedHeight: Dimensions.height362,
             backgroundColor: Colors.white,
             flexibleSpace: LayoutBuilder(
               builder: (context, constraints) {
                 return FlexibleSpaceBar(
                   centerTitle: true,
-                  titlePadding: EdgeInsets.only(top: 10),
+                  titlePadding: EdgeInsets.only(top: Dimensions.height10),
                   title: constraints.maxHeight >= 160
                       ? Container()
                       : Container(
                     width: double.infinity,
-                    margin: EdgeInsets.only(left:20, bottom: 10, top: 10, right: 20),
+                    margin: EdgeInsets.only(left:Dimensions.width20, bottom: Dimensions.height10, top: Dimensions.height10, right: Dimensions.width20),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -45,16 +46,14 @@ class _NewsEventsOutputState extends State<NewsEventsOutput> {
                             Icon(
                               Icons.arrow_back_ios,
                               color: Colors.black,
-                              size: 20,
+                              size: Dimensions.font20,
                             ),
+                            SizedBox(width: Dimensions.width10,),
                             SizedBox(
-                              width: 10,
-                            ),
-                            SizedBox(
-                              width: 200,
+                              width: Dimensions.width200,
                               child: BigTextWidget(
                                 text: "Красота Божьего мира»»",
-                                size: 16,
+                                size: Dimensions.font16,
                                 color: Colors.black,
                                 fontWeight: FontWeight.w800,
                               ),
@@ -65,16 +64,14 @@ class _NewsEventsOutputState extends State<NewsEventsOutput> {
                           children: [
                             Icon(
                               Icons.ios_share,
-                              size: 20,
+                              size: Dimensions.iconSize20,
                             ),
-                            SizedBox(
-                              width: 5,
-                            ),
+                            SizedBox(width: Dimensions.width5,),
                             Image.asset(
                               "assets/images/menu.png",
                               color: Colors.black,
-                              width: 20,
-                              height: 20,
+                              width: Dimensions.width20,
+                              height: Dimensions.height20,
                             ),
                           ],
                         ),
@@ -84,7 +81,7 @@ class _NewsEventsOutputState extends State<NewsEventsOutput> {
                   background: Stack(
                       children: [
                         Container(
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             image: DecorationImage(
                                 image: AssetImage(
                                   "assets/images/souvenirs.png",
@@ -94,51 +91,49 @@ class _NewsEventsOutputState extends State<NewsEventsOutput> {
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.only(top: 50, left: 20, right: 20),
+                          margin: EdgeInsets.only(top: Dimensions.height50, left: Dimensions.width20, right: Dimensions.width20),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Container(
-                                width: 40,
-                                height: 40,
+                                width: Dimensions.width40,
+                                height: Dimensions.height40,
                                 decoration: BoxDecoration(
-                                    color: Color(0xFF434670).withOpacity(0.25),
-                                    borderRadius: BorderRadius.circular(10)),
+                                    color: const Color(0xFF434670).withOpacity(0.25),
+                                    borderRadius: BorderRadius.circular(Dimensions.radius10)),
                                 child: IconButton(
                                     onPressed: () {},
                                     icon: Icon(
                                       Icons.arrow_back_ios,
                                       color: Colors.white,
-                                      size: 15,
+                                      size: Dimensions.iconSize15,
                                     )),
                               ),
                               Row(
                                 children: [
                                   Container(
-                                    width: 40,
-                                    height: 40,
+                                    width: Dimensions.width40,
+                                    height: Dimensions.height40,
                                     decoration: BoxDecoration(
-                                        color: Color(0xFF434670).withOpacity(0.25),
-                                        borderRadius: BorderRadius.circular(10)),
+                                        color: const Color(0xFF434670).withOpacity(0.25),
+                                        borderRadius: BorderRadius.circular(Dimensions.radius10)),
                                     child: Center(
                                       child: IconButton(
                                           onPressed: () {},
                                           icon: Icon(
                                             Icons.ios_share,
-                                            size: 15,
+                                            size: Dimensions.iconSize15,
                                             color: Colors.white,
                                           )),
                                     ),
                                   ),
-                                  SizedBox(
-                                    width: 5,
-                                  ),
+                                  SizedBox(width: Dimensions.width5,),
                                   Container(
-                                      width: 40,
-                                      height: 40,
+                                      width: Dimensions.width40,
+                                      height: Dimensions.height40,
                                       decoration: BoxDecoration(
-                                          color: Color(0xFF434670).withOpacity(0.25),
-                                          borderRadius: BorderRadius.circular(10)),
+                                          color: const Color(0xFF434670).withOpacity(0.25),
+                                          borderRadius: BorderRadius.circular(Dimensions.radius10)),
                                       child: IconButton(
                                         onPressed: () {},
                                         icon: Image.asset(
@@ -157,20 +152,20 @@ class _NewsEventsOutputState extends State<NewsEventsOutput> {
                             Container(
                               alignment: Alignment.centerLeft,
                                 width: double.maxFinite,
-                                height: 121,
-                                padding: EdgeInsets.all(20),
-                                decoration: BoxDecoration(
+                                height: Dimensions.height121,
+                                padding: const EdgeInsets.all(20),
+                                decoration: const BoxDecoration(
                                     image: DecorationImage(
                                       image: AssetImage("assets/images/rectangle2.png"),
                                       fit: BoxFit.cover
                                     )
                                 ),
-                                child: Container(
-                                  width: 290,
+                                child: SizedBox(
+                                  width: Dimensions.width290,
                                   child: BigTextWidget(
                                     text: "«Определены победители первого этапа конкурса «Красота Божьего мира»»",
-                                    size: 20,
-                                    color: Color(0xFFFFFFFF),
+                                    size: Dimensions.font20,
+                                    color: const Color(0xFFFFFFFF),
                                     fontWeight: FontWeight.w800,),
                                 )
                             )
@@ -186,34 +181,34 @@ class _NewsEventsOutputState extends State<NewsEventsOutput> {
             hasScrollBody: false,
             fillOverscroll: false,
             child: Container(
-                padding: EdgeInsets.all(20),
+                padding: const EdgeInsets.all(20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     BigTextWidget(
                       text:"Enjoy your favorite dishe and a lovely your friends and family and have a great time. Food from local food trucks will be available for purchase.  Food from local food trucks will be available for purchase.  Food from local food trucks will be available for purchase. ",
-                      size: 16,
+                      size: Dimensions.font16,
                       height: 1.2,
-                      color: Color(0xFF120D26),
+                      color: const Color(0xFF120D26),
                       fontWeight: FontWeight.w400,
                     ),
-                    const SizedBox(height: 20,),
+                     SizedBox(height: Dimensions.height20,),
                     BigTextWidget(
                       text: 'Рекомендуем еще',
-                      size: 18,
+                      size: Dimensions.font18,
                       color: const Color(0xFF06070D),
                       fontWeight: FontWeight.w600,
                     ),
-                    const SizedBox(height: 10,),
+                    SizedBox(height: Dimensions.height10,),
                     GestureDetector(
                       child: Container(
-                        width: 380,
-                        height: 106,
-                        margin: EdgeInsets.only(bottom: 10),
-                        padding: EdgeInsets.all(10),
+                        width: Dimensions.width380,
+                        height: Dimensions.height106,
+                        margin: EdgeInsets.only(bottom: Dimensions.height10),
+                        padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
                             color: Colors.white,
-                            borderRadius: BorderRadius.circular(15)
+                            borderRadius: BorderRadius.circular(Dimensions.radius15)
                         ),
                         child: Stack(
                             children: [
@@ -223,11 +218,11 @@ class _NewsEventsOutputState extends State<NewsEventsOutput> {
                                   Stack(
                                     children: [
                                       Container(
-                                        width: 73,
-                                        height: 96,
+                                        width: Dimensions.width73,
+                                        height: Dimensions.height96,
                                         decoration: BoxDecoration(
-                                            color: Color(0xFFBEBEBE),
-                                            borderRadius: BorderRadius.circular(15)
+                                            color: const Color(0xFFBEBEBE),
+                                            borderRadius: BorderRadius.circular(Dimensions.radius15)
                                         ),
                                       ),
                                       Positioned(
@@ -236,11 +231,11 @@ class _NewsEventsOutputState extends State<NewsEventsOutput> {
                                         bottom: 0,
                                         left: 0,
                                         child: Container(
-                                          width: 73,
-                                          height: 96,
+                                          width: Dimensions.width73,
+                                          height: Dimensions.height96,
                                           decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(15),
-                                              image: DecorationImage(
+                                              borderRadius: BorderRadius.circular(Dimensions.radius15),
+                                              image: const DecorationImage(
                                                   image: AssetImage("assets/images/image3-home.png"),
                                                   fit: BoxFit.cover
                                               )
@@ -249,15 +244,15 @@ class _NewsEventsOutputState extends State<NewsEventsOutput> {
                                       ),
                                     ],
                                   ),
-                                  const SizedBox(width: 40,),
+                                   SizedBox(width: Dimensions.width40,),
                                   Container(
                                     alignment: Alignment.center,
-                                    width: 200,
-                                    height: 80,
+                                    width: Dimensions.width200,
+                                    height: Dimensions.height80,
                                     child: BigTextWidget(
                                       text: "«Определены победители первого этапа конкурса «Красота Божьего мира»»",
-                                      size: 16,
-                                      color: Color(0xFF120D26),
+                                      size: Dimensions.font16,
+                                      color: const Color(0xFF120D26),
                                       fontWeight: FontWeight.w400,),
                                   ),
                                 ],
@@ -266,7 +261,7 @@ class _NewsEventsOutputState extends State<NewsEventsOutput> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 20),
+                     SizedBox(height: Dimensions.height20),
                   ],
                 )),
           )
