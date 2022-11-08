@@ -61,6 +61,7 @@ class Dimensions {
   static double width178 = screenHeight/4.48;
   static double width180 = screenHeight/4.43;
   static double width200 = screenHeight/3.98;
+  static double width220 = screenHeight/3.62;
   static double width287 = screenHeight/2.77;
   static double width290 = screenHeight/2.75;
   static double width303 = screenHeight/2.63;
