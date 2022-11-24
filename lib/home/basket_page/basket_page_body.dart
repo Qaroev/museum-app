@@ -131,7 +131,7 @@ class _BasketPageBodyState extends State<BasketPageBody> {
               Container(
                 height: Dimensions.height87,
                 decoration: const BoxDecoration(
-                    color: Colors.white
+                    color: Colors.transparent
                 ),
                 child: Container(
                   alignment: Alignment.center,

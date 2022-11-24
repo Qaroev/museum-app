@@ -27,106 +27,120 @@ class _PosterEventsOutputState extends State<PosterEventsOutput> {
           primary: true,
           pinned: true,
           expandedHeight: Dimensions.height270,
-          backgroundColor: Colors.white,
-          leading: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                width: Dimensions.width30,
-                height: Dimensions.height30,
-                decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.24),
-                    borderRadius: BorderRadius.circular(Dimensions.radius10)),
-                margin: EdgeInsets.only(bottom: Dimensions.height40),
-                child: IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: Icon(
-                      Icons.arrow_back_ios,
-                      color: Colors.white,
-                      size: Dimensions.iconSize15,
-                    )),
-              )
-            ],
-          ),
-          actions: [Container(
-              margin: EdgeInsets.only(right: Dimensions.width10, bottom: Dimensions.height40),
-              child: Row(
-                children: [
-                  Container(
-                    width: Dimensions.width30,
-                    height: Dimensions.height30,
-                    decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.24),
-                        borderRadius: BorderRadius.circular(Dimensions.radius10)),
-                    child: Center(
-                      child: IconButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                          icon: Icon(
-                            Icons.ios_share,
-                            size: Dimensions.iconSize15,
-                          )),
-                    ),
-                  ),
-                  SizedBox(width: Dimensions.width5,),
-                  Container(
-                      width: Dimensions.width30,
-                      height: Dimensions.height30,
-                      decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.24),
-                          borderRadius: BorderRadius.circular(Dimensions.radius10)),
-                      child: IconButton(
-                        onPressed: () {},
-                        icon: Image.asset(
-                          "assets/images/menu.png",
-                          color: Colors.white,
-                        ),
-                      )),
-                ],
-              ),
-            )],
+          backgroundColor: const Color(0xFFF3F8F9),
+          // leading: Row(
+          //   mainAxisAlignment: MainAxisAlignment.end,
+          //   crossAxisAlignment: CrossAxisAlignment.center,
+          //   children: [
+          //     Container(
+          //       width: Dimensions.width30,
+          //       height: Dimensions.height30,
+          //       decoration: BoxDecoration(
+          //           color: Colors.white.withOpacity(0.24),
+          //           borderRadius: BorderRadius.circular(Dimensions.radius10)),
+          //       margin: EdgeInsets.only(bottom: Dimensions.height40),
+          //       child: IconButton(
+          //           onPressed: () {
+          //             Navigator.pop(context);
+          //           },
+          //           icon: Icon(
+          //             Icons.arrow_back_ios,
+          //             color: Colors.white,
+          //             size: Dimensions.iconSize15,
+          //           )),
+          //     )
+          //   ],
+          // ),
+          // actions: [Container(
+          //     margin: EdgeInsets.only(right: Dimensions.width10, bottom: Dimensions.height40),
+          //     child: Row(
+          //       children: [
+          //         Container(
+          //           width: Dimensions.width30,
+          //           height: Dimensions.height30,
+          //           decoration: BoxDecoration(
+          //               color: Colors.white.withOpacity(0.24),
+          //               borderRadius: BorderRadius.circular(Dimensions.radius10)),
+          //           child: Center(
+          //             child: IconButton(
+          //               onPressed: () {
+          //               },
+          //                 icon: Icon(
+          //                   Icons.ios_share,
+          //                   size: Dimensions.iconSize15,
+          //                 )),
+          //           ),
+          //         ),
+          //         SizedBox(width: Dimensions.width5,),
+          //         Container(
+          //             width: Dimensions.width30,
+          //             height: Dimensions.height30,
+          //             decoration: BoxDecoration(
+          //                 color: Colors.white.withOpacity(0.24),
+          //                 borderRadius: BorderRadius.circular(Dimensions.radius10)),
+          //             child: IconButton(
+          //               onPressed: () {},
+          //               icon: Image.asset(
+          //                 "assets/images/menu.png",
+          //                 color: Colors.white,
+          //               ),
+          //             )),
+          //       ],
+          //     ),
+          //   )],
           flexibleSpace: LayoutBuilder(
             builder: (context, constraints) {
               return FlexibleSpaceBar(
-                  //centerTitle: true,
-                  titlePadding: EdgeInsets.only(bottom: Dimensions.height20, left: Dimensions.width40),
+                  centerTitle: true,
+                  titlePadding: EdgeInsets.only(top: Dimensions.height10),
                   title: constraints.maxHeight >= 160
                       ? Container()
-                      : Row(
-                          children: [
-                            Icon(
-                              Icons.arrow_back_ios,
-                              color: Colors.black,
-                              size: Dimensions.iconSize20,
-                            ),
-                            SizedBox(width: Dimensions.width10,),
-                            SizedBox(
-                              width: Dimensions.width200,
-                              child: BigTextWidget(
-                                text: "Мастерская креативных подарков",
-                                size: Dimensions.font16,
-                                color: Colors.black,
-                                fontWeight: FontWeight.w800,
+                      : Container(
+                    width: double.infinity,
+                    margin: EdgeInsets.only(left:Dimensions.width20, bottom: Dimensions.height10, top: Dimensions.height10, right: Dimensions.width20),
+                    child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  IconButton(
+                                  icon: Icon(
+                                    Icons.arrow_back_ios,
+                                    color: Colors.black,
+                                    size: Dimensions.iconSize20,
+                                  ), onPressed: () { Navigator.pop(context); },
+                                ),
+                                  SizedBox(width: Dimensions.width10,),
+                                  SizedBox(
+                                    width: Dimensions.width200,
+                                    child: BigTextWidget(
+                                      text: "Мастерская креативных подарков",
+                                      size: Dimensions.font16,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w800,
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ),
-                            SizedBox(width: Dimensions.width60,),
-                            Icon(
-                              Icons.ios_share,
-                              size: Dimensions.iconSize20,
-                            ),
-                            SizedBox(width: Dimensions.width5,),
-                            Image.asset(
-                              "assets/images/menu.png",
-                              color: Colors.black,
-                              width: Dimensions.width20,
-                              height: Dimensions.height20,
-                            ),
-                          ],
-                        ),
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.ios_share,
+                                    size: Dimensions.iconSize20,
+                                  ),
+                                  SizedBox(width: Dimensions.width5,),
+                                  Image.asset(
+                                    "assets/images/menu.png",
+                                    color: Colors.black,
+                                    width: Dimensions.width20,
+                                    height: Dimensions.height20,
+                                  ),
+                                ],
+                              )
+
+                            ],
+                          ),
+                      ),
                   background: Container(
                     height: Dimensions.height300,
                     child: Stack(
@@ -185,6 +199,66 @@ class _PosterEventsOutputState extends State<PosterEventsOutput> {
                                   activeShape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(5.0)),
                                 ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(top: Dimensions.height50, left: Dimensions.width20, right: Dimensions.width20),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                width: Dimensions.width40,
+                                height: Dimensions.height40,
+                                decoration: BoxDecoration(
+                                    color: const Color(0xFF434670).withOpacity(0.25),
+                                    borderRadius: BorderRadius.circular(Dimensions.radius10)),
+                                child: IconButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    icon: Icon(
+                                      Icons.arrow_back_ios,
+                                      color: Colors.white,
+                                      size: Dimensions.iconSize15,
+                                    )),
+                              ),
+                              Row(
+                                children: [
+                                  Container(
+                                    width: Dimensions.width40,
+                                    height: Dimensions.height40,
+                                    decoration: BoxDecoration(
+                                        color: const Color(0xFF434670).withOpacity(0.25),
+                                        borderRadius: BorderRadius.circular(Dimensions.radius10)),
+                                    child: Center(
+                                      child: IconButton(
+                                          onPressed: () {},
+                                          icon: Icon(
+                                            Icons.ios_share,
+                                            size: Dimensions.iconSize15,
+                                            color: Colors.white,
+                                          )),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: Dimensions.width5,
+                                  ),
+                                  Container(
+                                      width: Dimensions.width40,
+                                      height: Dimensions.height40,
+                                      decoration: BoxDecoration(
+                                          color: const Color(0xFF434670).withOpacity(0.25),
+                                          borderRadius: BorderRadius.circular(Dimensions.radius10)),
+                                      child: IconButton(
+                                        onPressed: () {},
+                                        icon: Image.asset(
+                                          "assets/images/menu.png",
+                                          color: Colors.white,
+                                        ),
+                                      )),
+                                ],
                               ),
                             ],
                           ),
