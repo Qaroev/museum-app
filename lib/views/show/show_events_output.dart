@@ -1,12 +1,10 @@
-import 'dart:ui';
-
-import 'package:blurrycontainer/blurrycontainer.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../utils/dimensions.dart';
-import '../widget/big-text-widget.dart';
-import '../widget/small-text-widget.dart';
+import '../../utils/dimensions.dart';
+import '../../widget/big-text-widget.dart';
+import '../../widget/small-text-widget.dart';
+
+
 
 class ShowEventsOutput extends StatefulWidget {
   const ShowEventsOutput({Key? key}) : super(key: key);
@@ -128,26 +126,26 @@ class _ShowEventsOutputState extends State<ShowEventsOutput> {
                                     width: 40,
                                     height: 40,
                                     decoration: BoxDecoration(
-                                        color: Color(0xFF434670).withOpacity(0.25),
+                                        color: const Color(0xFF434670).withOpacity(0.25),
                                         borderRadius: BorderRadius.circular(10)),
                                     child: Center(
                                       child: IconButton(
                                           onPressed: () {},
-                                          icon: Icon(
+                                          icon: const Icon(
                                             Icons.ios_share,
                                             size: 15,
                                             color: Colors.white,
                                           )),
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 5,
                                   ),
                                   Container(
                                       width: 40,
                                       height: 40,
                                       decoration: BoxDecoration(
-                                          color: Color(0xFF434670).withOpacity(0.25),
+                                          color: const Color(0xFF434670).withOpacity(0.25),
                                           borderRadius: BorderRadius.circular(10)),
                                       child: IconButton(
                                         onPressed: () {},

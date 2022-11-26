@@ -1,9 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../utils/dimensions.dart';
-import '../../widget/big-text-widget.dart';
-import '../../widget/small-text-widget.dart';
+import '../../../utils/dimensions.dart';
+import '../../../widget/big-text-widget.dart';
+import '../../../widget/small-text-widget.dart';
+
+
 
 class SearchPageBody extends StatefulWidget {
   const SearchPageBody({Key? key}) : super(key: key);

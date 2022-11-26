@@ -1,8 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../utils/dimensions.dart';
-import '../../widget/big-text-widget.dart';
+import '../../../utils/dimensions.dart';
+import '../../../widget/big-text-widget.dart';
+
+
 
 class BasketPageBody extends StatefulWidget {
   const BasketPageBody({Key? key}) : super(key: key);
@@ -136,10 +137,6 @@ class _BasketPageBodyState extends State<BasketPageBody> {
                 child: Container(
                   alignment: Alignment.center,
                   child: ElevatedButton(
-                    child: Text(
-                      "Перейти к оформлению",
-                      style: TextStyle(color: Colors.white, fontSize: Dimensions.font13),
-                    ),
                     onPressed: () {
                       showModalBottomSheet(
                           isScrollControlled: true,
@@ -277,12 +274,15 @@ class _BasketPageBodyState extends State<BasketPageBody> {
                           });
                     },
                     style: ElevatedButton.styleFrom(
-                      padding: EdgeInsets.symmetric(horizontal: 80),
+                      padding: const EdgeInsets.symmetric(horizontal: 80), backgroundColor: const Color(0xFF2F3A4B),
                       elevation: 1,
-                      primary: Color(0xFF2F3A4B),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(14.0),
                       ),
+                    ),
+                    child: Text(
+                      "Перейти к оформлению",
+                      style: TextStyle(color: Colors.white, fontSize: Dimensions.font13),
                     ),
                   ),
                 ),

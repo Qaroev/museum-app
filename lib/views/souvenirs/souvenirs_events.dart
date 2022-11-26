@@ -1,11 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:museum_resource_center/souvenirs/souvenirs_events_output.dart';
-import 'package:museum_resource_center/widget/small-text-widget.dart';
+import 'package:museum_resource_center/views/souvenirs/souvenirs_events_output.dart';
 
-import '../utils/dimensions.dart';
-import '../widget/app_Icon.dart';
-import '../widget/big-text-widget.dart';
+import '../../utils/dimensions.dart';
+import '../../widget/big-text-widget.dart';
 
 class SouvenirsEvents extends StatefulWidget {
   const SouvenirsEvents({Key? key}) : super(key: key);
@@ -40,10 +37,6 @@ class _SouvenirsEventsState extends State<SouvenirsEvents> {
                         (index) => Container(
                       margin: EdgeInsets.only(right: Dimensions.width20),
                       child: ElevatedButton(
-                        child: Text(
-                          "Выставка",
-                          style: TextStyle(color: Color(0xFF434670)),
-                        ),
                         onPressed: (){},
                         style: ElevatedButton.styleFrom(
                           elevation: 1,
@@ -52,6 +45,10 @@ class _SouvenirsEventsState extends State<SouvenirsEvents> {
                               borderRadius: BorderRadius.circular(Dimensions.radius50),
                               side: BorderSide(
                                   color: const Color(0xFF12153D).withOpacity(0.5))),
+                        ),
+                        child: const Text(
+                          "Выставка",
+                          style: TextStyle(color: Color(0xFF434670)),
                         ),
                       ),
                     ),
@@ -68,7 +65,7 @@ class _SouvenirsEventsState extends State<SouvenirsEvents> {
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => SouvenirsEventsOutput()));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const SouvenirsEventsOutput()));
                       },
                       child: Container(
                         width: Dimensions.width380,

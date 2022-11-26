@@ -1,8 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../utils/dimensions.dart';
-import '../../widget/big-text-widget.dart';
+import '../../../utils/dimensions.dart';
+import '../../../widget/big-text-widget.dart';
 
 class SouvenirsPageBody extends StatefulWidget {
   const SouvenirsPageBody({Key? key}) : super(key: key);

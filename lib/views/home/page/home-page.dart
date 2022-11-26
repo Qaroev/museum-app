@@ -1,22 +1,14 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:museum_resource_center/home/page/poster_page_body.dart';
-import 'package:museum_resource_center/home/page/show_page-body.dart';
-import 'package:museum_resource_center/home/page/souvenirs_page_body.dart';
-import 'package:museum_resource_center/utils/app_colors.dart';
-import 'package:museum_resource_center/widget/app_Icon.dart';
 import 'package:museum_resource_center/widget/big-text-widget.dart';
-import 'package:museum_resource_center/widget/small-text-widget.dart';
 
+import '../../../utils/dimensions.dart';
 import '../../collections/collections_events.dart';
 import '../../news/news_events.dart';
 import '../../poster/poster_events.dart';
 import '../../show/show_events.dart';
 import '../../souvenirs/souvenirs_events.dart';
-import '../../utils/dimensions.dart';
 import '../basket_page/basket_page_body.dart';
 import '../searsh/search_page_body.dart';
-import 'collections-page-body.dart';
 import 'home_page_body.dart';
 
 class HomePage extends StatefulWidget {
@@ -27,7 +19,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  PageController pageController =  PageController(initialPage: 1);
+  PageController pageController = PageController(initialPage: 1);
   var _selectedPageIndex = 1;
 
   // @override
@@ -37,20 +29,21 @@ class _HomePageState extends State<HomePage> {
   // }
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+    final GlobalKey<ScaffoldState> scaffoldKey =
+         GlobalKey<ScaffoldState>();
     return Scaffold(
-      key:_scaffoldKey,
-      backgroundColor: Color(0xFFF3F8F9),
+      key: scaffoldKey,
+      backgroundColor: const Color(0xFFF3F8F9),
       appBar: AppBar(
         titleSpacing: 0,
         elevation: 0,
         backgroundColor: Colors.transparent,
         leading: IconButton(
           onPressed: () {
-            if(_scaffoldKey.currentState!.isDrawerOpen){
-              _scaffoldKey.currentState!.openEndDrawer();
-            }else{
-              _scaffoldKey.currentState!.openDrawer();
+            if (scaffoldKey.currentState!.isDrawerOpen) {
+              scaffoldKey.currentState!.openEndDrawer();
+            } else {
+              scaffoldKey.currentState!.openDrawer();
             }
           },
           icon: Image.asset("assets/images/menu.png"),
@@ -64,23 +57,23 @@ class _HomePageState extends State<HomePage> {
             ),
             hintText: "Поиск события...",
             hintStyle: TextStyle(color: Color(0xFF424242).withOpacity(0.6)),
-            fillColor: Color(0xFFE1E3E4),
+            fillColor: const Color(0xFFE1E3E4),
             filled: true,
-            contentPadding: EdgeInsets.fromLTRB(
-                Dimensions.width20, Dimensions.height10, Dimensions.width20, Dimensions.height10),
+            contentPadding: EdgeInsets.fromLTRB(Dimensions.width20,
+                Dimensions.height10, Dimensions.width20, Dimensions.height10),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(Dimensions.radius15),
-              borderSide: BorderSide(color: Colors.white),
+              borderSide: const BorderSide(color: Colors.white),
             ),
             enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(Dimensions.radius15),
-                borderSide: BorderSide(color: Colors.white)),
+                borderSide: const BorderSide(color: Colors.white)),
           ),
         ),
         actions: [
           IconButton(
             onPressed: () {},
-            icon: Icon(
+            icon: const Icon(
               Icons.shopping_cart_outlined,
               color: Colors.black,
             ),
@@ -91,33 +84,34 @@ class _HomePageState extends State<HomePage> {
         //elevation: 0,
         backgroundColor: Color(0xFFF3F8F9),
         width: Dimensions.width303,
-        child: Stack(
-          children: [
-            Positioned(
+        child: Stack(children: [
+          Positioned(
               top: Dimensions.height120,
-                child: Image.asset("assets/images/drawer.png", color: Colors.white.withOpacity(0.18), colorBlendMode: BlendMode.modulate,)
-            ),
-            Positioned(
+              child: Image.asset(
+                "assets/images/drawer.png",
+                color: Colors.white.withOpacity(0.18),
+                colorBlendMode: BlendMode.modulate,
+              )),
+          Positioned(
               top: Dimensions.height100,
-                child: Image.asset("assets/images/drawer1.png", color: Colors.white.withOpacity(0.15), colorBlendMode: BlendMode.modulate,)
-            ),
-            Container(
-            decoration:BoxDecoration(
-                color: Colors.transparent
-            ) ,
-      child: ListView(
+              child: Image.asset(
+                "assets/images/drawer1.png",
+                color: Colors.white.withOpacity(0.15),
+                colorBlendMode: BlendMode.modulate,
+              )),
+          Container(
+            decoration: BoxDecoration(color: Colors.transparent),
+            child: ListView(
               children: [
                 DrawerHeader(
-            decoration: BoxDecoration(
-                    color: Colors.transparent
-                  ),
+                  decoration: BoxDecoration(color: Colors.transparent),
                   child: Container(
-                    alignment: Alignment.topCenter,
-                    child: Image.asset("assets/images/drawer3.png")
-                  ),
+                      alignment: Alignment.topCenter,
+                      child: Image.asset("assets/images/drawer3.png")),
                 ),
                 Container(
-                  margin: EdgeInsets.only(left: Dimensions.width30, right: Dimensions.width20),
+                  margin: EdgeInsets.only(
+                      left: Dimensions.width30, right: Dimensions.width20),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -132,12 +126,14 @@ class _HomePageState extends State<HomePage> {
                               fontWeight: FontWeight.w500,
                               color: Colors.black,
                             ),
-                            Divider(thickness: 1,)
+                            Divider(
+                              thickness: 1,
+                            )
                           ],
                         ),
                         contentPadding: EdgeInsets.zero,
-                        onTap: (){
-                          _scaffoldKey.currentState!.closeDrawer();
+                        onTap: () {
+                          scaffoldKey.currentState!.closeDrawer();
                           pageController.jumpToPage(3);
                         },
                       ),
@@ -151,12 +147,14 @@ class _HomePageState extends State<HomePage> {
                               fontWeight: FontWeight.w500,
                               color: Colors.black,
                             ),
-                            Divider(thickness: 1,)
+                            Divider(
+                              thickness: 1,
+                            )
                           ],
                         ),
                         contentPadding: EdgeInsets.zero,
-                        onTap: (){
-                          _scaffoldKey.currentState!.closeDrawer();
+                        onTap: () {
+                          scaffoldKey.currentState!.closeDrawer();
                           pageController.jumpToPage(4);
                         },
                       ),
@@ -170,12 +168,14 @@ class _HomePageState extends State<HomePage> {
                               fontWeight: FontWeight.w500,
                               color: Colors.black,
                             ),
-                            Divider(thickness: 1,)
+                            Divider(
+                              thickness: 1,
+                            )
                           ],
                         ),
                         contentPadding: EdgeInsets.zero,
-                        onTap: (){
-                          _scaffoldKey.currentState!.closeDrawer();
+                        onTap: () {
+                          scaffoldKey.currentState!.closeDrawer();
                           pageController.jumpToPage(5);
                         },
                       ),
@@ -189,12 +189,14 @@ class _HomePageState extends State<HomePage> {
                               fontWeight: FontWeight.w500,
                               color: Colors.black,
                             ),
-                            Divider(thickness: 1,)
+                            Divider(
+                              thickness: 1,
+                            )
                           ],
                         ),
                         contentPadding: EdgeInsets.zero,
-                        onTap: (){
-                          _scaffoldKey.currentState!.closeDrawer();
+                        onTap: () {
+                          scaffoldKey.currentState!.closeDrawer();
                           pageController.jumpToPage(6);
                         },
                       ),
@@ -211,21 +213,23 @@ class _HomePageState extends State<HomePage> {
                           ],
                         ),
                         contentPadding: EdgeInsets.zero,
-                        onTap: (){
-                          _scaffoldKey.currentState!.closeDrawer();
+                        onTap: () {
+                          scaffoldKey.currentState!.closeDrawer();
                           pageController.jumpToPage(7);
                         },
                       ),
-                      SizedBox(height: Dimensions.height20,),
+                      SizedBox(
+                        height: Dimensions.height20,
+                      ),
                       Container(
                         width: Dimensions.width233,
                         height: Dimensions.height38,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(Dimensions.radius8),
+                          borderRadius:
+                              BorderRadius.circular(Dimensions.radius8),
                           image: const DecorationImage(
-                            image: AssetImage("assets/images/drawer2.png"),
-                            fit: BoxFit.cover
-                          ),
+                              image: AssetImage("assets/images/drawer2.png"),
+                              fit: BoxFit.cover),
                         ),
                         child: Center(
                           child: BigTextWidget(
@@ -242,36 +246,34 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
-            Positioned(
+          Positioned(
               bottom: Dimensions.height10,
-                left: Dimensions.width20,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    BigTextWidget(
-                        text: "Политика конфеденциальности",
-                      size: Dimensions.font12,
-                      color: const Color(0xFF818284),
-                      fontWeight: FontWeight.w400,
-                    ),
-                    BigTextWidget(
-                        text: "BinaryDev App 2.1",
-                        size: Dimensions.font12,
-                        color: const Color(0xFF818284),
-                        fontWeight: FontWeight.w400,
-                    ),
-                  ],
-                )
-            )
-          ]
-        ),
+              left: Dimensions.width20,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  BigTextWidget(
+                    text: "Политика конфеденциальности",
+                    size: Dimensions.font12,
+                    color: const Color(0xFF818284),
+                    fontWeight: FontWeight.w400,
+                  ),
+                  BigTextWidget(
+                    text: "BinaryDev App 2.1",
+                    size: Dimensions.font12,
+                    color: const Color(0xFF818284),
+                    fontWeight: FontWeight.w400,
+                  ),
+                ],
+              ))
+        ]),
       ),
-      body:  PageView(
+      body: PageView(
         //physics: NeverScrollableScrollPhysics(),
         controller: pageController,
         scrollDirection: Axis.horizontal,
-          allowImplicitScrolling: true,
-        children: [
+        allowImplicitScrolling: true,
+        children: const [
           SearchPageBody(),
           HomePageBody(),
           BasketPageBody(),
@@ -281,7 +283,7 @@ class _HomePageState extends State<HomePage> {
           SouvenirsEvents(),
           NewsEvents()
         ],
-        onPageChanged: (index){
+        onPageChanged: (index) {
           _selectedPageIndex = index;
         },
       ),
@@ -289,8 +291,8 @@ class _HomePageState extends State<HomePage> {
         height: Dimensions.height92,
         child: BottomNavigationBar(
           currentIndex: _selectedPageIndex,
-          onTap: (int index){
-              pageController.jumpToPage(index);
+          onTap: (int index) {
+            pageController.jumpToPage(index);
           },
           backgroundColor: Colors.white,
           showSelectedLabels: false,
@@ -299,9 +301,9 @@ class _HomePageState extends State<HomePage> {
           unselectedItemColor: const Color(0xFFA5A7B5),
           iconSize: Dimensions.iconSize30,
           type: BottomNavigationBarType.fixed,
-          items: [
+          items: const [
             BottomNavigationBarItem(
-              icon:   Icon(Icons.search),
+              icon: Icon(Icons.search),
               label: 'Search',
             ),
             BottomNavigationBarItem(
@@ -317,7 +319,4 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-
 }
-
-

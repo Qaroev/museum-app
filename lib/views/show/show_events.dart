@@ -1,9 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:museum_resource_center/show/show_events_output.dart';
+import 'package:museum_resource_center/views/show/show_events_output.dart';
 
-import '../utils/dimensions.dart';
-import '../widget/big-text-widget.dart';
+import '../../utils/dimensions.dart';
+import '../../widget/big-text-widget.dart';
+
 
 class ShowEvents extends StatefulWidget {
   const ShowEvents({Key? key}) : super(key: key);
@@ -34,10 +34,6 @@ class _ShowEventsState extends State<ShowEvents> {
                       (index) => Container(
                     margin: EdgeInsets.only(right: Dimensions.width20),
                     child: ElevatedButton(
-                      child: Text(
-                        "Передвижные",
-                        style: TextStyle(color: Color(0xFF434670)),
-                      ),
                       onPressed: (){},
                       style: ElevatedButton.styleFrom(
                         elevation: 1,
@@ -46,6 +42,10 @@ class _ShowEventsState extends State<ShowEvents> {
                             borderRadius: BorderRadius.circular(Dimensions.radius50),
                             side: BorderSide(
                                 color: Color(0xFF12153D).withOpacity(0.5))),
+                      ),
+                      child: const Text(
+                        "Передвижные",
+                        style: TextStyle(color: Color(0xFF434670)),
                       ),
                     ),
                   ),
@@ -66,7 +66,7 @@ class _ShowEventsState extends State<ShowEvents> {
                   itemBuilder: (BuildContext context, index) {
                     return GestureDetector(
                       onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => ShowEventsOutput()));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const ShowEventsOutput()));
                       },
                       child: Container(
                         width: Dimensions.width178,

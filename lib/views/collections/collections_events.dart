@@ -1,10 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:museum_resource_center/collections/collections_events_output.dart';
-import 'package:museum_resource_center/utils/dimensions.dart';
 
-import '../utils/app_colors.dart';
-import '../widget/big-text-widget.dart';
+import '../../utils/dimensions.dart';
+import '../../widget/big-text-widget.dart';
+import 'collections_events_output.dart';
 
 class CollectionsEvents extends StatefulWidget {
   const CollectionsEvents({Key? key}) : super(key: key);
@@ -35,7 +33,6 @@ class _CollectionsEventsState extends State<CollectionsEvents> {
                         (index) => Container(
                       margin: EdgeInsets.only(right: Dimensions.width20),
                       child: ElevatedButton(
-                        child: Text("Конкурс", style: TextStyle(color: Color(0xFF434670)),),
                         onPressed: () {},
                         style: ElevatedButton.styleFrom(
                           elevation: 1,
@@ -45,6 +42,7 @@ class _CollectionsEventsState extends State<CollectionsEvents> {
                               side: BorderSide(
                                   color: const Color(0xFF12153D).withOpacity(0.5))),
                         ),
+                        child: const Text("Конкурс", style: TextStyle(color: Color(0xFF434670)),),
                       ),
                     ),
                   ),
@@ -62,7 +60,7 @@ class _CollectionsEventsState extends State<CollectionsEvents> {
                       itemBuilder: (BuildContext context, index) {
                         return GestureDetector(
                           onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => CollectionsEventsOutput()));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => const CollectionsEventsOutput()));
                           },
                           child: Container(
                             width: Dimensions.width178,

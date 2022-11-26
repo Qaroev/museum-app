@@ -33,6 +33,10 @@ dependencies:
   table_calendar: ^3.0.8
   dots_indicator: ^2.1.0
   blurrycontainer: ^1.0.2
+  get_it: ^7.2.0
+  http: ^0.13.5
+  intl: ^0.17.0
+  collection: ^1.15.0
 
 
 

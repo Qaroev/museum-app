@@ -1,11 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:museum_resource_center/poster/poster_events_output.dart';
+import 'package:museum_resource_center/views/poster/poster_events_output.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-import '../utils/dimensions.dart';
-import '../widget/app_Icon.dart';
-import '../widget/big-text-widget.dart';
+import '../../utils/dimensions.dart';
+import '../../widget/app_Icon.dart';
+import '../../widget/big-text-widget.dart';
+
 
 class PosterEvents extends StatefulWidget {
   const PosterEvents({Key? key}) : super(key: key);
@@ -58,7 +58,7 @@ class _PosterEventsState extends State<PosterEvents> {
                                         },
                                         child: SizedBox(
                                           width: Dimensions.width30,
-                                          child: Divider(
+                                          child: const Divider(
                                             thickness: 5,
                                             color: Color(0xFFB2B2B2),
                                           ),
@@ -101,18 +101,17 @@ class _PosterEventsState extends State<PosterEvents> {
                     (index) => Container(
                       margin: EdgeInsets.only(right: Dimensions.width20),
                       child: ElevatedButton(
-                        child: Text(
-                          "Выставка",
-                          style: TextStyle(color: Color(0xFF434670)),
-                        ),
                         onPressed: (){},
                         style: ElevatedButton.styleFrom(
-                          elevation: 1,
-                          primary: const Color(0xFFF3F8F9),
+                          elevation: 1, backgroundColor: const Color(0xFFF3F8F9),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(Dimensions.radius50),
                               side: BorderSide(
                               color: const Color(0xFF12153D).withOpacity(0.5))),
+                        ),
+                        child: const Text(
+                          "Выставка",
+                          style: TextStyle(color: Color(0xFF434670)),
                         ),
                       ),
                     ),
@@ -121,13 +120,13 @@ class _PosterEventsState extends State<PosterEvents> {
               ),
               SizedBox(height: Dimensions.height20,),
               ListView.builder(
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemCount: 10,
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => PosterEventsOutput()));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const PosterEventsOutput()));
                       },
                       child: Container(
                         margin: EdgeInsets.only(bottom: Dimensions.height10),

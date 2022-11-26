@@ -1,11 +1,9 @@
 import 'package:dots_indicator/dots_indicator.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:museum_resource_center/utils/dimensions.dart';
 import 'package:museum_resource_center/widget/big-text-widget.dart';
 import 'package:museum_resource_center/widget/small-text-widget.dart';
 
-import '../widget/app_Icon.dart';
 
 class PosterEventsOutput extends StatefulWidget {
   const PosterEventsOutput({Key? key}) : super(key: key);

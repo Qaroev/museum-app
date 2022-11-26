@@ -1,9 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../utils/dimensions.dart';
-import '../../widget/big-text-widget.dart';
-import '../../widget/small-text-widget.dart';
+import '../../../utils/dimensions.dart';
+import '../../../widget/big-text-widget.dart';
+import '../../../widget/small-text-widget.dart';
+
 
 class ShowPageBody extends StatefulWidget {
   const ShowPageBody({Key? key}) : super(key: key);
@@ -21,7 +21,7 @@ class _ShowPageBodyState extends State<ShowPageBody> {
     );
   }
   Widget _buildShowItem(){
-    return Container(
+    return SizedBox(
       height: Dimensions.height220,
       child: Stack(
         //alignment: AlignmentDirectional.bottomCenter,

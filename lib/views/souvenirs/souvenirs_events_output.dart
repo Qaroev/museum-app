@@ -1,9 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../utils/dimensions.dart';
-import '../widget/big-text-widget.dart';
-import '../widget/small-text-widget.dart';
+import '../../utils/dimensions.dart';
+import '../../widget/big-text-widget.dart';
 
 class SouvenirsEventsOutput extends StatefulWidget {
   const SouvenirsEventsOutput({Key? key}) : super(key: key);
@@ -307,18 +305,17 @@ class _SouvenirsEventsOutputState extends State<SouvenirsEventsOutput> {
         child: Container(
           alignment: Alignment.center,
           child: ElevatedButton(
-            child: Text(
-              "Заказать",
-              style: TextStyle(color: Colors.white, fontSize: Dimensions.font13),
-            ),
             onPressed: (){},
             style: ElevatedButton.styleFrom(
-              padding: EdgeInsets.symmetric(horizontal: 80),
+              padding: const EdgeInsets.symmetric(horizontal: 80), backgroundColor: const Color(0xFF2F3A4B),
               elevation: 1,
-              primary: const Color(0xFF2F3A4B),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(14.0),
               ),
+            ),
+            child: Text(
+              "Заказать",
+              style: TextStyle(color: Colors.white, fontSize: Dimensions.font13),
             ),
           ),
         ),

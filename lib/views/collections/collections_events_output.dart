@@ -1,9 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:museum_resource_center/utils/dimensions.dart';
 
-import '../widget/big-text-widget.dart';
-import '../widget/small-text-widget.dart';
+import '../../widget/big-text-widget.dart';
+import '../../widget/small-text-widget.dart';
+
 
 class CollectionsEventsOutput extends StatefulWidget {
   const CollectionsEventsOutput({Key? key}) : super(key: key);

@@ -1,10 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:museum_resource_center/utils/dimensions.dart';
 
-import '../../utils/app_colors.dart';
-import '../../widget/big-text-widget.dart';
-import '../../widget/small-text-widget.dart';
+import '../../../controller/afisha_controller.dart';
+import '../../../utils/app_colors.dart';
+import '../../../widget/big-text-widget.dart';
+import '../../../widget/small-text-widget.dart';
 
 class PosterPageBody extends StatefulWidget {
   const PosterPageBody({Key? key}) : super(key: key);
@@ -14,18 +15,28 @@ class PosterPageBody extends StatefulWidget {
 }
 
 class _PosterPageBodyState extends State<PosterPageBody> {
+  AfishaController dataController = Get.put(AfishaController());
   PageController pageController = PageController();
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(children: List.generate(5, (index) => _buildPostItem())),
+    return SizedBox(
+      height: 280,
+      child: Obx(() => dataController.isDataLoading.value
+          ? const Center(child: CircularProgressIndicator())
+          : ListView.builder(
+              itemCount: dataController.afishaItems?.length,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                return _buildPostItem(
+                  dataController.afishaItems?[index],
+                );
+              })),
     );
   }
 
-  Widget _buildPostItem() {
-    return Container(
+  Widget _buildPostItem(afishaItems) {
+    return SizedBox(
       height: Dimensions.height220,
       child: Stack(
         //alignment: AlignmentDirectional.bottomCenter,
@@ -35,7 +46,7 @@ class _PosterPageBodyState extends State<PosterPageBody> {
               width: Dimensions.width172,
               height: Dimensions.height208,
               alignment: Alignment.topLeft,
-              margin:  EdgeInsets.only(right: Dimensions.width10),
+              margin: EdgeInsets.only(right: Dimensions.width10),
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(Dimensions.radius10),
@@ -43,8 +54,7 @@ class _PosterPageBodyState extends State<PosterPageBody> {
                       image: AssetImage(
                         'assets/images/image1-home.png',
                       ),
-                      fit: BoxFit.cover)
-              ),
+                      fit: BoxFit.cover)),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -52,14 +62,17 @@ class _PosterPageBodyState extends State<PosterPageBody> {
                   SizedBox(
                     width: Dimensions.width80,
                     height: Dimensions.height50,
-                    child:SmallTextWidget(
+                    child: SmallTextWidget(
                       text: "Пушкинская карта",
                       size: Dimensions.font11,
                       color: Colors.white.withOpacity(0.8),
                       overflow: TextOverflow.clip,
                     ),
                   ),
-                  SmallTextWidget(text: "Вставка", size: Dimensions.font11, color: Colors.white.withOpacity(0.8)),
+                  SmallTextWidget(
+                      text: "Вставка",
+                      size: Dimensions.font11,
+                      color: Colors.white.withOpacity(0.8)),
                 ],
               ),
             ),
@@ -69,7 +82,9 @@ class _PosterPageBodyState extends State<PosterPageBody> {
             child: Container(
               height: Dimensions.height75,
               width: Dimensions.width172,
-              margin: EdgeInsets.only(right: Dimensions.width10,),
+              margin: EdgeInsets.only(
+                right: Dimensions.width10,
+              ),
               padding: const EdgeInsets.all(5),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
@@ -83,11 +98,18 @@ class _PosterPageBodyState extends State<PosterPageBody> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  BigTextWidget(text: "c 17 апреля по 21 мая", size: Dimensions.font12 , color: AppColors.textBigColor, fontWeight: FontWeight.w300,),
+                  BigTextWidget(
+                    text: "c 17 апреля по 21 мая",
+                    size: Dimensions.font12,
+                    color: AppColors.textBigColor,
+                    fontWeight: FontWeight.w300,
+                  ),
                   const Spacer(),
                   BigTextWidget(
-                    text: "«Цикл лекций по изобразительному искусству «Идем в музей»",
-                    size: Dimensions.font12  , color: Colors.black,
+                    text:
+                        "«Цикл лекций по изобразительному искусству «Идем в музей»",
+                    size: Dimensions.font12,
+                    color: Colors.black,
                     fontWeight: FontWeight.w400,
                   ),
                   const Spacer()
