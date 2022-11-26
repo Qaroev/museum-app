@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:museum_resource_center/utils/utils.dart';
 import 'package:museum_resource_center/views/poster/poster_events_output.dart';
 import 'package:table_calendar/table_calendar.dart';
 
+import '../../controller/afisha_controller.dart';
+import '../../models/afish_model.dart';
 import '../../utils/dimensions.dart';
 import '../../widget/app_Icon.dart';
 import '../../widget/big-text-widget.dart';
-
 
 class PosterEvents extends StatefulWidget {
   const PosterEvents({Key? key}) : super(key: key);
@@ -15,6 +18,7 @@ class PosterEvents extends StatefulWidget {
 }
 
 class _PosterEventsState extends State<PosterEvents> {
+  AfishaController dataController = Get.put(AfishaController());
   DateTime dateTime = DateTime.now();
 
   @override
@@ -44,11 +48,13 @@ class _PosterEventsState extends State<PosterEvents> {
                               return Container(
                                   height: Dimensions.height500,
                                   padding: const EdgeInsets.all(10),
-                                  decoration:  BoxDecoration(
+                                  decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(Dimensions.radius30),
-                                        topRight: Radius.circular(Dimensions.radius30)),
+                                        topLeft: Radius.circular(
+                                            Dimensions.radius30),
+                                        topRight: Radius.circular(
+                                            Dimensions.radius30)),
                                   ),
                                   child: Column(
                                     children: [
@@ -64,7 +70,9 @@ class _PosterEventsState extends State<PosterEvents> {
                                           ),
                                         ),
                                       ),
-                                      SizedBox(height: Dimensions.height10,),
+                                      SizedBox(
+                                        height: Dimensions.height10,
+                                      ),
                                       BigTextWidget(
                                         text: "Выбрать дату события",
                                         size: Dimensions.font24,
@@ -75,24 +83,26 @@ class _PosterEventsState extends State<PosterEvents> {
                                         focusedDay: DateTime.now(),
                                         firstDay: DateTime(2000),
                                         lastDay: DateTime(2025),
-                                        startingDayOfWeek: StartingDayOfWeek.sunday,
+                                        startingDayOfWeek:
+                                            StartingDayOfWeek.sunday,
                                         sixWeekMonthsEnforced: true,
                                         calendarFormat: CalendarFormat.month,
                                         headerStyle: const HeaderStyle(
-                                            formatButtonVisible: false,
-                                            titleCentered: true,
-                                            headerMargin: EdgeInsets.all(10),
+                                          formatButtonVisible: false,
+                                          titleCentered: true,
+                                          headerMargin: EdgeInsets.all(10),
                                         ),
                                       )
                                     ],
                                   ));
                             });
                       },
-                      icon: Image.asset("assets/icons/icon-calendar.png")
-                  )
+                      icon: Image.asset("assets/icons/icon-calendar.png"))
                 ],
               ),
-              SizedBox(height: Dimensions.height20,),
+              SizedBox(
+                height: Dimensions.height20,
+              ),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
@@ -101,13 +111,16 @@ class _PosterEventsState extends State<PosterEvents> {
                     (index) => Container(
                       margin: EdgeInsets.only(right: Dimensions.width20),
                       child: ElevatedButton(
-                        onPressed: (){},
+                        onPressed: () {},
                         style: ElevatedButton.styleFrom(
-                          elevation: 1, backgroundColor: const Color(0xFFF3F8F9),
+                          elevation: 1,
+                          backgroundColor: const Color(0xFFF3F8F9),
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(Dimensions.radius50),
+                              borderRadius:
+                                  BorderRadius.circular(Dimensions.radius50),
                               side: BorderSide(
-                              color: const Color(0xFF12153D).withOpacity(0.5))),
+                                  color: const Color(0xFF12153D)
+                                      .withOpacity(0.5))),
                         ),
                         child: const Text(
                           "Выставка",
@@ -118,95 +131,124 @@ class _PosterEventsState extends State<PosterEvents> {
                   ),
                 ),
               ),
-              SizedBox(height: Dimensions.height20,),
-              ListView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: 10,
-                  itemBuilder: (context, index) {
-                    return GestureDetector(
-                      onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => const PosterEventsOutput()));
-                      },
-                      child: Container(
-                        margin: EdgeInsets.only(bottom: Dimensions.height10),
-                        child: Row(
-                          children: [
-                            Container(
-                              width: Dimensions.width92,
-                              height: Dimensions.height92,
-                              decoration: const BoxDecoration(
-                                  image: DecorationImage(
-                                      image: AssetImage(
-                                          "assets/images/picture.png"))),
-                            ),
-                            Expanded(
-                                child: Container(
-                              height: Dimensions.height91,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.only(
-                                      topRight: Radius.circular(
-                                        Dimensions.radius10,
-                                      ),
-                                      bottomRight: Radius.circular(Dimensions.radius10,)),
-                                  color: Colors.white),
-                              child: Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        BigTextWidget(
-                                            text: "с 17 апреля по 21 мая",
-                                            size: Dimensions.font11),
-                                        BigTextWidget(
-                                          text: "Пушкинская карта",
-                                          size: Dimensions.font11,
-                                        ),
-                                      ],
-                                    ),
-                                    const Spacer(),
-                                    BigTextWidget(
-                                      text:
-                                          "«Цикл лекций по изобразительному искусству «Идем в музей»",
-                                      size: Dimensions.font12,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                    const Spacer(),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        BigTextWidget(
-                                          text: "Выставка",
-                                          size: Dimensions.font12,
-                                        ),
-                                        AppIcon(
-                                          icon: Icons.arrow_forward,
-                                          size: Dimensions.font26,
-                                          backgroundColor: Color(0xFFE1E3E4),
-                                          iconSize: Dimensions.iconSize15,
-                                        ),
-                                      ],
-                                    ),
-                                  ],
+              SizedBox(
+                height: Dimensions.height20,
+              ),
+              Obx(() => dataController.isDataLoading.value
+                  ? const Center(child: CircularProgressIndicator())
+                  : ListView.builder(
+                      itemCount: dataController.afishaList.length,
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const PosterEventsOutput()));
+                          },
+                          child: Container(
+                            margin:
+                                EdgeInsets.only(bottom: Dimensions.height10),
+                            child: Row(
+                              children: [
+                                Container(
+                                  width: Dimensions.width92,
+                                  height: Dimensions.height92,
+                                  decoration: const BoxDecoration(
+                                      image: DecorationImage(
+                                          image: AssetImage(
+                                              "assets/images/picture.png"))),
                                 ),
-                              ),
-                            ))
-                          ],
-                        ),
-                      ),
-                    );
-                  }),
+                                Expanded(
+                                    child: Container(
+                                  height: Dimensions.height91,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.only(
+                                          topRight: Radius.circular(
+                                            Dimensions.radius10,
+                                          ),
+                                          bottomRight: Radius.circular(
+                                            Dimensions.radius10,
+                                          )),
+                                      color: Colors.white),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(10),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            BigTextWidget(
+                                                text: getNameMonth(
+                                                    dataController
+                                                        .afishaList[index]),
+                                                size: Dimensions.font11),
+                                            if (dataController.afishaList[index]
+                                                    .pushkin_card ==
+                                                true)
+                                              BigTextWidget(
+                                                text: "Пушкинская карта",
+                                                size: Dimensions.font11,
+                                              ),
+                                          ],
+                                        ),
+                                        const Spacer(),
+                                        BigTextWidget(
+                                          text: decodeToLatin(dataController
+                                              .afishaList[index].name!),
+                                          size: Dimensions.font12,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                        const Spacer(),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            BigTextWidget(
+                                              text: decodeToLatin(dataController.afishaList[index].type_afisha['name']),
+                                              size: Dimensions.font12,
+                                            ),
+                                            AppIcon(
+                                              icon: Icons.arrow_forward,
+                                              size: Dimensions.font26,
+                                              backgroundColor:
+                                                  Color(0xFFE1E3E4),
+                                              iconSize: Dimensions.iconSize15,
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ))
+                              ],
+                            ),
+                          ),
+                        );
+                      }))
             ],
           ),
         ),
       ],
     );
+  }
+
+  getNameMonth(AfishaModel afishaItems) {
+    if (afishaItems.seanses2 != null) {
+      var month1 = getMonth(afishaItems.seanses2[0]['date']);
+      var month2 = getMonth(
+          afishaItems.seanses2[afishaItems.seanses2.length - 1]['date']);
+      return 'c $month1 по $month2';
+    }
+    return '';
   }
 }

@@ -20,13 +20,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   PageController pageController = PageController(initialPage: 1);
-  var _selectedPageIndex = 1;
+  final _selectedPageIndex = 1;
 
-  // @override
-  // void dispose() {
-  //   pageController.dispose();
-  //   super.dispose();
-  // }
   @override
   Widget build(BuildContext context) {
     final GlobalKey<ScaffoldState> scaffoldKey =
@@ -81,7 +76,6 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       drawer: Drawer(
-        //elevation: 0,
         backgroundColor: Color(0xFFF3F8F9),
         width: Dimensions.width303,
         child: Stack(children: [
@@ -269,7 +263,7 @@ class _HomePageState extends State<HomePage> {
         ]),
       ),
       body: PageView(
-        //physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         controller: pageController,
         scrollDirection: Axis.horizontal,
         allowImplicitScrolling: true,
@@ -283,9 +277,6 @@ class _HomePageState extends State<HomePage> {
           SouvenirsEvents(),
           NewsEvents()
         ],
-        onPageChanged: (index) {
-          _selectedPageIndex = index;
-        },
       ),
       bottomNavigationBar: SizedBox(
         height: Dimensions.height92,

@@ -20,7 +20,8 @@ class SmallTextWidget extends StatelessWidget {
       overflow: overflow,
       style: TextStyle(
         color: color,
-        fontSize: size==0?12:size,
+        fontSize: size==0?16:size,
+        fontWeight: FontWeight.w600
       ),
     );
   }

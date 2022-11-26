@@ -65,7 +65,7 @@ class _HomePageBodyState extends State<HomePageBody> {
                 ],
               ),
               SizedBox(height: Dimensions.height20,),
-              const CollectionPageBody(),
+               CollectionPageBody(),
               SizedBox(height: Dimensions.height20,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -2,7 +2,7 @@ class AfishaModel {
   String? name;
   int? id;
   String? link;
-  TypeAfisha? type_afisha;
+  dynamic type_afisha;
   bool? vip;
   String? img;
   String? datatcevent;
@@ -16,6 +16,7 @@ class AfishaModel {
   String? idCompany;
   String? phone;
   dynamic seanses;
+  dynamic seanses2;
   dynamic gallery;
 
   AfishaModel({
@@ -36,6 +37,7 @@ class AfishaModel {
     this.idCompany,
     this.phone,
     this.seanses,
+    this.seanses2,
     this.gallery,
   });
 
@@ -43,7 +45,7 @@ class AfishaModel {
     name = json['name'];
     id = json['id'];
     link = json['link'];
-    type_afisha = TypeAfisha.fromJson(json['type_afisha']);
+    type_afisha = json['type_afisha'];
     vip = json['vip'];
     img = json['img'];
     datatcevent = json['data-tc-event'];
@@ -57,6 +59,7 @@ class AfishaModel {
     idCompany = json['idCompany'];
     phone = json['phone'];
     seanses = json['seanses'];
+    seanses2 = json['seanses2'] ?? [];
     gallery = json['gallery'];
   }
 }
@@ -88,7 +91,7 @@ class TypeAfisha {
     this.term_order,
   });
 
-  TypeAfisha.fromJson(Map<String, dynamic> json) {
+  TypeAfisha.fromJson(dynamic json) {
     name = json['name'];
     term_id = json['term_id'];
     slug = json['slug'];

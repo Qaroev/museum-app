@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:museum_resource_center/controller/exhibitions_controller.dart';
+import 'package:museum_resource_center/models/exhibitions.dart';
+import 'package:museum_resource_center/utils/utils.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../utils/dimensions.dart';
 import '../../../widget/big-text-widget.dart';
-import '../../../widget/small-text-widget.dart';
-
 
 class ShowPageBody extends StatefulWidget {
   const ShowPageBody({Key? key}) : super(key: key);
@@ -13,62 +16,94 @@ class ShowPageBody extends StatefulWidget {
 }
 
 class _ShowPageBodyState extends State<ShowPageBody> {
+  ExhibitionsController exhibitionsController =
+      Get.put(ExhibitionsController());
+
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(children: List.generate(5, (index) => _buildShowItem())),
+    return SizedBox(
+      height: 200,
+      child: Obx(() => exhibitionsController.isDataLoading.value
+          ? const Center(child: CircularProgressIndicator())
+          : ListView.builder(
+              itemCount: exhibitionsController.exhibitions!.length >= 10
+                  ? 20
+                  : exhibitionsController.exhibitions!.length,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                return _buildShowItem(
+                  exhibitionsController.exhibitions![index],
+                );
+              })),
     );
   }
-  Widget _buildShowItem(){
-    return SizedBox(
+
+  Widget _buildShowItem(ExhibitionsModel exhibitions) {
+    return Container(
       height: Dimensions.height220,
+      padding: EdgeInsets.only(left: 10),
       child: Stack(
-        //alignment: AlignmentDirectional.bottomCenter,
+        alignment: AlignmentDirectional.bottomCenter,
         children: [
-          GestureDetector(
-            child: Container(
-              width: Dimensions.width172,
-              height: Dimensions.height208,
-              alignment: Alignment.topRight,
-              margin: EdgeInsets.only(right: Dimensions.width10),
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(Dimensions.radius10),
-                  image: const DecorationImage(
-                      image: AssetImage(
-                        'assets/images/image1-home.png',
+          SizedBox(
+            width: Dimensions.width172,
+            height: Dimensions.height208,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10), // Ima
+              child: SizedBox.fromSize(
+                size: const Size.fromRadius(20),
+                // Image radius
+                child: Image.network(
+                  exhibitions.img!,
+                  fit: BoxFit.cover,
+                  height: Dimensions.height158,
+                  loadingBuilder: (BuildContext context,
+                      Widget child,
+                      ImageChunkEvent? loadingProgress) {
+                    if (loadingProgress == null) {
+                      return child;
+                    }
+                    return Shimmer.fromColors(
+                      baseColor: Colors.white.withOpacity(0.8),
+                      highlightColor: Colors.white.withOpacity(0.3),
+                      child: Container(
+                        width: Dimensions.width152,
+                        decoration: BoxDecoration(
+                          color: Colors.grey[300],
+                        ),
                       ),
-                      fit: BoxFit.cover)
+                    );
+                  },
+                  errorBuilder: (BuildContext context,
+                      Object exception, StackTrace? stackTrace) {
+                    return Image.asset('assets/image/person.png');
+                  },
+                ),
               ),
-              child: SmallTextWidget(text: "Постоянные", size: Dimensions.font11, color: Colors.white.withOpacity(0.8)),
             ),
           ),
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
-              height: Dimensions.height55,
-              width: Dimensions.width172,
-              margin: EdgeInsets.only(
-                right: Dimensions.width10,
-              ),
-              padding: const EdgeInsets.all(5),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(Dimensions.radius10),
-                    topRight: Radius.circular(Dimensions.radius10),
-                    bottomRight: Radius.circular(Dimensions.radius10),
-                    bottomLeft: Radius.circular(Dimensions.radius10)),
-                color: Colors.white,
-              ),
-              child: Center(
-                child: BigTextWidget(
-                  text: "«Отечественная война 1812 года»",
-                  size: Dimensions.font12 , color: Colors.black,
-                  fontWeight: FontWeight.w400,
+                height: Dimensions.height55,
+                width: Dimensions.width172+5,
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(Dimensions.radius10),
+                      topRight: Radius.circular(Dimensions.radius10),
+                      bottomRight: Radius.circular(Dimensions.radius10),
+                      bottomLeft: Radius.circular(Dimensions.radius10)),
+                  color: Colors.white,
                 ),
-              )
-            ),
+                child: Center(
+                  child: BigTextWidget(
+                    text: exhibitions.name??'',
+                    size: Dimensions.font12,
+                    color: Colors.black,
+                    fontWeight: FontWeight.w500,
+                  ),
+                )),
           )
         ],
       ),
