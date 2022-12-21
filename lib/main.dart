@@ -6,6 +6,7 @@ import 'package:museum_resource_center/views/home/page/home-page.dart';
 void main() {
   runApp(const MyApp());
 }
+const selectedPageIndex = 1;
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);

@@ -9,8 +9,8 @@ String decodeToLatin(String input) {
 
 getTime(String time) {
   if (time == '') return '';
-  var res = time.split(":");
-  return "${res[0]}: ${res[1]}";
+  var res = time.split(" ");
+  return res[1];
 }
 
 List<String> months = [

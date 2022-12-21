@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:museum_resource_center/controller/exhibitions_controller.dart';
 import 'package:museum_resource_center/views/souvenirs/souvenirs_events_output.dart';
 
 import '../../utils/dimensions.dart';

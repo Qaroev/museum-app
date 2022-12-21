@@ -39,6 +39,7 @@ dependencies:
   collection: ^1.15.0
   cached_network_image: ^3.2.3
   shimmer: ^2.0.0
+  woocommerce_api: ^0.1.0
 
 
   # The following adds the Cupertino Icons font to your application.

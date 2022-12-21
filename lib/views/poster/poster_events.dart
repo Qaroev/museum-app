@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:museum_resource_center/utils/utils.dart';
 import 'package:museum_resource_center/views/poster/poster_events_output.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../../controller/afisha_controller.dart';
@@ -18,7 +19,7 @@ class PosterEvents extends StatefulWidget {
 }
 
 class _PosterEventsState extends State<PosterEvents> {
-  AfishaController dataController = Get.put(AfishaController());
+  AfishaController dataController = Get.find();
   DateTime dateTime = DateTime.now();
 
   @override
@@ -146,21 +147,52 @@ class _PosterEventsState extends State<PosterEvents> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) =>
-                                        const PosterEventsOutput()));
+                                    builder: (context) => PosterEventsOutput(
+                                          afishaList:
+                                              dataController.afishaList[index],
+                                        )));
                           },
                           child: Container(
                             margin:
                                 EdgeInsets.only(bottom: Dimensions.height10),
                             child: Row(
                               children: [
-                                Container(
+                                SizedBox(
                                   width: Dimensions.width92,
                                   height: Dimensions.height92,
-                                  decoration: const BoxDecoration(
-                                      image: DecorationImage(
-                                          image: AssetImage(
-                                              "assets/images/picture.png"))),
+                                  child: Image.network(
+                                    decodeToLatin(
+                                        dataController.afishaList[index].img ??
+                                            ''),
+                                    fit: BoxFit.fill,
+                                    height: Dimensions.height208,
+                                    loadingBuilder: (BuildContext context,
+                                        Widget child,
+                                        ImageChunkEvent? loadingProgress) {
+                                      if (loadingProgress == null) {
+                                        return child;
+                                      }
+                                      return Shimmer.fromColors(
+                                        baseColor:
+                                            Colors.white.withOpacity(0.8),
+                                        highlightColor:
+                                            Colors.white.withOpacity(0.3),
+                                        child: Container(
+                                          width: Dimensions.width92,
+                                          height: Dimensions.height92,
+                                          decoration: BoxDecoration(
+                                            color: Colors.grey[300],
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    errorBuilder: (BuildContext context,
+                                        Object exception,
+                                        StackTrace? stackTrace) {
+                                      return Image.asset(
+                                          'assets/images/picture.png');
+                                    },
+                                  ),
                                 ),
                                 Expanded(
                                     child: Container(
@@ -214,7 +246,9 @@ class _PosterEventsState extends State<PosterEvents> {
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             BigTextWidget(
-                                              text: decodeToLatin(dataController.afishaList[index].type_afisha['name']),
+                                              text: decodeToLatin(dataController
+                                                  .afishaList[index]
+                                                  .type_afisha['name']),
                                               size: Dimensions.font12,
                                             ),
                                             AppIcon(

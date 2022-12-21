@@ -4,7 +4,7 @@ class AfishaModel {
   String? link;
   dynamic type_afisha;
   bool? vip;
-  String? img;
+  dynamic img;
   String? datatcevent;
   bool? datatctoken;
   bool? datatcmeta;

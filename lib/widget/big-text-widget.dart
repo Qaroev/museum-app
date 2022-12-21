@@ -8,30 +8,32 @@ class BigTextWidget extends StatelessWidget {
   TextAlign? textAlign;
   double size;
   double? height;
+  int? maxLines;
 
-  BigTextWidget(
-      {Key? key,
-      required this.text,
-      this.color = AppColors.textBigColor,
-      this.fontWeight = FontWeight.normal,
-      this.textAlign = TextAlign.start,
-      this.size = 0,
-        this.height = 1.2
-      })
-      : super(key: key);
+  BigTextWidget({
+    Key? key,
+    required this.text,
+    this.color = AppColors.textBigColor,
+    this.fontWeight = FontWeight.normal,
+    this.textAlign = TextAlign.start,
+    this.size = 0,
+    this.height = 1.2,
+    maxLines,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Text(
       text,
       textAlign: textAlign,
+      maxLines: maxLines,
+      overflow: TextOverflow.ellipsis,
       style: TextStyle(
           fontFamily: 'Roboto',
           color: color,
           fontSize: size == 0 ? 20 : size,
           fontWeight: fontWeight,
-          height: height
-      ),
+          height: height),
     );
   }
 }

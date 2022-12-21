@@ -18,6 +18,7 @@ class SmallTextWidget extends StatelessWidget {
     return Text(
       text,
       overflow: overflow,
+      maxLines: 2,
       style: TextStyle(
         color: color,
         fontSize: size==0?16:size,

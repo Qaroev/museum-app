@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
+import '../../../controller/product_controller.dart';
 import '../../../utils/dimensions.dart';
 import '../../../widget/big-text-widget.dart';
 
@@ -11,6 +13,7 @@ class SouvenirsPageBody extends StatefulWidget {
 }
 
 class _SouvenirsPageBodyState extends State<SouvenirsPageBody> {
+  ProductController productController = Get.put(ProductController());
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(

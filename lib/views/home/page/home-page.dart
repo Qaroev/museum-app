@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:museum_resource_center/widget/big-text-widget.dart';
 
+import '../../../main.dart';
 import '../../../utils/dimensions.dart';
 import '../../collections/collections_events.dart';
 import '../../news/news_events.dart';
@@ -20,7 +21,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   PageController pageController = PageController(initialPage: 1);
-  final _selectedPageIndex = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -281,9 +281,10 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: SizedBox(
         height: Dimensions.height92,
         child: BottomNavigationBar(
-          currentIndex: _selectedPageIndex,
+          currentIndex: selectedPageIndex,
           onTap: (int index) {
             pageController.jumpToPage(index);
+
           },
           backgroundColor: Colors.white,
           showSelectedLabels: false,
