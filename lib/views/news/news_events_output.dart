@@ -1,12 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:museum_resource_center/models/news_model.dart';
 import 'package:museum_resource_center/utils/dimensions.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../widget/big-text-widget.dart';
 
 
 class NewsEventsOutput extends StatefulWidget {
-  const NewsEventsOutput({Key? key}) : super(key: key);
+  final NewsModel? newsItem;
+  const NewsEventsOutput({Key? key,this.newsItem}) : super(key: key);
 
   @override
   _NewsEventsOutputState createState() => _NewsEventsOutputState();
@@ -73,12 +76,12 @@ class _NewsEventsOutputState extends State<NewsEventsOutput> {
                               size: Dimensions.iconSize20,
                             ),
                             SizedBox(width: Dimensions.width5,),
-                            Image.asset(
-                              "assets/images/menu.png",
-                              color: Colors.black,
-                              width: Dimensions.width20,
-                              height: Dimensions.height20,
-                            ),
+                            // Image.asset(
+                            //   "assets/images/menu.png",
+                            //   color: Colors.black,
+                            //   width: Dimensions.width20,
+                            //   height: Dimensions.height20,
+                            // ),
                           ],
                         ),
                       ],
@@ -86,15 +89,35 @@ class _NewsEventsOutputState extends State<NewsEventsOutput> {
                   ),
                   background: Stack(
                       children: [
-                        Container(
-                          decoration: const BoxDecoration(
-                            image: DecorationImage(
-                                image: AssetImage(
-                                  "assets/images/souvenirs.png",
+                        Image.network(
+                          widget.newsItem!.img??'',
+                          fit: BoxFit.fill,
+                          headers: const {
+                            'Cookie': 'bpc=06784db3c02ba52d5d279ccb5e944ce6',
+                          },
+                          height: Dimensions.height300,
+                          width: double.infinity,
+                          loadingBuilder: (BuildContext context,
+                              Widget child,
+                              ImageChunkEvent? loadingProgress) {
+                            if (loadingProgress == null) {
+                              return child;
+                            }
+                            return Shimmer.fromColors(
+                              baseColor: Colors.black.withOpacity(0.8),
+                              highlightColor: Colors.black.withOpacity(0.3),
+                              child: Container(
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                  color: Colors.black.withOpacity(0.5),
                                 ),
-                                fit: BoxFit.cover
-                            ),
-                          ),
+                              ),
+                            );
+                          },
+                          errorBuilder: (BuildContext context,
+                              Object exception, StackTrace? stackTrace) {
+                            return Image.asset('assets/images/picture.png');
+                          },
                         ),
                         Container(
                           margin: EdgeInsets.only(top: Dimensions.height50, left: Dimensions.width20, right: Dimensions.width20),
@@ -136,19 +159,19 @@ class _NewsEventsOutputState extends State<NewsEventsOutput> {
                                     ),
                                   ),
                                   SizedBox(width: Dimensions.width5,),
-                                  Container(
-                                      width: Dimensions.width40,
-                                      height: Dimensions.height40,
-                                      decoration: BoxDecoration(
-                                          color: const Color(0xFF434670).withOpacity(0.25),
-                                          borderRadius: BorderRadius.circular(Dimensions.radius10)),
-                                      child: IconButton(
-                                        onPressed: () {},
-                                        icon: Image.asset(
-                                          "assets/images/menu.png",
-                                          color: Colors.white,
-                                        ),
-                                      )),
+                                  // Container(
+                                  //     width: Dimensions.width40,
+                                  //     height: Dimensions.height40,
+                                  //     decoration: BoxDecoration(
+                                  //         color: const Color(0xFF434670).withOpacity(0.25),
+                                  //         borderRadius: BorderRadius.circular(Dimensions.radius10)),
+                                  //     child: IconButton(
+                                  //       onPressed: () {},
+                                  //       icon: Image.asset(
+                                  //         "assets/images/menu.png",
+                                  //         color: Colors.white,
+                                  //       ),
+                                  //     )),
                                 ],
                               ),
                             ],
@@ -162,20 +185,20 @@ class _NewsEventsOutputState extends State<NewsEventsOutput> {
                                 width: double.maxFinite,
                                 height: Dimensions.height121,
                                 padding: const EdgeInsets.all(20),
-                                decoration: const BoxDecoration(
+                                decoration:  BoxDecoration(
+                                  color: Colors.grey.withOpacity(0.1),
                                     image: DecorationImage(
                                       image: AssetImage("assets/images/rectangle2.png"),
                                       fit: BoxFit.cover
                                     )
                                 ),
-                                child: SizedBox(
-                                  width: Dimensions.width290,
-                                  child: BigTextWidget(
-                                    text: "«Определены победители первого этапа конкурса «Красота Божьего мира»»",
-                                    size: Dimensions.font20,
-                                    color: const Color(0xFFFFFFFF),
-                                    fontWeight: FontWeight.w800,),
-                                )
+                                child:   Text(
+                                    widget.newsItem!.name ??
+                                        '',
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 22,
+                                        fontWeight: FontWeight.w700)),
                             )
                           ],
                         ),
@@ -193,12 +216,14 @@ class _NewsEventsOutputState extends State<NewsEventsOutput> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    BigTextWidget(
-                      text:"Enjoy your favorite dishe and a lovely your friends and family and have a great time. Food from local food trucks will be available for purchase.  Food from local food trucks will be available for purchase.  Food from local food trucks will be available for purchase. ",
-                      size: Dimensions.font16,
-                      height: 1.2,
-                      color: const Color(0xFF120D26),
-                      fontWeight: FontWeight.w400,
+                    Expanded(
+                      child: Text(
+                          widget.newsItem!.description ??
+                              '',
+                          style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500)),
                     ),
                      SizedBox(height: Dimensions.height20,),
                     BigTextWidget(

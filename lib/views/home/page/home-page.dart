@@ -24,6 +24,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    Dimensions();
     final GlobalKey<ScaffoldState> scaffoldKey =
          GlobalKey<ScaffoldState>();
     return Scaffold(
@@ -76,8 +77,7 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       drawer: Drawer(
-        backgroundColor: Color(0xFFF3F8F9),
-        width: Dimensions.width303,
+        backgroundColor: const Color(0xFFF3F8F9),
         child: Stack(children: [
           Positioned(
               top: Dimensions.height120,
@@ -265,8 +265,6 @@ class _HomePageState extends State<HomePage> {
       body: PageView(
         physics: const NeverScrollableScrollPhysics(),
         controller: pageController,
-        scrollDirection: Axis.horizontal,
-        allowImplicitScrolling: true,
         children: const [
           SearchPageBody(),
           HomePageBody(),
@@ -283,8 +281,9 @@ class _HomePageState extends State<HomePage> {
         child: BottomNavigationBar(
           currentIndex: selectedPageIndex,
           onTap: (int index) {
-            pageController.jumpToPage(index);
-
+            setState(() {
+              selectedPageIndex = index;
+            });
           },
           backgroundColor: Colors.white,
           showSelectedLabels: false,

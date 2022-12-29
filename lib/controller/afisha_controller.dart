@@ -8,11 +8,16 @@ import 'package:intl/intl.dart';
 
 import '../models/afish_model.dart';
 
-class AfishaController extends GetxController {
+class AfishaController extends GetxController implements GetxService {
   List<AfishaModel>? afishaItems;
   List<AfishaModel> afishaList = [];
+  List<String>? afishaTypes = [];
 
-  var isDataLoading = false.obs;
+  var isDataLoading = false;
+  var isError = false;
+  var error = '';
+
+  AfishaController();
 
   @override
   Future<void> onInit() async {
@@ -30,11 +35,14 @@ class AfishaController extends GetxController {
 
   getApi() async {
     try {
-      isDataLoading(true);
+      isDataLoading = true;
       http.Response response = await http.get(
         Uri.tryParse(
             'https://museum-noyabrsk.ru//platforms/themes/blankslate/afisha.json')!,
-        headers: {'Content-Type': 'application/json; charset=utf-16'},
+        headers: {
+          'Content-Type': 'application/json; charset=utf-16',
+          'Cookie': 'bpc=06784db3c02ba52d5d279ccb5e944ce6',
+        },
       );
       if (response.statusCode == 200) {
         afishaItems = [];
@@ -71,6 +79,14 @@ class AfishaController extends GetxController {
             });
           });
         }
+        for (var element in afishaList) {
+          if (element.type_afisha != null &&
+              element.type_afisha['name'] != '' &&
+              !afishaTypes!.contains(element.type_afisha['name'])) {
+            afishaTypes!.add(element.type_afisha['name']);
+          }
+        }
+        print(afishaTypes);
         print(afishaList);
         update();
       } else {}
@@ -78,8 +94,9 @@ class AfishaController extends GetxController {
       log('Error while getting data is $e');
       print('Error while getting data is $e');
     } finally {
-      isDataLoading(false);
+      isDataLoading = false;
     }
+    update();
   }
 }
 

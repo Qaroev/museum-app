@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:museum_resource_center/controller/exhibitions_controller.dart';
+import 'package:museum_resource_center/controller/product_controller.dart';
 import 'package:museum_resource_center/views/souvenirs/souvenirs_events_output.dart';
 
 import '../../utils/dimensions.dart';
@@ -14,9 +15,12 @@ class SouvenirsEvents extends StatefulWidget {
 }
 
 class _SouvenirsEventsState extends State<SouvenirsEvents> {
+  ProductController productController = Get.find();
   @override
   Widget build(BuildContext context) {
-    return ListView(
+    return Obx(() => productController.isDataLoading.value
+        ? const Center(child: CircularProgressIndicator())
+        : ListView(
       children: [
         Container(
           padding: const EdgeInsets.all(20),
@@ -63,7 +67,7 @@ class _SouvenirsEventsState extends State<SouvenirsEvents> {
               ListView.builder(
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
-                  itemCount: 10,
+                  itemCount: productController.products!.length,
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: (){
@@ -75,65 +79,65 @@ class _SouvenirsEventsState extends State<SouvenirsEvents> {
                         margin: EdgeInsets.only(bottom: Dimensions.height10),
                         padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(Dimensions.radius15)
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(Dimensions.radius15)
                         ),
                         child: Stack(
-                          children: [
-                            Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Stack(
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Container(
-                                    width: Dimensions.width73,
-                                    height: Dimensions.height96,
-                                    decoration: BoxDecoration(
-                                      color: const Color(0xFFBEBEBE),
-                                      borderRadius: BorderRadius.circular(Dimensions.radius15)
-                                    ),
-                                  ),
-                                  Positioned(
-                                    right: 3,
-                                    top: 1,
-                                    bottom: 0,
-                                    left: 0,
-                                    child: Container(
-                                      width: Dimensions.width73,
-                                      height: Dimensions.height96,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(Dimensions.radius15),
-                                        image: const DecorationImage(
-                                          image: AssetImage("assets/images/image3-home.png"),
-                                          fit: BoxFit.cover
-                                        )
+                                  Stack(
+                                    children: [
+                                      Container(
+                                        width: Dimensions.width73,
+                                        height: Dimensions.height96,
+                                        decoration: BoxDecoration(
+                                            color: const Color(0xFFBEBEBE),
+                                            borderRadius: BorderRadius.circular(Dimensions.radius15)
+                                        ),
                                       ),
+                                      Positioned(
+                                        right: 3,
+                                        top: 1,
+                                        bottom: 0,
+                                        left: 0,
+                                        child: Container(
+                                          width: Dimensions.width73,
+                                          height: Dimensions.height96,
+                                          decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(Dimensions.radius15),
+                                              image: const DecorationImage(
+                                                  image: AssetImage("assets/images/image3-home.png"),
+                                                  fit: BoxFit.cover
+                                              )
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(width: Dimensions.width40,),
+                                  SizedBox(
+                                    width: Dimensions.width180,
+                                    height: Dimensions.height80,
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        BigTextWidget(text: "Колокольчики", size: Dimensions.font13, color: const Color(0xFF747688), fontWeight: FontWeight.w400,),
+                                        BigTextWidget(text: "Настенные часы в технике Фьюзинг", size: Dimensions.font16, fontWeight: FontWeight.w400,),
+                                        BigTextWidget(text: "2500 руб.", size: Dimensions.font16, fontWeight: FontWeight.w600,),
+                                      ],
                                     ),
                                   ),
                                 ],
                               ),
-                              SizedBox(width: Dimensions.width40,),
-                              SizedBox(
-                                width: Dimensions.width180,
-                                height: Dimensions.height80,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    BigTextWidget(text: "Колокольчики", size: Dimensions.font13, color: const Color(0xFF747688), fontWeight: FontWeight.w400,),
-                                    BigTextWidget(text: "Настенные часы в технике Фьюзинг", size: Dimensions.font16, fontWeight: FontWeight.w400,),
-                                    BigTextWidget(text: "2500 руб.", size: Dimensions.font16, fontWeight: FontWeight.w600,),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                            Container(
-                              alignment: Alignment.topRight,
-                                margin: EdgeInsets.only(right: Dimensions.width10,top: Dimensions.height10),
-                                child: const Icon(Icons.shopping_cart_outlined)
-                            )
-                          ]
+                              Container(
+                                  alignment: Alignment.topRight,
+                                  margin: EdgeInsets.only(right: Dimensions.width10,top: Dimensions.height10),
+                                  child: const Icon(Icons.shopping_cart_outlined)
+                              )
+                            ]
                         ),
                       ),
                     );
@@ -142,6 +146,6 @@ class _SouvenirsEventsState extends State<SouvenirsEvents> {
           ),
         ),
       ],
-    );
+    ));
   }
 }

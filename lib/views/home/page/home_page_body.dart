@@ -6,7 +6,7 @@ import 'package:museum_resource_center/views/home/page/souvenirs_page_body.dart'
 import '../../../utils/dimensions.dart';
 import '../../../widget/app_Icon.dart';
 import '../../../widget/big-text-widget.dart';
-import 'collections-page-body.dart';
+import 'collections_page_body.dart';
 
 class HomePageBody extends StatefulWidget {
   const HomePageBody({Key? key}) : super(key: key);

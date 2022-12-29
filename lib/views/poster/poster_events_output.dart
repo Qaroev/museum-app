@@ -81,20 +81,20 @@ class _PosterEventsOutputState extends State<PosterEventsOutput> {
                   SizedBox(
                     width: Dimensions.width5,
                   ),
-                  Container(
-                      width: Dimensions.width30,
-                      height: Dimensions.height30,
-                      decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.24),
-                          borderRadius:
-                              BorderRadius.circular(Dimensions.radius10)),
-                      child: IconButton(
-                        onPressed: () {},
-                        icon: Image.asset(
-                          "assets/images/menu.png",
-                          color: Colors.white,
-                        ),
-                      )),
+                  // Container(
+                  //     width: Dimensions.width30,
+                  //     height: Dimensions.height30,
+                  //     decoration: BoxDecoration(
+                  //         color: Colors.white.withOpacity(0.24),
+                  //         borderRadius:
+                  //             BorderRadius.circular(Dimensions.radius10)),
+                  //     child: IconButton(
+                  //       onPressed: () {},
+                  //       icon: Image.asset(
+                  //         "assets/images/menu.png",
+                  //         color: Colors.white,
+                  //       ),
+                  //     )),
                 ],
               ),
             )
@@ -142,12 +142,12 @@ class _PosterEventsOutputState extends State<PosterEventsOutput> {
                             SizedBox(
                               width: Dimensions.width5,
                             ),
-                            Image.asset(
-                              "assets/images/menu.png",
-                              color: Colors.black,
-                              width: Dimensions.width20,
-                              height: Dimensions.height20,
-                            ),
+                            // Image.asset(
+                            //   "assets/images/menu.png",
+                            //   color: Colors.black,
+                            //   width: Dimensions.width20,
+                            //   height: Dimensions.height20,
+                            // ),
                           ],
                         ),
                   background: Container(
@@ -159,6 +159,9 @@ class _PosterEventsOutputState extends State<PosterEventsOutput> {
                             Image.network(
                               decodeToLatin(widget.afishaList!.img!),
                               fit: BoxFit.fill,
+                              headers: const {
+                                'Cookie': 'bpc=06784db3c02ba52d5d279ccb5e944ce6',
+                              },
                               height: Dimensions.height300,
                               width: double.infinity,
                               loadingBuilder: (BuildContext context,
@@ -168,12 +171,12 @@ class _PosterEventsOutputState extends State<PosterEventsOutput> {
                                   return child;
                                 }
                                 return Shimmer.fromColors(
-                                  baseColor: Colors.white.withOpacity(0.8),
-                                  highlightColor: Colors.white.withOpacity(0.3),
+                                  baseColor: Colors.black.withOpacity(0.8),
+                                  highlightColor: Colors.black.withOpacity(0.3),
                                   child: Container(
-                                    width: Dimensions.width172 + 5,
+                                    width: double.infinity,
                                     decoration: BoxDecoration(
-                                      color: Colors.grey[300],
+                                      color: Colors.black.withOpacity(0.5),
                                     ),
                                   ),
                                 );

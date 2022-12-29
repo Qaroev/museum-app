@@ -73,12 +73,12 @@ class _SouvenirsEventsOutputState extends State<SouvenirsEventsOutput> {
                             SizedBox(
                               width: Dimensions.width5,
                             ),
-                            Image.asset(
-                              "assets/images/menu.png",
-                              color: Colors.black,
-                              width: Dimensions.width20,
-                              height: Dimensions.height20,
-                            ),
+                            // Image.asset(
+                            //   "assets/images/menu.png",
+                            //   color: Colors.black,
+                            //   width: Dimensions.width20,
+                            //   height: Dimensions.height20,
+                            // ),
                           ],
                         ),
                       ],
@@ -138,19 +138,19 @@ class _SouvenirsEventsOutputState extends State<SouvenirsEventsOutput> {
                                   SizedBox(
                                     width: Dimensions.width5,
                                   ),
-                                  Container(
-                                      width: Dimensions.width40,
-                                      height: Dimensions.height40,
-                                      decoration: BoxDecoration(
-                                          color: const Color(0xFF434670).withOpacity(0.25),
-                                          borderRadius: BorderRadius.circular(Dimensions.radius10)),
-                                      child: IconButton(
-                                        onPressed: () {},
-                                        icon: Image.asset(
-                                          "assets/images/menu.png",
-                                          color: Colors.white,
-                                        ),
-                                      )),
+                                  // Container(
+                                  //     width: Dimensions.width40,
+                                  //     height: Dimensions.height40,
+                                  //     decoration: BoxDecoration(
+                                  //         color: const Color(0xFF434670).withOpacity(0.25),
+                                  //         borderRadius: BorderRadius.circular(Dimensions.radius10)),
+                                  //     child: IconButton(
+                                  //       onPressed: () {},
+                                  //       icon: Image.asset(
+                                  //         "assets/images/menu.png",
+                                  //         color: Colors.white,
+                                  //       ),
+                                  //     )),
                                 ],
                               ),
                             ],

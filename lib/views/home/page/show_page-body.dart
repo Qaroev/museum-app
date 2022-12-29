@@ -22,21 +22,27 @@ class _ShowPageBodyState extends State<ShowPageBody> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 200,
-      child: Obx(() => exhibitionsController.isDataLoading.value
-          ? const Center(child: CircularProgressIndicator())
-          : ListView.builder(
-              itemCount: exhibitionsController.exhibitions!.length >= 10
-                  ? 20
-                  : exhibitionsController.exhibitions!.length,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                return _buildShowItem(
-                  exhibitionsController.exhibitions![index],
-                );
-              })),
-    );
+    return GetBuilder<ExhibitionsController>(
+        init: ExhibitionsController(),
+        builder: (evt) {
+          if (evt.isDataLoading.value ||
+              exhibitionsController.exhibitions == null) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          return SizedBox(
+              height: 200,
+              child: ListView.builder(
+                  itemCount: exhibitionsController.exhibitions!.length >= 10
+                      ? 20
+                      : exhibitionsController.exhibitions!.length,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    return _buildShowItem(
+                      exhibitionsController.exhibitions![index],
+                    );
+                  }));
+        });
+    ;
   }
 
   Widget _buildShowItem(ExhibitionsModel exhibitions) {
@@ -66,6 +72,9 @@ class _ShowPageBodyState extends State<ShowPageBody> {
                   child: Image.network(
                     exhibitions.img!,
                     fit: BoxFit.cover,
+                    headers: const {
+                      'Cookie': 'bpc=06784db3c02ba52d5d279ccb5e944ce6',
+                    },
                     height: Dimensions.height158,
                     loadingBuilder: (BuildContext context, Widget child,
                         ImageChunkEvent? loadingProgress) {
@@ -73,8 +82,8 @@ class _ShowPageBodyState extends State<ShowPageBody> {
                         return child;
                       }
                       return Shimmer.fromColors(
-                        baseColor: Colors.white.withOpacity(0.8),
-                        highlightColor: Colors.white.withOpacity(0.3),
+                        baseColor: Colors.grey.withOpacity(0.8),
+                        highlightColor: Colors.grey.withOpacity(0.3),
                         child: Container(
                           width: Dimensions.width152,
                           decoration: BoxDecoration(
@@ -85,7 +94,7 @@ class _ShowPageBodyState extends State<ShowPageBody> {
                     },
                     errorBuilder: (BuildContext context, Object exception,
                         StackTrace? stackTrace) {
-                      return Image.asset('assets/image/person.png');
+                      return Image.asset('assets/images/picture.png');
                     },
                   ),
                 ),
@@ -106,11 +115,13 @@ class _ShowPageBodyState extends State<ShowPageBody> {
                     color: Colors.white,
                   ),
                   child: Center(
-                    child: BigTextWidget(
-                      text: exhibitions.name ?? '',
-                      size: Dimensions.font12,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w500,
+                    child: Text(
+                      exhibitions.name ?? '',
+                      maxLines: 2,
+                      style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 12,
+                          overflow: TextOverflow.ellipsis),
                     ),
                   )),
             )

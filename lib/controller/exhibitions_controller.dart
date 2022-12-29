@@ -10,7 +10,7 @@ import '../models/afish_model.dart';
 
 class ExhibitionsController extends GetxController {
   List<ExhibitionsModel>? exhibitions;
-
+  List<String>? exhibitionsTypes = [];
   var isDataLoading = false.obs;
 
   @override
@@ -33,7 +33,10 @@ class ExhibitionsController extends GetxController {
       http.Response response = await http.get(
         Uri.tryParse(
             'https://museum-noyabrsk.ru//platforms/themes/blankslate/exhibitions.json')!,
-        headers: {'Content-Type': 'application/json; charset=utf-16'},
+        headers: {
+          'Content-Type': 'application/json; charset=utf-16',
+          'Cookie': 'bpc=06784db3c02ba52d5d279ccb5e944ce6',
+        },
       );
       if (response.statusCode == 200) {
         exhibitions = [];
@@ -42,6 +45,13 @@ class ExhibitionsController extends GetxController {
           result.forEach((it) {
             exhibitions?.add(ExhibitionsModel.fromJson(it));
           });
+          for (var element in exhibitions!) {
+            if (element.type_afisha != null &&
+                element.type_afisha!.name != '' &&
+                !exhibitionsTypes!.contains(element.type_afisha!.name)) {
+              exhibitionsTypes!.add(element.type_afisha!.name!);
+            }
+          }
         }
         update();
       } else {}
@@ -67,13 +77,13 @@ getGroup(List<AfishaModel> afishaEvents) {
       .parse(a.split(' ')[0], true)
       .millisecondsSinceEpoch
       .compareTo(DateFormat('yyyy-MM-dd')
-      .parse(b.split(' ')[0], true)
-      .millisecondsSinceEpoch));
+          .parse(b.split(' ')[0], true)
+          .millisecondsSinceEpoch));
   dates.toSet().forEach((d) {
     resultData[d] = [];
     for (var element in afishaEvents) {
       var dd =
-      element.seanses.firstWhere((it) => it['date'] == d, orElse: () {});
+          element.seanses.firstWhere((it) => it['date'] == d, orElse: () {});
       if (dd != null) {
         resultData[d].add({
           "name": element.name,
@@ -96,9 +106,9 @@ getGroup(List<AfishaModel> afishaEvents) {
         });
         if (element.seanses != null) {
           element.seanses!.forEach((evt) => {
-            if (evt['date'] == d)
-              {resultData[d][resultData[d].length - 1]['seanses'].add(evt)}
-          });
+                if (evt['date'] == d)
+                  {resultData[d][resultData[d].length - 1]['seanses'].add(evt)}
+              });
         }
       }
     }

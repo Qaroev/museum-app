@@ -25,34 +25,40 @@ class _PosterPageBodyState extends State<PosterPageBody> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 280,
-      child: Obx(() => dataController.isDataLoading.value
-          ? const Center(child: CircularProgressIndicator())
-          : ListView.builder(
-              itemCount: dataController.afishaList.length >= 10
-                  ? 20
-                  : dataController.afishaList.length,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                return _buildPostItem(
-                  dataController.afishaList[index],
-                );
-              })),
-    );
+    return GetBuilder<AfishaController>(
+        init: AfishaController(),
+        builder: (evt) {
+
+          if (evt.isDataLoading) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          if (evt.isDataLoading) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          return SizedBox(
+              height: 280,
+              child: ListView.builder(
+                  itemCount: dataController.afishaList.length >= 10
+                      ? 20
+                      : dataController.afishaList.length,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    return _buildPostItem(
+                      dataController.afishaList[index],
+                    );
+                  }));
+        });
   }
 
   Widget _buildPostItem(AfishaModel afishaItems) {
     return GestureDetector(
       onTap: () {
         Navigator.push(
-          context,
+            context,
             MaterialPageRoute(
                 builder: (context) => PosterEventsOutput(
-                  afishaList: afishaItems,
-                ))
-        );
-
+                      afishaList: afishaItems,
+                    )));
       },
       child: SizedBox(
         height: Dimensions.height220,
@@ -64,7 +70,7 @@ class _PosterPageBodyState extends State<PosterPageBody> {
                 GestureDetector(
                   child: Container(
                     width: Dimensions.width172 + 5,
-                    height: Dimensions.height208,
+                    height: 218,
                     alignment: Alignment.topLeft,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
@@ -74,16 +80,20 @@ class _PosterPageBodyState extends State<PosterPageBody> {
                     ),
                     child: Image.network(
                       decodeToLatin(afishaItems.img!),
-                      fit: BoxFit.fill,
-                      height: Dimensions.height208,
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                      height: double.infinity,
+                      headers: const {
+                        'Cookie': 'bpc=06784db3c02ba52d5d279ccb5e944ce6',
+                      },
                       loadingBuilder: (BuildContext context, Widget child,
                           ImageChunkEvent? loadingProgress) {
                         if (loadingProgress == null) {
                           return child;
                         }
                         return Shimmer.fromColors(
-                          baseColor: Colors.white.withOpacity(0.8),
-                          highlightColor: Colors.white.withOpacity(0.3),
+                          baseColor: Colors.grey.withOpacity(0.8),
+                          highlightColor: Colors.grey.withOpacity(0.3),
                           child: Container(
                             width: Dimensions.width172 + 5,
                             decoration: BoxDecoration(
@@ -161,11 +171,15 @@ class _PosterPageBodyState extends State<PosterPageBody> {
                       fontWeight: FontWeight.w300,
                     ),
                     const Spacer(),
-                    BigTextWidget(
-                      text: decodeToLatin(afishaItems.name!),
-                      size: Dimensions.font14,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w500,
+                    Text(
+                      decodeToLatin(afishaItems.name!),
+                      maxLines: 2,
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 12,
+                        overflow: TextOverflow.ellipsis,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                     const Spacer()
                   ],

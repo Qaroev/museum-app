@@ -87,12 +87,12 @@ class _CollectionsEventsOutputState extends State<CollectionsEventsOutput> {
                                   SizedBox(
                                     width: Dimensions.width5,
                                   ),
-                                  Image.asset(
-                                    "assets/images/menu.png",
-                                    color: Colors.black,
-                                    width: Dimensions.width20,
-                                    height: Dimensions.height20,
-                                  ),
+                                  // Image.asset(
+                                  //   "assets/images/menu.png",
+                                  //   color: Colors.black,
+                                  //   width: Dimensions.width20,
+                                  //   height: Dimensions.height20,
+                                  // ),
                                 ],
                               ),
                             ],
@@ -102,6 +102,9 @@ class _CollectionsEventsOutputState extends State<CollectionsEventsOutput> {
                     Image.network(
                       widget.collection!.img ?? '',
                       fit: BoxFit.fill,
+                      headers: const {
+                        'Cookie': 'bpc=06784db3c02ba52d5d279ccb5e944ce6',
+                      },
                       height: Dimensions.height500,
                       width: double.infinity,
                       loadingBuilder: (BuildContext context, Widget child,
@@ -173,20 +176,20 @@ class _CollectionsEventsOutputState extends State<CollectionsEventsOutput> {
                               const SizedBox(
                                 width: 5,
                               ),
-                              Container(
-                                  width: 40,
-                                  height: 40,
-                                  decoration: BoxDecoration(
-                                      color: const Color(0xFF434670)
-                                          .withOpacity(0.25),
-                                      borderRadius: BorderRadius.circular(10)),
-                                  child: IconButton(
-                                    onPressed: () {},
-                                    icon: Image.asset(
-                                      "assets/images/menu.png",
-                                      color: Colors.white,
-                                    ),
-                                  )),
+                              // Container(
+                              //     width: 40,
+                              //     height: 40,
+                              //     decoration: BoxDecoration(
+                              //         color: const Color(0xFF434670)
+                              //             .withOpacity(0.25),
+                              //         borderRadius: BorderRadius.circular(10)),
+                              //     child: IconButton(
+                              //       onPressed: () {},
+                              //       icon: Image.asset(
+                              //         "assets/images/menu.png",
+                              //         color: Colors.white,
+                              //       ),
+                              //     )),
                             ],
                           ),
                         ],
