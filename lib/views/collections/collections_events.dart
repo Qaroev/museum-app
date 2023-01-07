@@ -134,49 +134,65 @@ class _CollectionsEventsState extends State<CollectionsEvents> {
       children: [
         Stack(
           children: [
-            Container(
-              width: Dimensions.width178,
-              height: 300,
-              alignment: Alignment.bottomLeft,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Image.network(
-                collectionItems.img ?? '',
-                headers: const {
-                  'Cookie': 'bpc=06784db3c02ba52d5d279ccb5e944ce6',
-                },
-                fit: BoxFit.cover,
-                height: 300,
-                loadingBuilder: (BuildContext context, Widget child,
-                    ImageChunkEvent? loadingProgress) {
-                  if (loadingProgress == null) {
-                    return child;
-                  }
-                  return Shimmer.fromColors(
-                    baseColor: Colors.white.withOpacity(0.8),
-                    highlightColor: Colors.white.withOpacity(0.3),
-                    child: Container(
-                      width: Dimensions.width92,
-                      height: Dimensions.height92,
-                      decoration: BoxDecoration(
-                        color: Colors.grey[300],
-                      ),
-                    ),
-                  );
-                },
-                errorBuilder: (BuildContext context, Object exception,
-                    StackTrace? stackTrace) {
-                  return Image.asset('assets/images/picture.png');
-                },
+            SizedBox(
+              width:
+              Dimensions.width172 + 5,
+              height: 150,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10), // Ima
+                child: SizedBox.fromSize(
+                  size: const Size.fromRadius(20),
+                  // Image radius
+                  child: Image.network(
+                    collectionItems.img ?? '',
+                    headers: const {
+                      'Cookie': 'bpc=06784db3c02ba52d5d279ccb5e944ce6',
+                    },
+                    fit: BoxFit.cover,
+                    height: 300,
+                    loadingBuilder: (BuildContext context, Widget child,
+                        ImageChunkEvent? loadingProgress) {
+                      if (loadingProgress == null) {
+                        return child;
+                      }
+                      return Shimmer.fromColors(
+                        baseColor: Colors.white.withOpacity(0.8),
+                        highlightColor: Colors.white.withOpacity(0.3),
+                        child: Container(
+                          width: Dimensions.width92,
+                          height: Dimensions.height92,
+                          decoration: BoxDecoration(
+                            color: Colors.grey[300],
+                          ),
+                        ),
+                      );
+                    },
+                    errorBuilder: (BuildContext context, Object exception,
+                        StackTrace? stackTrace) {
+                      return Image.asset('assets/images/picture.png');
+                    },
+                  ),
+                ),
               ),
             ),
-            Image.asset(
-              'assets/images/overlay.png',
-              fit: BoxFit.cover,
-              width: Dimensions.width178,
-              height: 300,
-            )
+            SizedBox(
+              width:
+              Dimensions.width172 + 5,
+              height: 150,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10), // Ima
+                child: SizedBox.fromSize(
+                  size: const Size.fromRadius(20),
+                  // Image radius
+                  child:  Image.asset(
+                    'assets/images/overlay.png',
+                    fit: BoxFit.cover,
+                    width: Dimensions.width178,
+                    height: 300,
+                  )
+                ),
+              ),
+            ),
           ],
         ),
         Padding(

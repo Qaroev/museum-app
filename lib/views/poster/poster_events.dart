@@ -385,7 +385,8 @@ class _PosterEventsState extends State<PosterEvents> {
                               style: ElevatedButton.styleFrom(
                                 elevation: 1,
                                 backgroundColor: typeIndex == index
-                                    ? const Color(0xFF4579FF).withOpacity(0.7)
+                                    ? const Color(0xFF4579FF).withOpacity(0.50)
+
                                     : const Color(0xFFF3F8F9),
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(
@@ -447,34 +448,41 @@ class _PosterEventsState extends State<PosterEvents> {
           SizedBox(
             width: Dimensions.width92,
             height: Dimensions.height92,
-            child: Image.network(
-              decodeToLatin(afishaList.img ?? ''),
-              headers: const {
-                'Cookie': 'bpc=06784db3c02ba52d5d279ccb5e944ce6',
-              },
-              fit: BoxFit.fill,
-              height: Dimensions.height208,
-              loadingBuilder: (BuildContext context, Widget child,
-                  ImageChunkEvent? loadingProgress) {
-                if (loadingProgress == null) {
-                  return child;
-                }
-                return Shimmer.fromColors(
-                  baseColor: Colors.grey.withOpacity(0.8),
-                  highlightColor: Colors.grey.withOpacity(0.3),
-                  child: Container(
-                    width: Dimensions.width92,
-                    height: Dimensions.height92,
-                    decoration: BoxDecoration(
-                      color: Colors.grey[300],
-                    ),
-                  ),
-                );
-              },
-              errorBuilder: (BuildContext context, Object exception,
-                  StackTrace? stackTrace) {
-                return Image.asset('assets/images/picture.png');
-              },
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10), // Ima
+              child: SizedBox.fromSize(
+                size: const Size.fromRadius(20),
+                // Image radius
+                child: Image.network(
+                  decodeToLatin(afishaList.img ?? ''),
+                  headers: const {
+                    'Cookie': 'bpc=06784db3c02ba52d5d279ccb5e944ce6',
+                  },
+                  fit: BoxFit.fill,
+                  height: Dimensions.height208,
+                  loadingBuilder: (BuildContext context, Widget child,
+                      ImageChunkEvent? loadingProgress) {
+                    if (loadingProgress == null) {
+                      return child;
+                    }
+                    return Shimmer.fromColors(
+                      baseColor: Colors.grey.withOpacity(0.8),
+                      highlightColor: Colors.grey.withOpacity(0.3),
+                      child: Container(
+                        width: Dimensions.width92,
+                        height: Dimensions.height92,
+                        decoration: BoxDecoration(
+                          color: Colors.grey[300],
+                        ),
+                      ),
+                    );
+                  },
+                  errorBuilder: (BuildContext context, Object exception,
+                      StackTrace? stackTrace) {
+                    return Image.asset('assets/images/picture.png');
+                  },
+                ),
+              ),
             ),
           ),
           Expanded(

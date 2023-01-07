@@ -288,7 +288,7 @@ class _SouvenirsEventsOutputState extends State<SouvenirsEventsOutput> {
                                 itemBuilder: (context, index) {
                                   return Container(
                                     height: Dimensions.height106,
-                                    padding: const EdgeInsets.all(20),
+                                    padding: const EdgeInsets.all(10),
                                     margin: EdgeInsets.only(right: 10),
                                     decoration: BoxDecoration(
                                         color: Colors.white,
@@ -408,7 +408,7 @@ class _SouvenirsEventsOutputState extends State<SouvenirsEventsOutput> {
                                                     widget.products!
                                                         .categories[0]['name'],
                                                     style: TextStyle(
-                                                        color: Colors.black,
+                                                        color: const Color(0XFF747688),
                                                         fontSize:
                                                             Dimensions.font13,
                                                         fontWeight:

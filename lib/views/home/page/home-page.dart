@@ -16,6 +16,7 @@ import '../../souvenirs/souvenirs_events.dart';
 import '../basket_page/basket_page_body.dart';
 import '../searsh/search_page_body.dart';
 import 'home_page_body.dart';
+PageController pageController = PageController(initialPage: 1);
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -29,7 +30,6 @@ class _HomePageState extends State<HomePage> {
   CollectionController collectionController = Get.put(CollectionController());
   ExhibitionsController exhibitionsController =
   Get.put(ExhibitionsController());
-  PageController pageController = PageController(initialPage: 1);
   int numBasket = 0;
   List<dynamic> collection = [];
   List<dynamic> afisha = [];
@@ -344,7 +344,7 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       bottomNavigationBar: SizedBox(
-        height: Dimensions.height92,
+        height: 60,
         child: BottomNavigationBar(
           currentIndex: selectedPageIndex,
           onTap: (int index) {

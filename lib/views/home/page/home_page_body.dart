@@ -7,6 +7,7 @@ import '../../../utils/dimensions.dart';
 import '../../../widget/app_Icon.dart';
 import '../../../widget/big-text-widget.dart';
 import 'collections_page_body.dart';
+import 'home-page.dart';
 
 class HomePageBody extends StatefulWidget {
   const HomePageBody({Key? key}) : super(key: key);
@@ -34,7 +35,7 @@ class _HomePageBodyState extends State<HomePageBody> {
                   ),
                   GestureDetector(
                     onTap: (){
-
+                        pageController.jumpToPage(3);
                     },
                     child: AppIcon(
                       icon: Icons.arrow_forward,
@@ -47,7 +48,6 @@ class _HomePageBodyState extends State<HomePageBody> {
               ),
               SizedBox(height: Dimensions.height20,),
               const PosterPageBody(),
-              SizedBox(height: Dimensions.height20,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -56,11 +56,16 @@ class _HomePageBodyState extends State<HomePageBody> {
                     size: Dimensions.font20,
                     fontWeight: FontWeight.w800,
                   ),
-                  AppIcon(
-                    icon: Icons.arrow_forward,
-                    size: Dimensions.font32,
-                    backgroundColor: const Color(0xFFE1E3E4),
-                    iconSize: Dimensions.iconSize25,
+                  GestureDetector(
+                    onTap: (){
+                      pageController.jumpToPage(5);
+                    },
+                    child: AppIcon(
+                      icon: Icons.arrow_forward,
+                      size: Dimensions.font32,
+                      backgroundColor: const Color(0xFFE1E3E4),
+                      iconSize: Dimensions.iconSize25,
+                    ),
                   )
                 ],
               ),
@@ -75,11 +80,17 @@ class _HomePageBodyState extends State<HomePageBody> {
                     size: Dimensions.font20,
                     fontWeight: FontWeight.w800,
                   ),
-                  AppIcon(
-                    icon: Icons.arrow_forward,
-                    size: Dimensions.font32,
-                    backgroundColor: const Color(0xFFE1E3E4),
-                    iconSize: Dimensions.iconSize25,
+                  InkWell(
+                    onTap: (){
+                      pageController.jumpToPage(4);
+                    },
+                    child: AppIcon(
+                      icon: Icons.arrow_forward,
+                      size: Dimensions.font32,
+                      backgroundColor: const Color(0xFFE1E3E4),
+                      iconSize: Dimensions.iconSize25,
+
+                    ),
                   )
                 ],
               ),
@@ -94,11 +105,16 @@ class _HomePageBodyState extends State<HomePageBody> {
                     size: Dimensions.font20,
                     fontWeight: FontWeight.w800,
                   ),
-                  AppIcon(
-                    icon: Icons.arrow_forward,
-                    size: Dimensions.font32,
-                    backgroundColor: const Color(0xFFE1E3E4),
-                    iconSize: Dimensions.iconSize25,
+                  GestureDetector(
+                    onTap: (){
+                      pageController.jumpToPage(6);
+                    },
+                    child: AppIcon(
+                      icon: Icons.arrow_forward,
+                      size: Dimensions.font32,
+                      backgroundColor: const Color(0xFFE1E3E4),
+                      iconSize: Dimensions.iconSize25,
+                    ),
                   )
                 ],
               ),

@@ -36,7 +36,7 @@ class _PosterPageBodyState extends State<PosterPageBody> {
             return const Center(child: CircularProgressIndicator());
           }
           return SizedBox(
-              height: 280,
+              height: 250,
               child: ListView.builder(
                   itemCount: dataController.afishaList.length >= 10
                       ? 20
@@ -60,61 +60,72 @@ class _PosterPageBodyState extends State<PosterPageBody> {
                       afishaList: afishaItems,
                     )));
       },
-      child: SizedBox(
+      child: Container(
         height: Dimensions.height220,
-        child: Stack(
+        padding: const EdgeInsets.all(5),
+        child: Column(
           children: [
             Stack(
-              clipBehavior: Clip.antiAlias,
               children: [
-                GestureDetector(
-                  child: Container(
-                    width: Dimensions.width172 + 5,
-                    height: 218,
-                    alignment: Alignment.topLeft,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(Dimensions.radius10),
-                        topRight: Radius.circular(Dimensions.radius10),
-                      ),
-                    ),
-                    child: Image.network(
-                      decodeToLatin(afishaItems.img!),
-                      fit: BoxFit.cover,
-                      width: double.infinity,
-                      height: double.infinity,
-                      headers: const {
-                        'Cookie': 'bpc=06784db3c02ba52d5d279ccb5e944ce6',
-                      },
-                      loadingBuilder: (BuildContext context, Widget child,
-                          ImageChunkEvent? loadingProgress) {
-                        if (loadingProgress == null) {
-                          return child;
-                        }
-                        return Shimmer.fromColors(
-                          baseColor: Colors.grey.withOpacity(0.8),
-                          highlightColor: Colors.grey.withOpacity(0.3),
-                          child: Container(
-                            width: Dimensions.width172 + 5,
-                            decoration: BoxDecoration(
-                              color: Colors.grey[300],
+                SizedBox(
+                  width:
+                  Dimensions.width172 + 5,
+                  height: 150,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10), // Ima
+                    child: SizedBox.fromSize(
+                      size: const Size.fromRadius(20),
+                      // Image radius
+                      child: Image.network(
+                        decodeToLatin(afishaItems.img!),
+                        fit: BoxFit.cover,
+                        width: double.infinity,
+                        height: double.infinity,
+                        headers: const {
+                          'Cookie': 'bpc=06784db3c02ba52d5d279ccb5e944ce6',
+                        },
+                        loadingBuilder: (BuildContext context, Widget child,
+                            ImageChunkEvent? loadingProgress) {
+                          if (loadingProgress == null) {
+                            return child;
+                          }
+                          return Shimmer.fromColors(
+                            baseColor: Colors.grey.withOpacity(0.8),
+                            highlightColor: Colors.grey.withOpacity(0.3),
+                            child: Container(
+                              width: Dimensions.width172 + 5,
+                              decoration: BoxDecoration(
+                                  color: Colors.grey[300],
+                                  borderRadius: BorderRadius.all(Radius.circular(Dimensions.radius10))
+                              ),
                             ),
-                          ),
-                        );
-                      },
-                      errorBuilder: (BuildContext context, Object exception,
-                          StackTrace? stackTrace) {
-                        return Image.asset('assets/images/picture.png');
-                      },
+                          );
+                        },
+                        errorBuilder: (BuildContext context, Object exception,
+                            StackTrace? stackTrace) {
+                          return Image.asset('assets/images/picture.png');
+                        },
+                      ),
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 8.0),
-                  child: Image.asset(
-                    'assets/images/top_overlay.png',
-                    width: Dimensions.width172 + 5,
-                    color: Colors.black,
+                SizedBox(
+                  width:
+                  Dimensions.width172 + 5,
+                  height: 150,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10), // Ima
+                    child: SizedBox.fromSize(
+                      size: const Size.fromRadius(20),
+                      // Image radius
+                      child: Image.asset(
+                        'assets/images/top_overlay.png',
+                        color: Colors.black,
+                        width:
+                        Dimensions.width172 + 5,
+                        fit: BoxFit.fill,
+                      ),
+                    ),
                   ),
                 ),
                 Padding(
@@ -150,9 +161,6 @@ class _PosterPageBodyState extends State<PosterPageBody> {
               child: Container(
                 height: Dimensions.height75,
                 width: Dimensions.width172 + 5,
-                margin: EdgeInsets.only(
-                  right: Dimensions.width10,
-                ),
                 padding: const EdgeInsets.all(5),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(

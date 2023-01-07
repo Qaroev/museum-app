@@ -23,18 +23,19 @@ class PosterEventsOutput extends StatefulWidget {
 
 class _PosterEventsOutputState extends State<PosterEventsOutput> {
   AfishaController dataController = Get.find();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF3F8F9),
       body: CustomScrollView(scrollDirection: Axis.vertical, slivers: [
         SliverAppBar(
-          toolbarHeight: Dimensions.height80,
+          expandedHeight: 270.0,
+          toolbarHeight: Dimensions.height60,
           toolbarTextStyle: const TextStyle(color: Colors.black),
           automaticallyImplyLeading: false,
           primary: true,
           pinned: true,
-          expandedHeight: Dimensions.height270,
           backgroundColor: Colors.white,
           leading: Row(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -46,7 +47,7 @@ class _PosterEventsOutputState extends State<PosterEventsOutput> {
                 decoration: BoxDecoration(
                     color: Colors.white.withOpacity(0.24),
                     borderRadius: BorderRadius.circular(Dimensions.radius10)),
-                margin: EdgeInsets.only(bottom: Dimensions.height40),
+                margin: EdgeInsets.only(bottom: Dimensions.height20),
                 child: IconButton(
                     onPressed: () {
                       Navigator.pop(context);
@@ -56,13 +57,13 @@ class _PosterEventsOutputState extends State<PosterEventsOutput> {
                       color: Colors.white,
                       size: Dimensions.iconSize15,
                     )),
-              )
+              ),
             ],
           ),
           actions: [
             Container(
               margin: EdgeInsets.only(
-                  right: Dimensions.width10, bottom: Dimensions.height40),
+                  right: Dimensions.width10, bottom: Dimensions.height20),
               child: Row(
                 children: [
                   Container(
@@ -162,12 +163,13 @@ class _PosterEventsOutputState extends State<PosterEventsOutput> {
                         Stack(
                           children: [
                             Image.network(
+                              height: 320,
                               decodeToLatin(widget.afishaList!.img!),
                               fit: BoxFit.fill,
                               headers: const {
-                                'Cookie': 'bpc=06784db3c02ba52d5d279ccb5e944ce6',
+                                'Cookie':
+                                    'bpc=06784db3c02ba52d5d279ccb5e944ce6',
                               },
-                              height: Dimensions.height300,
                               width: double.infinity,
                               loadingBuilder: (BuildContext context,
                                   Widget child,
@@ -532,116 +534,171 @@ class _PosterEventsOutputState extends State<PosterEventsOutput> {
                   GetBuilder<AfishaController>(
                       init: AfishaController(),
                       builder: (evt) {
-
                         if (evt.isDataLoading) {
-                          return const Center(child: CircularProgressIndicator());
+                          return const Center(
+                              child: CircularProgressIndicator());
                         }
                         if (evt.isDataLoading) {
-                          return const Center(child: CircularProgressIndicator());
+                          return const Center(
+                              child: CircularProgressIndicator());
                         }
                         return SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
                           child: Row(
                             children: List.generate(
-                                dataController
-                                    .afishaList.length >=
-                                    10
+                                dataController.afishaList.length >= 10
                                     ? 10
-                                    : dataController
-                                    .afishaList.length,
-                                    (index) => GestureDetector(
+                                    : dataController.afishaList.length,
+                                (index) => GestureDetector(
                                       onTap: () {
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                                builder: (context) => PosterEventsOutput(
-                                                  afishaList: dataController
-                                                      .afishaList[index],
-                                                )));
+                                                builder: (context) =>
+                                                    PosterEventsOutput(
+                                                      afishaList: dataController
+                                                          .afishaList[index],
+                                                    )));
                                       },
-                                      child: SizedBox(
-                                        height: Dimensions.height220,
-                                        child: Stack(
+                                      child: Container(
+                                        height: Dimensions.height270,
+                                        padding: const EdgeInsets.all(5),
+                                        child: Column(
                                           children: [
                                             Stack(
-                                              clipBehavior: Clip.antiAlias,
                                               children: [
-                                                GestureDetector(
-                                                  child: Container(
-                                                    width: Dimensions.width172 + 5,
-                                                    height: 218,
-                                                    alignment: Alignment.topLeft,
-                                                    decoration: BoxDecoration(
-                                                      borderRadius: BorderRadius.only(
-                                                        topLeft: Radius.circular(Dimensions.radius10),
-                                                        topRight: Radius.circular(Dimensions.radius10),
+                                                SizedBox(
+                                                  width:
+                                                  Dimensions.width172 + 5,
+                                                  height: 150,
+                                                  child: ClipRRect(
+                                                    borderRadius: BorderRadius.circular(10), // Ima
+                                                    child: SizedBox.fromSize(
+                                                      size: const Size.fromRadius(20),
+                                                      // Image radius
+                                                      child: Image.network(
+                                                        decodeToLatin(
+                                                            dataController
+                                                                .afishaList[index]
+                                                                .img!),
+                                                        fit: BoxFit.cover,
+                                                        width: double.infinity,
+                                                        height: double.infinity,
+                                                        headers: const {
+                                                          'Cookie':
+                                                          'bpc=06784db3c02ba52d5d279ccb5e944ce6',
+                                                        },
+                                                        loadingBuilder: (BuildContext
+                                                        context,
+                                                            Widget child,
+                                                            ImageChunkEvent?
+                                                            loadingProgress) {
+                                                          if (loadingProgress ==
+                                                              null) {
+                                                            return child;
+                                                          }
+                                                          return Shimmer
+                                                              .fromColors(
+                                                            baseColor: Colors.grey
+                                                                .withOpacity(0.8),
+                                                            highlightColor: Colors
+                                                                .grey
+                                                                .withOpacity(0.3),
+                                                            child: Container(
+                                                              width: Dimensions
+                                                                  .width172 +
+                                                                  5,
+                                                              decoration: BoxDecoration(
+                                                                  color: Colors
+                                                                      .grey[300],
+                                                                  borderRadius: BorderRadius.all(
+                                                                      Radius.circular(
+                                                                          Dimensions
+                                                                              .radius10))),
+                                                            ),
+                                                          );
+                                                        },
+                                                        errorBuilder:
+                                                            (BuildContext context,
+                                                            Object exception,
+                                                            StackTrace?
+                                                            stackTrace) {
+                                                          return Image.asset(
+                                                              'assets/images/picture.png');
+                                                        },
                                                       ),
                                                     ),
-                                                    child: Image.network(
-                                                      decodeToLatin(dataController
-                                                          .afishaList[index].img!),
-                                                      fit: BoxFit.cover,
-                                                      width: double.infinity,
-                                                      height: double.infinity,
-                                                      headers: const {
-                                                        'Cookie': 'bpc=06784db3c02ba52d5d279ccb5e944ce6',
-                                                      },
-                                                      loadingBuilder: (BuildContext context, Widget child,
-                                                          ImageChunkEvent? loadingProgress) {
-                                                        if (loadingProgress == null) {
-                                                          return child;
-                                                        }
-                                                        return Shimmer.fromColors(
-                                                          baseColor: Colors.grey.withOpacity(0.8),
-                                                          highlightColor: Colors.grey.withOpacity(0.3),
-                                                          child: Container(
-                                                            width: Dimensions.width172 + 5,
-                                                            decoration: BoxDecoration(
-                                                              color: Colors.grey[300],
-                                                            ),
-                                                          ),
-                                                        );
-                                                      },
-                                                      errorBuilder: (BuildContext context, Object exception,
-                                                          StackTrace? stackTrace) {
-                                                        return Image.asset('assets/images/picture.png');
-                                                      },
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  width:
+                                                  Dimensions.width172 + 5,
+                                                  height: 150,
+                                                  child: ClipRRect(
+                                                    borderRadius: BorderRadius.circular(10), // Ima
+                                                    child: SizedBox.fromSize(
+                                                      size: const Size.fromRadius(20),
+                                                      // Image radius
+                                                      child: Image.asset(
+                                                        'assets/images/top_overlay.png',
+                                                        color: Colors.black,
+                                                        width:
+                                                        Dimensions.width172 + 5,
+                                                        fit: BoxFit.fill,
+                                                      ),
                                                     ),
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding: const EdgeInsets.only(bottom: 8.0),
-                                                  child: Image.asset(
-                                                    'assets/images/top_overlay.png',
-                                                    width: Dimensions.width172 + 5,
-                                                    color: Colors.black,
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding: const EdgeInsets.all(8.0),
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
                                                   child: Row(
-                                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
                                                     children: [
                                                       dataController
-                                                          .afishaList[index].pushkin_card == true
+                                                                  .afishaList[
+                                                                      index]
+                                                                  .pushkin_card ==
+                                                              true
                                                           ? SizedBox(
-                                                        width: 70,
-                                                        height: Dimensions.height50,
-                                                        child: SmallTextWidget(
-                                                          text: "Пушкинская карта",
-                                                          size: Dimensions.font14,
-                                                          color: Colors.white.withOpacity(0.8),
-                                                          overflow: TextOverflow.clip,
-                                                        ),
-                                                      )
+                                                              width: 70,
+                                                              height: Dimensions
+                                                                  .height50,
+                                                              child:
+                                                                  SmallTextWidget(
+                                                                text:
+                                                                    "Пушкинская карта",
+                                                                size: Dimensions
+                                                                    .font14,
+                                                                color: Colors
+                                                                    .white
+                                                                    .withOpacity(
+                                                                        0.8),
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .clip,
+                                                              ),
+                                                            )
                                                           : Container(),
                                                       SmallTextWidget(
-                                                          text: decodeToLatin(dataController
-                                                              .afishaList[index].type_afisha['name']),
-                                                          size: Dimensions.font14,
-                                                          overflow: TextOverflow.ellipsis,
-                                                          color: Colors.white.withOpacity(0.8)),
+                                                          text: decodeToLatin(
+                                                              dataController
+                                                                      .afishaList[
+                                                                          index]
+                                                                      .type_afisha[
+                                                                  'name']),
+                                                          size:
+                                                              Dimensions.font14,
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                          color: Colors.white
+                                                              .withOpacity(
+                                                                  0.8)),
                                                     ],
                                                   ),
                                                 ),
@@ -652,37 +709,52 @@ class _PosterEventsOutputState extends State<PosterEventsOutput> {
                                               child: Container(
                                                 height: Dimensions.height75,
                                                 width: Dimensions.width172 + 5,
-                                                margin: EdgeInsets.only(
-                                                  right: Dimensions.width10,
-                                                ),
-                                                padding: const EdgeInsets.all(5),
+                                                padding:
+                                                    const EdgeInsets.all(5),
                                                 decoration: BoxDecoration(
                                                   borderRadius: BorderRadius.only(
-                                                      bottomRight: Radius.circular(Dimensions.radius10),
-                                                      bottomLeft: Radius.circular(Dimensions.radius10)),
+                                                      bottomRight:
+                                                          Radius.circular(
+                                                              Dimensions
+                                                                  .radius10),
+                                                      bottomLeft:
+                                                          Radius.circular(
+                                                              Dimensions
+                                                                  .radius10)),
                                                   color: Colors.white,
                                                 ),
                                                 child: Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
                                                   children: [
                                                     BigTextWidget(
-                                                      text: getNameMonth(dataController
-                                                          .afishaList[index]),
+                                                      text: getNameMonth(
+                                                          dataController
+                                                                  .afishaList[
+                                                              index]),
                                                       size: Dimensions.font12,
-                                                      color: AppColors.textBigColor,
-                                                      fontWeight: FontWeight.w300,
+                                                      color: AppColors
+                                                          .textBigColor,
+                                                      fontWeight:
+                                                          FontWeight.w300,
                                                     ),
                                                     const Spacer(),
                                                     Text(
-                                                      decodeToLatin(dataController
-                                                          .afishaList[index].name!),
+                                                      decodeToLatin(
+                                                          dataController
+                                                              .afishaList[index]
+                                                              .name!),
                                                       maxLines: 2,
                                                       style: const TextStyle(
                                                         color: Colors.black,
                                                         fontSize: 12,
-                                                        overflow: TextOverflow.ellipsis,
-                                                        fontWeight: FontWeight.w500,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        fontWeight:
+                                                            FontWeight.w500,
                                                       ),
                                                     ),
                                                     const Spacer()
@@ -705,26 +777,22 @@ class _PosterEventsOutputState extends State<PosterEventsOutput> {
         )
       ]),
       bottomNavigationBar: Container(
-        height: Dimensions.height87,
-        decoration: BoxDecoration(color: Colors.white),
-        child: Container(
-          alignment: Alignment.center,
-          child: ElevatedButton(
-            child: Text(
-              "Купить билет",
-              style:
-                  TextStyle(color: Colors.white, fontSize: Dimensions.font13),
-            ),
-            onPressed: () => print("pressed"),
-            style: ElevatedButton.styleFrom(
-              padding: EdgeInsets.symmetric(horizontal: 80),
-              elevation: 1,
-              primary: const Color(0xFF2F3A4B),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(14.0),
-              ),
-            ),
-          ),
+        width: 120,
+        height: 43,
+        margin: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+        decoration: const BoxDecoration(
+            color: Color(0xFF2F3A4B),
+            borderRadius: BorderRadius.all(Radius.circular(15))),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(),
+            const Text('Купить билет',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500)),
+          ],
         ),
       ),
     );
