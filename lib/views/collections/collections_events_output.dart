@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:museum_resource_center/utils/dimensions.dart';
 import 'package:museum_resource_center/utils/utils.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../controller/collection_controller.dart';
 import '../../models/collection_model.dart';
 import '../../utils/app_colors.dart';
 import '../../widget/big-text-widget.dart';
@@ -19,6 +21,8 @@ class CollectionsEventsOutput extends StatefulWidget {
 }
 
 class _CollectionsEventsOutputState extends State<CollectionsEventsOutput> {
+  CollectionController collectionController = Get.find();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -332,45 +336,155 @@ class _CollectionsEventsOutputState extends State<CollectionsEventsOutput> {
                     SizedBox(
                       height: Dimensions.height10,
                     ),
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: List.generate(
-                            5,
-                            (index) => Container(
-                                  width: Dimensions.width152,
-                                  height: Dimensions.height158,
-                                  margin: EdgeInsets.only(
-                                      right: Dimensions.width10),
-                                  padding: const EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(
-                                          Dimensions.radius20),
-                                      image: const DecorationImage(
-                                          image: AssetImage(
-                                              'assets/images/image2-poster.png'))),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      SmallTextWidget(
-                                        text: 'c 15 по 31 марта',
-                                        size: Dimensions.font12,
-                                        color: Colors.white,
-                                      ),
-                                      BigTextWidget(
-                                        text:
-                                            'Декоративно-прикладное искусство',
-                                        size: Dimensions.font13,
-                                        fontWeight: FontWeight.w700,
-                                        color: Colors.white,
-                                      )
-                                    ],
-                                  ),
-                                )),
-                      ),
+                    Obx(
+                      () => collectionController.isDataLoading.value
+                          ? const Center(child: CircularProgressIndicator())
+                          : SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                children: List.generate(
+                                    collectionController.collectionItems !=
+                                                null &&
+                                            collectionController
+                                                    .collectionItems!.length >=
+                                                10
+                                        ? 10
+                                        : collectionController
+                                            .collectionItems!.length,
+                                    (index) => InkWell(
+                                          onTap: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        CollectionsEventsOutput(
+                                                          collection:
+                                                              collectionController
+                                                                      .collectionItems![
+                                                                  index],
+                                                        )));
+                                          },
+                                          child: Stack(
+                                            alignment: Alignment.bottomCenter,
+                                            clipBehavior: Clip.none,
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    right: 15.0),
+                                                child: SizedBox(
+                                                  width: 200,
+                                                  height: 200,
+                                                  child: ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10), // Ima
+                                                    child: SizedBox.fromSize(
+                                                      size:
+                                                          const Size.fromRadius(
+                                                              20),
+                                                      // Image radius
+                                                      child: Image.network(
+                                                        decodeToLatin(
+                                                            collectionController
+                                                                .collectionItems![
+                                                                    index]
+                                                                .img!),
+                                                        fit: BoxFit.cover,
+                                                        headers: const {
+                                                          'Cookie':
+                                                              'bpc=06784db3c02ba52d5d279ccb5e944ce6',
+                                                        },
+                                                        height: Dimensions
+                                                            .height158,
+                                                        loadingBuilder:
+                                                            (BuildContext
+                                                                    context,
+                                                                Widget child,
+                                                                ImageChunkEvent?
+                                                                    loadingProgress) {
+                                                          if (loadingProgress ==
+                                                              null) {
+                                                            return child;
+                                                          }
+                                                          return Shimmer
+                                                              .fromColors(
+                                                            baseColor: Colors
+                                                                .grey
+                                                                .withOpacity(
+                                                                    0.8),
+                                                            highlightColor:
+                                                                Colors.grey
+                                                                    .withOpacity(
+                                                                        0.3),
+                                                            child: Container(
+                                                              width: Dimensions
+                                                                  .width152,
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color: Colors
+                                                                    .grey[300],
+                                                              ),
+                                                            ),
+                                                          );
+                                                        },
+                                                        errorBuilder:
+                                                            (BuildContext
+                                                                    context,
+                                                                Object
+                                                                    exception,
+                                                                StackTrace?
+                                                                    stackTrace) {
+                                                          return Image.asset(
+                                                              'assets/images/picture.png');
+                                                        },
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              Stack(
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            right: 15.0,
+                                                            bottom: 1),
+                                                    child: Image.asset(
+                                                      'assets/images/bottom_overlay.png',
+                                                      width: 200,
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    width: 200,
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 10,
+                                                            bottom: 10,
+                                                            right: 10),
+                                                    child: Text(
+                                                      decodeToLatin(
+                                                          collectionController
+                                                              .collectionItems![
+                                                                  index]
+                                                              .name!),
+                                                      maxLines: 3,
+                                                      style: const TextStyle(
+                                                          color: Colors.white,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          fontSize: 18,
+                                                          overflow: TextOverflow
+                                                              .ellipsis),
+                                                    ),
+                                                  ),
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                        )),
+                              ),
+                            ),
                     ),
                     SizedBox(
                       height: Dimensions.height100,

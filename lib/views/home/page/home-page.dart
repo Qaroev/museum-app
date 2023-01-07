@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:museum_resource_center/utils/utils.dart';
 import 'package:museum_resource_center/widget/big-text-widget.dart';
 
+import '../../../controller/afisha_controller.dart';
+import '../../../controller/collection_controller.dart';
+import '../../../controller/exhibitions_controller.dart';
 import '../../../main.dart';
 import '../../../utils/dimensions.dart';
 import '../../collections/collections_events.dart';
@@ -20,13 +25,32 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  AfishaController afishaController = Get.put(AfishaController());
+  CollectionController collectionController = Get.put(CollectionController());
+  ExhibitionsController exhibitionsController =
+  Get.put(ExhibitionsController());
   PageController pageController = PageController(initialPage: 1);
+  int numBasket = 0;
+  List<dynamic> collection = [];
+  List<dynamic> afisha = [];
+  List<dynamic> posters = [];
+  List<dynamic> souveners = [];
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+    addToBasket.stream.listen((event) {
+      if (event != null) {
+        numBasket = event;
+        setState(() {});
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     Dimensions();
-    final GlobalKey<ScaffoldState> scaffoldKey =
-         GlobalKey<ScaffoldState>();
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: const Color(0xFFF3F8F9),
@@ -44,35 +68,74 @@ class _HomePageState extends State<HomePage> {
           },
           icon: Image.asset("assets/images/menu.png"),
         ),
-        title: TextField(
-          decoration: InputDecoration(
-            suffixIcon: Icon(
-              Icons.search,
-              color: Colors.black,
-              size: Dimensions.iconSize32,
-            ),
-            hintText: "Поиск события...",
-            hintStyle: TextStyle(color: Color(0xFF424242).withOpacity(0.6)),
-            fillColor: const Color(0xFFE1E3E4),
-            filled: true,
-            contentPadding: EdgeInsets.fromLTRB(Dimensions.width20,
-                Dimensions.height10, Dimensions.width20, Dimensions.height10),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(Dimensions.radius15),
-              borderSide: const BorderSide(color: Colors.white),
-            ),
-            enabledBorder: OutlineInputBorder(
+        title: GestureDetector(
+          onTap: () {
+            pageController.jumpToPage(0);
+          },
+          child: TextField(
+            onTap: () {
+              pageController.jumpToPage(0);
+            },
+            onChanged: (text) {
+              searchItems(text);
+            },
+            decoration: InputDecoration(
+              suffixIcon: Icon(
+                Icons.search,
+                color: Colors.black,
+                size: Dimensions.iconSize32,
+              ),
+              hintText: "Поиск события...",
+              hintStyle: TextStyle(color: Color(0xFF424242).withOpacity(0.6)),
+              fillColor: const Color(0xFFE1E3E4),
+              filled: true,
+              contentPadding: EdgeInsets.fromLTRB(Dimensions.width20,
+                  Dimensions.height10, Dimensions.width20, Dimensions.height10),
+              focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(Dimensions.radius15),
-                borderSide: const BorderSide(color: Colors.white)),
+                borderSide: const BorderSide(color: Colors.white),
+              ),
+              enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(Dimensions.radius15),
+                  borderSide: const BorderSide(color: Colors.white)),
+            ),
           ),
         ),
         actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.shopping_cart_outlined,
-              color: Colors.black,
-            ),
+          Stack(
+            children: [
+              IconButton(
+                onPressed: () {
+                  pageController.jumpToPage(2);
+                },
+                icon: const Icon(
+                  Icons.shopping_cart_outlined,
+                  color: Colors.black,
+                ),
+              ),
+              numBasket == 0
+                  ? Container()
+                  : Positioned(
+                      top: 10,
+                      left: 10,
+                      child: Container(
+                        width: 14,
+                        height: 14,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                            color: Color(0xFF2F2E41),
+                            borderRadius: BorderRadius.circular(20)),
+                        child: Text(
+                          '$numBasket',
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    )
+            ],
           )
         ],
       ),
@@ -94,11 +157,11 @@ class _HomePageState extends State<HomePage> {
                 colorBlendMode: BlendMode.modulate,
               )),
           Container(
-            decoration: BoxDecoration(color: Colors.transparent),
+            decoration: const BoxDecoration(color: Colors.transparent),
             child: ListView(
               children: [
                 DrawerHeader(
-                  decoration: BoxDecoration(color: Colors.transparent),
+                  decoration: const BoxDecoration(color: Colors.transparent),
                   child: Container(
                       alignment: Alignment.topCenter,
                       child: Image.asset("assets/images/drawer3.png")),
@@ -265,8 +328,12 @@ class _HomePageState extends State<HomePage> {
       body: PageView(
         physics: const NeverScrollableScrollPhysics(),
         controller: pageController,
-        children: const [
-          SearchPageBody(),
+        children: [
+          SearchPageBody(
+            afisha: afisha,
+            collection: collection,
+            posters: posters,
+          ),
           HomePageBody(),
           BasketPageBody(),
           PosterEvents(),
@@ -281,6 +348,7 @@ class _HomePageState extends State<HomePage> {
         child: BottomNavigationBar(
           currentIndex: selectedPageIndex,
           onTap: (int index) {
+            pageController.jumpToPage(index);
             setState(() {
               selectedPageIndex = index;
             });
@@ -309,5 +377,43 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+
+  searchItems(String text) {
+    if (text == '') {
+      afisha = [];
+      collection = [];
+      posters = [];
+      souveners = [];
+      setState(() {});
+
+      return;
+    }
+    afisha = [];
+    collection = [];
+    posters = [];
+    souveners = [];
+    for (var element in afishaController.afishaList) {
+      if (decodeToLatin(element.name ?? '')
+          .toLowerCase()
+          .contains(text.toLowerCase())) {
+        afisha.add(element);
+      }
+    }
+    for (var element in collectionController.collectionItems!) {
+      if (decodeToLatin(element.name ?? '')
+          .toLowerCase()
+          .contains(text.toLowerCase())) {
+        collection.add(element);
+      }
+    }
+    for (var element in exhibitionsController.exhibitions!) {
+      if (element.name!
+          .toLowerCase()
+          .contains(text.toLowerCase())) {
+        posters.add(element);
+      }
+    }
+    setState(() {});
   }
 }

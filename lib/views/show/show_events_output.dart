@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:museum_resource_center/models/exhibitions.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../controller/exhibitions_controller.dart';
 import '../../utils/dimensions.dart';
 import '../../widget/big-text-widget.dart';
 import '../../widget/small-text-widget.dart';
@@ -16,6 +18,7 @@ class ShowEventsOutput extends StatefulWidget {
 }
 
 class _ShowEventsOutputState extends State<ShowEventsOutput> {
+  ExhibitionsController exhibitionsController = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -208,7 +211,7 @@ class _ShowEventsOutputState extends State<ShowEventsOutput> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 BigTextWidget(
-                                  text: "${widget.exhibitionsModel!.name??''}",
+                                  text: widget.exhibitionsModel!.name??'',
                                   size: Dimensions.font15,
                                   color: Colors.white,
                                   fontWeight: FontWeight.w500,
@@ -217,7 +220,7 @@ class _ShowEventsOutputState extends State<ShowEventsOutput> {
                                   height: Dimensions.height10,
                                 ),
                                 BigTextWidget(
-                                  text: "${widget.exhibitionsModel!.type_afisha!.name??''}",
+                                  text: widget.exhibitionsModel!.type_afisha!.name??'',
                                   size: Dimensions.font20,
                                   color: const Color(0xFFFFFFFF),
                                   fontWeight: FontWeight.w800,
@@ -252,76 +255,106 @@ class _ShowEventsOutputState extends State<ShowEventsOutput> {
                     SizedBox(
                       height: Dimensions.height10,
                     ),
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: List.generate(
-                            5,
-                            (index) => SizedBox(
-                                  height: Dimensions.height220,
-                                  child: Stack(
-                                    //alignment: AlignmentDirectional.bottomCenter,
-                                    children: [
-                                      GestureDetector(
-                                        child: Container(
-                                          width: Dimensions.width172,
-                                          height: Dimensions.height208,
-                                          alignment: Alignment.topRight,
-                                          margin: EdgeInsets.only(
-                                              right: Dimensions.width10),
-                                          padding: const EdgeInsets.all(10),
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                      Dimensions.radius10),
-                                              image: const DecorationImage(
-                                                  image: AssetImage(
-                                                    'assets/images/image1-home.png',
+                    GetBuilder<ExhibitionsController>(
+                        init: ExhibitionsController(),
+                        builder: (evt) {
+                          if (evt.isDataLoading.value) {
+                            return const Center(child: CircularProgressIndicator());
+                          }
+                          return SizedBox(
+                              height: 280,
+                              child: ListView.builder(
+                                  itemCount: evt.exhibitions!.length >= 10
+                                      ? 10
+                                      : evt.exhibitions!.length,
+                                  scrollDirection: Axis.horizontal,
+                                  itemBuilder: (context, index) {
+                                    return InkWell(
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) => ShowEventsOutput(
+                                                  exhibitionsModel: evt.exhibitions![index],
+                                                )));
+                                      },
+                                      child: Container(
+                                        height: Dimensions.height220,
+                                        padding: const EdgeInsets.only(left: 10),
+                                        child: Stack(
+                                          alignment: AlignmentDirectional.bottomCenter,
+                                          children: [
+                                            SizedBox(
+                                              width: Dimensions.width172,
+                                              height: Dimensions.height208,
+                                              child: ClipRRect(
+                                                borderRadius: BorderRadius.circular(10), // Ima
+                                                child: SizedBox.fromSize(
+                                                  size: const Size.fromRadius(20),
+                                                  // Image radius
+                                                  child: Image.network(
+                                                    evt.exhibitions![index].img!,
+                                                    fit: BoxFit.cover,
+                                                    headers: const {
+                                                      'Cookie': 'bpc=06784db3c02ba52d5d279ccb5e944ce6',
+                                                    },
+                                                    height: Dimensions.height158,
+                                                    loadingBuilder: (BuildContext context, Widget child,
+                                                        ImageChunkEvent? loadingProgress) {
+                                                      if (loadingProgress == null) {
+                                                        return child;
+                                                      }
+                                                      return Shimmer.fromColors(
+                                                        baseColor: Colors.grey.withOpacity(0.8),
+                                                        highlightColor: Colors.grey.withOpacity(0.3),
+                                                        child: Container(
+                                                          width: Dimensions.width152,
+                                                          decoration: BoxDecoration(
+                                                            color: Colors.grey[300],
+                                                          ),
+                                                        ),
+                                                      );
+                                                    },
+                                                    errorBuilder: (BuildContext context, Object exception,
+                                                        StackTrace? stackTrace) {
+                                                      return Image.asset('assets/images/picture.png');
+                                                    },
                                                   ),
-                                                  fit: BoxFit.cover)),
-                                          child: SmallTextWidget(
-                                              text: "Постоянные",
-                                              size: Dimensions.font11,
-                                              color: Colors.white
-                                                  .withOpacity(0.8)),
+                                                ),
+                                              ),
+                                            ),
+                                            Align(
+                                              alignment: Alignment.bottomCenter,
+                                              child: Container(
+                                                  height: Dimensions.height55,
+                                                  width: Dimensions.width172 + 5,
+                                                  padding: const EdgeInsets.all(10),
+                                                  decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius.only(
+                                                        topLeft: Radius.circular(Dimensions.radius10),
+                                                        topRight: Radius.circular(Dimensions.radius10),
+                                                        bottomRight: Radius.circular(Dimensions.radius10),
+                                                        bottomLeft: Radius.circular(Dimensions.radius10)),
+                                                    color: Colors.white,
+
+                                                  ),
+                                                  child: Center(
+                                                    child: Text(
+                                                      evt.exhibitions![index].name ?? '',
+                                                      maxLines: 2,
+                                                      style: const TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 12,
+                                                          overflow: TextOverflow.ellipsis),
+                                                    ),
+                                                  )),
+                                            )
+                                          ],
                                         ),
                                       ),
-                                      Align(
-                                        alignment: Alignment.bottomCenter,
-                                        child: Container(
-                                            height: Dimensions.height55,
-                                            width: Dimensions.width172,
-                                            margin: EdgeInsets.only(
-                                              right: Dimensions.width10,
-                                            ),
-                                            padding: const EdgeInsets.all(5),
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.only(
-                                                  topLeft: Radius.circular(
-                                                      Dimensions.radius10),
-                                                  topRight: Radius.circular(
-                                                      Dimensions.radius10),
-                                                  bottomRight: Radius.circular(
-                                                      Dimensions.radius10),
-                                                  bottomLeft: Radius.circular(
-                                                      Dimensions.radius10)),
-                                              color: Colors.white,
-                                            ),
-                                            child: Center(
-                                              child: BigTextWidget(
-                                                text:
-                                                    "«Отечественная война 1812 года»",
-                                                size: Dimensions.font12,
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.w400,
-                                              ),
-                                            )),
-                                      )
-                                    ],
-                                  ),
-                                )),
-                      ),
-                    ),
+                                    );
+                                  }));
+                        }),
                     SizedBox(
                       height: Dimensions.height100,
                     ),

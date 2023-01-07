@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -12,7 +13,7 @@ void main() {
   runApp(const MyApp());
 }
 var selectedPageIndex = 1;
-
+StreamController<dynamic> addToBasket = StreamController<dynamic>.broadcast();
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
   static List<GetPage> routes = [

@@ -1,12 +1,16 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:museum_resource_center/utils/dimensions.dart';
 import 'package:museum_resource_center/utils/utils.dart';
 import 'package:museum_resource_center/widget/big-text-widget.dart';
 import 'package:museum_resource_center/widget/small-text-widget.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../controller/afisha_controller.dart';
 import '../../models/afish_model.dart';
+import '../../utils/app_colors.dart';
+import '../show/show_events_output.dart';
 
 class PosterEventsOutput extends StatefulWidget {
   final AfishaModel? afishaList;
@@ -18,6 +22,7 @@ class PosterEventsOutput extends StatefulWidget {
 }
 
 class _PosterEventsOutputState extends State<PosterEventsOutput> {
+  AfishaController dataController = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -524,44 +529,174 @@ class _PosterEventsOutputState extends State<PosterEventsOutput> {
                   SizedBox(
                     height: Dimensions.height10,
                   ),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: List.generate(
-                          5,
-                          (index) => Container(
-                                width: Dimensions.width152,
-                                height: Dimensions.height158,
-                                margin:
-                                    EdgeInsets.only(right: Dimensions.width10),
-                                padding: const EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(
-                                        Dimensions.radius20),
-                                    image: const DecorationImage(
-                                        image: AssetImage(
-                                            'assets/images/image2-poster.png'))),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    SmallTextWidget(
-                                      text: 'c 15 по 31 марта',
-                                      size: Dimensions.font12,
-                                      color: Colors.white,
-                                    ),
-                                    BigTextWidget(
-                                      text: 'Декоративно-прикладное искусство',
-                                      size: Dimensions.font13,
-                                      fontWeight: FontWeight.w700,
-                                      color: Colors.white,
-                                    )
-                                  ],
-                                ),
-                              )),
-                    ),
-                  ),
+                  GetBuilder<AfishaController>(
+                      init: AfishaController(),
+                      builder: (evt) {
+
+                        if (evt.isDataLoading) {
+                          return const Center(child: CircularProgressIndicator());
+                        }
+                        if (evt.isDataLoading) {
+                          return const Center(child: CircularProgressIndicator());
+                        }
+                        return SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: List.generate(
+                                dataController
+                                    .afishaList.length >=
+                                    10
+                                    ? 10
+                                    : dataController
+                                    .afishaList.length,
+                                    (index) => GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) => PosterEventsOutput(
+                                                  afishaList: dataController
+                                                      .afishaList[index],
+                                                )));
+                                      },
+                                      child: SizedBox(
+                                        height: Dimensions.height220,
+                                        child: Stack(
+                                          children: [
+                                            Stack(
+                                              clipBehavior: Clip.antiAlias,
+                                              children: [
+                                                GestureDetector(
+                                                  child: Container(
+                                                    width: Dimensions.width172 + 5,
+                                                    height: 218,
+                                                    alignment: Alignment.topLeft,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius.only(
+                                                        topLeft: Radius.circular(Dimensions.radius10),
+                                                        topRight: Radius.circular(Dimensions.radius10),
+                                                      ),
+                                                    ),
+                                                    child: Image.network(
+                                                      decodeToLatin(dataController
+                                                          .afishaList[index].img!),
+                                                      fit: BoxFit.cover,
+                                                      width: double.infinity,
+                                                      height: double.infinity,
+                                                      headers: const {
+                                                        'Cookie': 'bpc=06784db3c02ba52d5d279ccb5e944ce6',
+                                                      },
+                                                      loadingBuilder: (BuildContext context, Widget child,
+                                                          ImageChunkEvent? loadingProgress) {
+                                                        if (loadingProgress == null) {
+                                                          return child;
+                                                        }
+                                                        return Shimmer.fromColors(
+                                                          baseColor: Colors.grey.withOpacity(0.8),
+                                                          highlightColor: Colors.grey.withOpacity(0.3),
+                                                          child: Container(
+                                                            width: Dimensions.width172 + 5,
+                                                            decoration: BoxDecoration(
+                                                              color: Colors.grey[300],
+                                                            ),
+                                                          ),
+                                                        );
+                                                      },
+                                                      errorBuilder: (BuildContext context, Object exception,
+                                                          StackTrace? stackTrace) {
+                                                        return Image.asset('assets/images/picture.png');
+                                                      },
+                                                    ),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsets.only(bottom: 8.0),
+                                                  child: Image.asset(
+                                                    'assets/images/top_overlay.png',
+                                                    width: Dimensions.width172 + 5,
+                                                    color: Colors.black,
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsets.all(8.0),
+                                                  child: Row(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    children: [
+                                                      dataController
+                                                          .afishaList[index].pushkin_card == true
+                                                          ? SizedBox(
+                                                        width: 70,
+                                                        height: Dimensions.height50,
+                                                        child: SmallTextWidget(
+                                                          text: "Пушкинская карта",
+                                                          size: Dimensions.font14,
+                                                          color: Colors.white.withOpacity(0.8),
+                                                          overflow: TextOverflow.clip,
+                                                        ),
+                                                      )
+                                                          : Container(),
+                                                      SmallTextWidget(
+                                                          text: decodeToLatin(dataController
+                                                              .afishaList[index].type_afisha['name']),
+                                                          size: Dimensions.font14,
+                                                          overflow: TextOverflow.ellipsis,
+                                                          color: Colors.white.withOpacity(0.8)),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Align(
+                                              alignment: Alignment.bottomCenter,
+                                              child: Container(
+                                                height: Dimensions.height75,
+                                                width: Dimensions.width172 + 5,
+                                                margin: EdgeInsets.only(
+                                                  right: Dimensions.width10,
+                                                ),
+                                                padding: const EdgeInsets.all(5),
+                                                decoration: BoxDecoration(
+                                                  borderRadius: BorderRadius.only(
+                                                      bottomRight: Radius.circular(Dimensions.radius10),
+                                                      bottomLeft: Radius.circular(Dimensions.radius10)),
+                                                  color: Colors.white,
+                                                ),
+                                                child: Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  children: [
+                                                    BigTextWidget(
+                                                      text: getNameMonth(dataController
+                                                          .afishaList[index]),
+                                                      size: Dimensions.font12,
+                                                      color: AppColors.textBigColor,
+                                                      fontWeight: FontWeight.w300,
+                                                    ),
+                                                    const Spacer(),
+                                                    Text(
+                                                      decodeToLatin(dataController
+                                                          .afishaList[index].name!),
+                                                      maxLines: 2,
+                                                      style: const TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: 12,
+                                                        overflow: TextOverflow.ellipsis,
+                                                        fontWeight: FontWeight.w500,
+                                                      ),
+                                                    ),
+                                                    const Spacer()
+                                                  ],
+                                                ),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    )),
+                          ),
+                        );
+                      }),
                   SizedBox(
                     height: Dimensions.height30,
                   ),

@@ -48,3 +48,17 @@ getWeekName(String time) {
 
   return json.decode(dayData)['${dateTime.weekday}'];
 }
+
+String encode(List<dynamic> children) => json.encode(
+  children
+      .map<Map<String, dynamic>>((res) => {
+    "id": res['id'],
+  })
+      .toList(),
+);
+
+List<dynamic> decode(String children) => (json.decode(children) as dynamic)
+    .map<dynamic>((item) => {
+  "id": item['id'],
+})
+    .toList();
