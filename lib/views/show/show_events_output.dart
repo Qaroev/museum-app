@@ -18,7 +18,11 @@ class ShowEventsOutput extends StatefulWidget {
 }
 
 class _ShowEventsOutputState extends State<ShowEventsOutput> {
+  PageController controller =
+      PageController(viewportFraction: 1, keepPage: true);
+  int pageIdx = 0;
   ExhibitionsController exhibitionsController = Get.find();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -98,36 +102,80 @@ class _ShowEventsOutputState extends State<ShowEventsOutput> {
                           ),
                         ),
                   background: Stack(children: [
-                    Image.network(
-                      widget.exhibitionsModel!.img??'',
-                      fit: BoxFit.fill,
-                      headers: const {
-                        'Cookie': 'bpc=06784db3c02ba52d5d279ccb5e944ce6',
-                      },
-                      height: Dimensions.height500,
-                      width: double.infinity,
-                      loadingBuilder: (BuildContext context,
-                          Widget child,
-                          ImageChunkEvent? loadingProgress) {
-                        if (loadingProgress == null) {
-                          return child;
-                        }
-                        return Shimmer.fromColors(
-                          baseColor: Colors.grey,
-                          highlightColor: Colors.grey.withOpacity(0.3),
-                          child: Container(
+                    widget.exhibitionsModel!.gallery == null
+                        ? Image.network(
+                            widget.exhibitionsModel!.img ?? '',
+                            fit: BoxFit.fill,
+                            headers: const {
+                              'Cookie': 'bpc=06784db3c02ba52d5d279ccb5e944ce6',
+                            },
+                            height: Dimensions.height500,
                             width: double.infinity,
-                            decoration: BoxDecoration(
-                              color: Colors.grey[300],
-                            ),
+                            loadingBuilder: (BuildContext context, Widget child,
+                                ImageChunkEvent? loadingProgress) {
+                              if (loadingProgress == null) {
+                                return child;
+                              }
+                              return Shimmer.fromColors(
+                                baseColor: Colors.grey,
+                                highlightColor: Colors.grey.withOpacity(0.3),
+                                child: Container(
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey[300],
+                                  ),
+                                ),
+                              );
+                            },
+                            errorBuilder: (BuildContext context,
+                                Object exception, StackTrace? stackTrace) {
+                              return Image.asset('assets/images/show1.png');
+                            },
+                          )
+                        : PageView.builder(
+                            itemCount:
+                                widget.exhibitionsModel!.gallery.length ?? 0,
+                            controller: controller,
+                            onPageChanged: (val) {
+                              setState(() {
+                                pageIdx = val;
+                              });
+                            },
+                            itemBuilder: (BuildContext context, int itemIndex) {
+                              return Image.network(
+                                widget.exhibitionsModel!.gallery[itemIndex],
+                                fit: BoxFit.fill,
+                                headers: const {
+                                  'Cookie':
+                                      'bpc=06784db3c02ba52d5d279ccb5e944ce6',
+                                },
+                                height: Dimensions.height500,
+                                width: double.infinity,
+                                loadingBuilder: (BuildContext context,
+                                    Widget child,
+                                    ImageChunkEvent? loadingProgress) {
+                                  if (loadingProgress == null) {
+                                    return child;
+                                  }
+                                  return Shimmer.fromColors(
+                                    baseColor: Colors.grey,
+                                    highlightColor:
+                                        Colors.grey.withOpacity(0.3),
+                                    child: Container(
+                                      width: double.infinity,
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey[300],
+                                      ),
+                                    ),
+                                  );
+                                },
+                                errorBuilder: (BuildContext context,
+                                    Object exception, StackTrace? stackTrace) {
+                                  return Image.asset('assets/images/show1.png');
+                                },
+                              );
+                            },
                           ),
-                        );
-                      },
-                      errorBuilder: (BuildContext context,
-                          Object exception, StackTrace? stackTrace) {
-                        return Image.asset('assets/images/show1.png');
-                      },
-                    ),
                     Container(
                       margin: EdgeInsets.only(
                           top: Dimensions.height50,
@@ -200,18 +248,21 @@ class _ShowEventsOutputState extends State<ShowEventsOutput> {
                       children: [
                         Container(
                             width: double.maxFinite,
-                            height: Dimensions.height102,
+                            height: 95,
                             padding: const EdgeInsets.all(20),
-                            decoration: const BoxDecoration(
+                            decoration: BoxDecoration(
                                 image: DecorationImage(
-                              image: AssetImage("assets/images/rectangle2.png"),
+                              fit: BoxFit.cover,
+                              image: AssetImage(
+                                "assets/images/Rectangle 2.png",
+                              ),
                             )),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 BigTextWidget(
-                                  text: widget.exhibitionsModel!.name??'',
+                                  text: widget.exhibitionsModel!.name ?? '',
                                   size: Dimensions.font15,
                                   color: Colors.white,
                                   fontWeight: FontWeight.w500,
@@ -220,7 +271,9 @@ class _ShowEventsOutputState extends State<ShowEventsOutput> {
                                   height: Dimensions.height10,
                                 ),
                                 BigTextWidget(
-                                  text: widget.exhibitionsModel!.type_afisha!.name??'',
+                                  text: widget.exhibitionsModel!.type_afisha!
+                                          .name ??
+                                      '',
                                   size: Dimensions.font20,
                                   color: const Color(0xFFFFFFFF),
                                   fontWeight: FontWeight.w800,
@@ -229,6 +282,19 @@ class _ShowEventsOutputState extends State<ShowEventsOutput> {
                             ))
                       ],
                     ),
+                    if (widget.exhibitionsModel!.gallery != null)
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: List.generate(
+                            widget.exhibitionsModel!.gallery.length > 15
+                                ? 15
+                                : widget.exhibitionsModel!.gallery.length,
+                            (index) => buildDot(index, context),
+                          ),
+                        ),
+                      )
                   ]),
                 );
               },
@@ -242,7 +308,7 @@ class _ShowEventsOutputState extends State<ShowEventsOutput> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(widget.exhibitionsModel!.description??''),
+                    Text(widget.exhibitionsModel!.description ?? ''),
                     SizedBox(
                       height: Dimensions.height20,
                     ),
@@ -259,7 +325,8 @@ class _ShowEventsOutputState extends State<ShowEventsOutput> {
                         init: ExhibitionsController(),
                         builder: (evt) {
                           if (evt.isDataLoading.value) {
-                            return const Center(child: CircularProgressIndicator());
+                            return const Center(
+                                child: CircularProgressIndicator());
                           }
                           return SizedBox(
                               height: 280,
@@ -274,50 +341,74 @@ class _ShowEventsOutputState extends State<ShowEventsOutput> {
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                                builder: (context) => ShowEventsOutput(
-                                                  exhibitionsModel: evt.exhibitions![index],
-                                                )));
+                                                builder: (context) =>
+                                                    ShowEventsOutput(
+                                                      exhibitionsModel: evt
+                                                          .exhibitions![index],
+                                                    )));
                                       },
                                       child: Container(
                                         height: Dimensions.height220,
-                                        padding: const EdgeInsets.only(left: 10),
+                                        padding:
+                                            const EdgeInsets.only(left: 10),
                                         child: Stack(
-                                          alignment: AlignmentDirectional.bottomCenter,
+                                          alignment:
+                                              AlignmentDirectional.bottomCenter,
                                           children: [
                                             SizedBox(
                                               width: Dimensions.width172,
                                               height: Dimensions.height208,
                                               child: ClipRRect(
-                                                borderRadius: BorderRadius.circular(10), // Ima
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        10), // Ima
                                                 child: SizedBox.fromSize(
-                                                  size: const Size.fromRadius(20),
+                                                  size:
+                                                      const Size.fromRadius(20),
                                                   // Image radius
                                                   child: Image.network(
-                                                    evt.exhibitions![index].img!,
+                                                    evt.exhibitions![index]
+                                                        .img!,
                                                     fit: BoxFit.cover,
                                                     headers: const {
-                                                      'Cookie': 'bpc=06784db3c02ba52d5d279ccb5e944ce6',
+                                                      'Cookie':
+                                                          'bpc=06784db3c02ba52d5d279ccb5e944ce6',
                                                     },
-                                                    height: Dimensions.height158,
-                                                    loadingBuilder: (BuildContext context, Widget child,
-                                                        ImageChunkEvent? loadingProgress) {
-                                                      if (loadingProgress == null) {
+                                                    height:
+                                                        Dimensions.height158,
+                                                    loadingBuilder: (BuildContext
+                                                            context,
+                                                        Widget child,
+                                                        ImageChunkEvent?
+                                                            loadingProgress) {
+                                                      if (loadingProgress ==
+                                                          null) {
                                                         return child;
                                                       }
                                                       return Shimmer.fromColors(
-                                                        baseColor: Colors.grey.withOpacity(0.8),
-                                                        highlightColor: Colors.grey.withOpacity(0.3),
+                                                        baseColor: Colors.grey
+                                                            .withOpacity(0.8),
+                                                        highlightColor: Colors
+                                                            .grey
+                                                            .withOpacity(0.3),
                                                         child: Container(
-                                                          width: Dimensions.width152,
-                                                          decoration: BoxDecoration(
-                                                            color: Colors.grey[300],
+                                                          width: Dimensions
+                                                              .width152,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Colors
+                                                                .grey[300],
                                                           ),
                                                         ),
                                                       );
                                                     },
-                                                    errorBuilder: (BuildContext context, Object exception,
-                                                        StackTrace? stackTrace) {
-                                                      return Image.asset('assets/images/picture.png');
+                                                    errorBuilder:
+                                                        (BuildContext context,
+                                                            Object exception,
+                                                            StackTrace?
+                                                                stackTrace) {
+                                                      return Image.asset(
+                                                          'assets/images/picture.png');
                                                     },
                                                   ),
                                                 ),
@@ -327,25 +418,41 @@ class _ShowEventsOutputState extends State<ShowEventsOutput> {
                                               alignment: Alignment.bottomCenter,
                                               child: Container(
                                                   height: Dimensions.height55,
-                                                  width: Dimensions.width172 + 5,
-                                                  padding: const EdgeInsets.all(10),
+                                                  width:
+                                                      Dimensions.width172 + 5,
+                                                  padding:
+                                                      const EdgeInsets.all(10),
                                                   decoration: BoxDecoration(
                                                     borderRadius: BorderRadius.only(
-                                                        topLeft: Radius.circular(Dimensions.radius10),
-                                                        topRight: Radius.circular(Dimensions.radius10),
-                                                        bottomRight: Radius.circular(Dimensions.radius10),
-                                                        bottomLeft: Radius.circular(Dimensions.radius10)),
+                                                        topLeft:
+                                                            Radius.circular(
+                                                                Dimensions
+                                                                    .radius10),
+                                                        topRight:
+                                                            Radius.circular(
+                                                                Dimensions
+                                                                    .radius10),
+                                                        bottomRight:
+                                                            Radius.circular(
+                                                                Dimensions
+                                                                    .radius10),
+                                                        bottomLeft:
+                                                            Radius.circular(
+                                                                Dimensions
+                                                                    .radius10)),
                                                     color: Colors.white,
-
                                                   ),
                                                   child: Center(
                                                     child: Text(
-                                                      evt.exhibitions![index].name ?? '',
+                                                      evt.exhibitions![index]
+                                                              .name ??
+                                                          '',
                                                       maxLines: 2,
                                                       style: const TextStyle(
                                                           color: Colors.black,
                                                           fontSize: 12,
-                                                          overflow: TextOverflow.ellipsis),
+                                                          overflow: TextOverflow
+                                                              .ellipsis),
                                                     ),
                                                   )),
                                             )
@@ -362,6 +469,18 @@ class _ShowEventsOutputState extends State<ShowEventsOutput> {
                 )),
           )
         ],
+      ),
+    );
+  }
+
+  Container buildDot(int index, BuildContext context) {
+    return Container(
+      height: 4,
+      width: pageIdx == index ? 20 : 5,
+      margin: const EdgeInsets.only(right: 5, bottom: 10),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        color: pageIdx == index ? Colors.white : const Color(0xFFD1D1D1),
       ),
     );
   }

@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:museum_resource_center/utils/dimensions.dart';
 import 'package:museum_resource_center/utils/get_di.dart';
 import 'package:museum_resource_center/views/home/page/home-page.dart';
+import 'package:museum_resource_center/views/splash_screen.dart';
 
 
 void main() {
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
       scrollBehavior: const MaterialScrollBehavior().copyWith(
         dragDevices: {PointerDeviceKind.mouse, PointerDeviceKind.touch},
       ),
-      home: const HomePage(),
+      home: const SplashScreen(),
       defaultTransition: Transition.topLevel,
     );
   }

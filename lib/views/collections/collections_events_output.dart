@@ -102,7 +102,8 @@ class _CollectionsEventsOutputState extends State<CollectionsEventsOutput> {
                             ],
                           ),
                         ),
-                  background: Stack(children: [
+                  background: Stack(
+                      children: [
                     Image.network(
                       widget.collection!.img ?? '',
                       fit: BoxFit.fill,
@@ -180,62 +181,50 @@ class _CollectionsEventsOutputState extends State<CollectionsEventsOutput> {
                               const SizedBox(
                                 width: 5,
                               ),
-                              // Container(
-                              //     width: 40,
-                              //     height: 40,
-                              //     decoration: BoxDecoration(
-                              //         color: const Color(0xFF434670)
-                              //             .withOpacity(0.25),
-                              //         borderRadius: BorderRadius.circular(10)),
-                              //     child: IconButton(
-                              //       onPressed: () {},
-                              //       icon: Image.asset(
-                              //         "assets/images/menu.png",
-                              //         color: Colors.white,
-                              //       ),
-                              //     )),
                             ],
                           ),
                         ],
                       ),
                     ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Container(
-                            width: double.maxFinite,
-                            height: Dimensions.height102,
-                            padding: const EdgeInsets.all(20),
-                            decoration: const BoxDecoration(
-                                image: DecorationImage(
-                              image: AssetImage("assets/images/rectangle2.png"),
-                            )),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                BigTextWidget(
-                                  text: decodeToLatin(
-                                      widget.collection!.name ?? ''),
-                                  size: Dimensions.font15,
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Container(
+                          width: double.maxFinite,
+                          height: 110,
+
+                          padding: const EdgeInsets.all(20),
+                          decoration: const BoxDecoration(
+                              image: DecorationImage(
+                                image:
+                                AssetImage("assets/images/Rectangle 2.png"),
+                              )),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                decodeToLatin(widget.collection!.name ?? ''),
+                                style: TextStyle(
+                                  fontSize: Dimensions.font15,
                                   color: Colors.white,
+
                                   fontWeight: FontWeight.w500,
                                 ),
-                                SizedBox(
-                                  height: Dimensions.height10,
-                                ),
-                                BigTextWidget(
-                                  text: decodeToLatin(
-                                      widget.collection!.type_afisha!.name ??
-                                          ''),
-                                  size: Dimensions.font20,
-                                  color: const Color(0xFFFFFFFF),
-                                  fontWeight: FontWeight.w800,
-                                ),
-                              ],
-                            ))
-                      ],
-                    ),
+                              ),
+                              SizedBox(
+                                height: Dimensions.height10,
+                              ),
+                              BigTextWidget(
+                                text: decodeToLatin(
+                                    widget.collection!.type_afisha!.name ??
+                                        ''),
+                                size: Dimensions.font20,
+                                color: const Color(0xFFFFFFFF),
+                                fontWeight: FontWeight.w800,
+                              ),
+                            ],
+                          )),
+                    )
                   ]),
                 );
               },

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:museum_resource_center/utils/utils.dart';
 import 'package:museum_resource_center/widget/big-text-widget.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../controller/afisha_controller.dart';
 import '../../../controller/collection_controller.dart';
@@ -16,6 +17,7 @@ import '../../souvenirs/souvenirs_events.dart';
 import '../basket_page/basket_page_body.dart';
 import '../searsh/search_page_body.dart';
 import 'home_page_body.dart';
+
 PageController pageController = PageController(initialPage: 1);
 
 class HomePage extends StatefulWidget {
@@ -29,7 +31,7 @@ class _HomePageState extends State<HomePage> {
   AfishaController afishaController = Get.put(AfishaController());
   CollectionController collectionController = Get.put(CollectionController());
   ExhibitionsController exhibitionsController =
-  Get.put(ExhibitionsController());
+      Get.put(ExhibitionsController());
   int numBasket = 0;
   List<dynamic> collection = [];
   List<dynamic> afisha = [];
@@ -278,22 +280,34 @@ class _HomePageState extends State<HomePage> {
                       SizedBox(
                         height: Dimensions.height20,
                       ),
-                      Container(
-                        width: Dimensions.width233,
-                        height: Dimensions.height38,
-                        decoration: BoxDecoration(
-                          borderRadius:
-                              BorderRadius.circular(Dimensions.radius8),
-                          image: const DecorationImage(
-                              image: AssetImage("assets/images/drawer2.png"),
-                              fit: BoxFit.cover),
-                        ),
-                        child: Center(
-                          child: BigTextWidget(
-                            text: "Написать нам",
-                            color: Colors.white,
-                            size: Dimensions.font15,
-                            fontWeight: FontWeight.w700,
+                      InkWell(
+                        onTap: () async {
+                          var url = 'http://Museum-noyabrsk.ru/feedback';
+                          if (await canLaunchUrl(Uri.parse(url))) {
+                            await launchUrl(
+                              Uri.parse(url),
+                            );
+                          } else {
+                            throw 'Could not launch $url';
+                          }
+                        },
+                        child: Container(
+                          width: Dimensions.width233,
+                          height: Dimensions.height38,
+                          decoration: BoxDecoration(
+                            borderRadius:
+                                BorderRadius.circular(Dimensions.radius8),
+                            image: const DecorationImage(
+                                image: AssetImage("assets/images/drawer2.png"),
+                                fit: BoxFit.cover),
+                          ),
+                          child: Center(
+                            child: BigTextWidget(
+                              text: "Написать нам",
+                              color: Colors.white,
+                              size: Dimensions.font15,
+                              fontWeight: FontWeight.w700,
+                            ),
                           ),
                         ),
                       )
@@ -408,9 +422,7 @@ class _HomePageState extends State<HomePage> {
       }
     }
     for (var element in exhibitionsController.exhibitions!) {
-      if (element.name!
-          .toLowerCase()
-          .contains(text.toLowerCase())) {
+      if (element.name!.toLowerCase().contains(text.toLowerCase())) {
         posters.add(element);
       }
     }

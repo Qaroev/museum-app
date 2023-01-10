@@ -6,6 +6,7 @@ import 'package:museum_resource_center/utils/utils.dart';
 import 'package:museum_resource_center/widget/big-text-widget.dart';
 import 'package:museum_resource_center/widget/small-text-widget.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../controller/afisha_controller.dart';
 import '../../models/afish_model.dart';
@@ -156,9 +157,11 @@ class _PosterEventsOutputState extends State<PosterEventsOutput> {
                             // ),
                           ],
                         ),
-                  background: Container(
-                    height: Dimensions.height300,
+                  background: SizedBox(
+                    height:350,
+
                     child: Stack(
+                      clipBehavior: Clip.antiAlias,
                       children: [
                         Stack(
                           children: [
@@ -193,218 +196,248 @@ class _PosterEventsOutputState extends State<PosterEventsOutput> {
                                 return Image.asset('assets/images/picture.png');
                               },
                             ),
-                            Container(
-                              height: Dimensions.height300,
-                              padding: EdgeInsets.only(
-                                  left: Dimensions.width20,
-                                  right: Dimensions.width20,
-                                  bottom: Dimensions.height5),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                            Stack(
+                              alignment: Alignment.bottomCenter,
+                              children: [
+                                Container(
+                                  color: Colors.black.withOpacity(0.5),
+                                  height: 100,
+                                ),
+                                Container(
+                                  height: Dimensions.height300,
+                                  padding: EdgeInsets.only(
+                                      left: Dimensions.width20,
+                                      right: Dimensions.width20,
+                                      bottom: Dimensions.height5),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      (widget.afishaList!.pushkin_card == true)
-                                          ? SmallTextWidget(
-                                              text: "Пушкинская карта",
-                                              size: Dimensions.font11,
-                                              color:
-                                                  Colors.white.withOpacity(0.8),
-                                              overflow: TextOverflow.clip,
-                                            )
-                                          : Container(),
-                                      BigTextWidget(
-                                        text: decodeToLatin(widget
-                                            .afishaList!.type_afisha['name']),
-                                        size: Dimensions.font15,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w500,
-                                      )
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    width: 264,
-                                    child: Text(
-                                      decodeToLatin(
-                                          widget.afishaList!.name ?? ''),
-                                      style: const TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: Dimensions.height5,
-                                  ),
-                                  Container(
-                                    height: 20,
-                                  )
-                                  // DotsIndicator(
-                                  //   position: 1,
-                                  //   dotsCount: 4,
-                                  //   decorator: DotsDecorator(
-                                  //     color: Colors.white,
-                                  //     activeColor: Colors.white,
-                                  //     size: const Size.square(4.0),
-                                  //     activeSize: const Size(30.0, 4.0),
-                                  //     activeShape: RoundedRectangleBorder(
-                                  //         borderRadius:
-                                  //             BorderRadius.circular(5.0)),
-                                  //   ),
-                                  // ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                        Container(
-                          alignment: Alignment.bottomRight,
-                          margin: EdgeInsets.only(right: Dimensions.width20),
-                          child: ElevatedButton(
-                            onPressed: () {
-                              showModalBottomSheet(
-                                  isScrollControlled: true,
-                                  backgroundColor: Colors.transparent,
-                                  elevation: 0,
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return Container(
-                                      height: Dimensions.height600,
-                                      padding: const EdgeInsets.all(20),
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(
-                                                Dimensions.radius30),
-                                            topRight: Radius.circular(
-                                                Dimensions.radius30)),
-                                      ),
-                                      child: Column(
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
-                                          GestureDetector(
-                                            onTap: () {
-                                              Navigator.pop(context);
-                                            },
-                                            child: SizedBox(
-                                              width: 30,
-                                              child: Divider(
-                                                thickness: 5,
-                                                color: Color(0xFFB2B2B2),
-                                              ),
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            height: 10,
-                                          ),
+                                          (widget.afishaList!.pushkin_card ==
+                                                  true)
+                                              ? SmallTextWidget(
+                                                  text: "Пушкинская карта",
+                                                  size: Dimensions.font11,
+                                                  color: Colors.white
+                                                      .withOpacity(0.8),
+                                                  overflow: TextOverflow.clip,
+                                                )
+                                              : Container(),
                                           BigTextWidget(
-                                            text: "Записаться на событие",
-                                            size: 24,
+                                            text: decodeToLatin(widget
+                                                .afishaList!
+                                                .type_afisha['name']),
+                                            size: Dimensions.font15,
+                                            color: Colors.white,
                                             fontWeight: FontWeight.w500,
-                                            color: Color(0xFF120D26),
-                                          ),
-                                          SizedBox(
-                                            height: 20,
-                                          ),
-                                          Form(
-                                            child: Column(
-                                              children: [
-                                                TextField(
-                                                    decoration: InputDecoration(
-                                                        hintText:
-                                                            "Как вас зовут?",
-                                                        hintStyle: TextStyle(
-                                                            fontSize: 18,
-                                                            color: Color(
-                                                                0xFF120D26),
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w400)),
-                                                    keyboardType:
-                                                        TextInputType.text),
-                                                TextField(
-                                                  decoration: InputDecoration(
-                                                      hintText:
-                                                          "Контактный телефон",
-                                                      hintStyle: TextStyle(
-                                                          fontSize: 18,
-                                                          color:
-                                                              Color(0xFF120D26),
-                                                          fontWeight:
-                                                              FontWeight.w400)),
-                                                  keyboardType:
-                                                      TextInputType.phone,
-                                                ),
-                                                TextField(
-                                                  decoration: InputDecoration(
-                                                      hintText:
-                                                          "Контактный email",
-                                                      hintStyle: TextStyle(
-                                                          fontSize: 18,
-                                                          color:
-                                                              Color(0xFF120D26),
-                                                          fontWeight:
-                                                              FontWeight.w400)),
-                                                  keyboardType: TextInputType
-                                                      .emailAddress,
-                                                ),
-                                                TextField(
-                                                  decoration: InputDecoration(
-                                                    hintText:
-                                                        "Планируемая дата и время события",
-                                                    hintStyle: TextStyle(
-                                                        fontSize: 18,
-                                                        color:
-                                                            Color(0xFF120D26),
-                                                        fontWeight:
-                                                            FontWeight.w400),
-                                                  ),
-                                                  keyboardType:
-                                                      TextInputType.datetime,
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            height: 20,
-                                          ),
-                                          Container(
-                                            width: double.maxFinite,
-                                            height: 48,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(14),
-                                              color: Color(0xFF2F3A4B),
-                                            ),
-                                            child: Center(
-                                                child: BigTextWidget(
-                                              text: "Оставить заявку",
-                                              size: 15,
-                                              fontWeight: FontWeight.w500,
-                                              color: Colors.white,
-                                            )),
                                           )
                                         ],
                                       ),
+                                      SizedBox(
+                                        width: 264,
+                                        child: Text(
+                                          decodeToLatin(
+                                              widget.afishaList!.name ?? ''),
+                                          style: const TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: Dimensions.height5,
+                                      ),
+                                      Container(
+                                        height: 20,
+                                      )
+                                      // DotsIndicator(
+                                      //   position: 1,
+                                      //   dotsCount: 4,
+                                      //   decorator: DotsDecorator(
+                                      //     color: Colors.white,
+                                      //     activeColor: Colors.white,
+                                      //     size: const Size.square(4.0),
+                                      //     activeSize: const Size(30.0, 4.0),
+                                      //     activeShape: RoundedRectangleBorder(
+                                      //         borderRadius:
+                                      //             BorderRadius.circular(5.0)),
+                                      //   ),
+                                      // ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 52.0),
+                          child: Container(
+                            alignment: Alignment.bottomRight,
+                            margin: EdgeInsets.only(right: Dimensions.width20,top: 120),
+                            child: ElevatedButton(
+                              onPressed: () async {
+                                if (widget.afishaList!.vip == false) {
+                                  showModalBottomSheet(
+                                      isScrollControlled: true,
+                                      backgroundColor: Colors.transparent,
+                                      elevation: 0,
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return Container(
+                                          height: Dimensions.height600,
+                                          padding: const EdgeInsets.all(20),
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius: BorderRadius.only(
+                                                topLeft: Radius.circular(
+                                                    Dimensions.radius30),
+                                                topRight: Radius.circular(
+                                                    Dimensions.radius30)),
+                                          ),
+                                          child: Column(
+                                            children: [
+                                              GestureDetector(
+                                                onTap: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: SizedBox(
+                                                  width: 30,
+                                                  child: Divider(
+                                                    thickness: 5,
+                                                    color: Color(0xFFB2B2B2),
+                                                  ),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              BigTextWidget(
+                                                text: "Записаться на событие",
+                                                size: 24,
+                                                fontWeight: FontWeight.w500,
+                                                color: Color(0xFF120D26),
+                                              ),
+                                              SizedBox(
+                                                height: 20,
+                                              ),
+                                              Form(
+                                                child: Column(
+                                                  children: [
+                                                    TextField(
+                                                        decoration: InputDecoration(
+                                                            hintText:
+                                                                "Как вас зовут?",
+                                                            hintStyle: TextStyle(
+                                                                fontSize: 18,
+                                                                color: Color(
+                                                                    0xFF120D26),
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w400)),
+                                                        keyboardType:
+                                                            TextInputType.text),
+                                                    TextField(
+                                                      decoration: InputDecoration(
+                                                          hintText:
+                                                              "Контактный телефон",
+                                                          hintStyle: TextStyle(
+                                                              fontSize: 18,
+                                                              color: Color(
+                                                                  0xFF120D26),
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400)),
+                                                      keyboardType:
+                                                          TextInputType.phone,
+                                                    ),
+                                                    TextField(
+                                                      decoration: InputDecoration(
+                                                          hintText:
+                                                              "Контактный email",
+                                                          hintStyle: TextStyle(
+                                                              fontSize: 18,
+                                                              color: Color(
+                                                                  0xFF120D26),
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400)),
+                                                      keyboardType: TextInputType
+                                                          .emailAddress,
+                                                    ),
+                                                    TextField(
+                                                      decoration: InputDecoration(
+                                                        hintText:
+                                                            "Планируемая дата и время события",
+                                                        hintStyle: TextStyle(
+                                                            fontSize: 18,
+                                                            color:
+                                                                Color(0xFF120D26),
+                                                            fontWeight:
+                                                                FontWeight.w400),
+                                                      ),
+                                                      keyboardType:
+                                                          TextInputType.datetime,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: 20,
+                                              ),
+                                              Container(
+                                                width: double.maxFinite,
+                                                height: 48,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(14),
+                                                  color: Color(0xFF2F3A4B),
+                                                ),
+                                                child: Center(
+                                                    child: BigTextWidget(
+                                                  text: "Оставить заявку",
+                                                  size: 15,
+                                                  fontWeight: FontWeight.w500,
+                                                  color: Colors.white,
+                                                )),
+                                              )
+                                            ],
+                                          ),
+                                        );
+                                      });
+                                } else {
+                                  var url = widget.afishaList!.link ?? '';
+                                  if (await canLaunchUrl(Uri.parse(url))) {
+                                    await launchUrl(
+                                      Uri.parse(url),
                                     );
-                                  });
-                            },
-                            style: ElevatedButton.styleFrom(
-                              padding: EdgeInsets.only(
-                                  left: Dimensions.width30,
-                                  right: Dimensions.width30,
-                                  top: Dimensions.height10,
-                                  bottom: Dimensions.height10),
-                              primary: const Color(0xFF2F3A4B),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(14.0),
+                                  } else {
+                                    throw 'Could not launch $url';
+                                  }
+                                }
+                              },
+                              style: ElevatedButton.styleFrom(
+                                padding: EdgeInsets.only(
+                                    left: Dimensions.width30,
+                                    right: Dimensions.width30,
+                                    top: Dimensions.height10,
+                                    bottom: Dimensions.height10),
+                                primary: const Color(0xFF2F3A4B),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(14.0),
+                                ),
                               ),
-                            ),
-                            child: const Text(
-                              "Записаться",
-                              style: TextStyle(color: Colors.white),
+                              child: Text(
+                                widget.afishaList!.vip == false
+                                    ? "Записаться"
+                                    : "Купить билет",
+                                style: TextStyle(color: Colors.white),
+                              ),
                             ),
                           ),
                         )
@@ -569,60 +602,72 @@ class _PosterEventsOutputState extends State<PosterEventsOutput> {
                                               children: [
                                                 SizedBox(
                                                   width:
-                                                  Dimensions.width172 + 5,
+                                                      Dimensions.width172 + 5,
                                                   height: 150,
                                                   child: ClipRRect(
-                                                    borderRadius: BorderRadius.circular(10), // Ima
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10), // Ima
                                                     child: SizedBox.fromSize(
-                                                      size: const Size.fromRadius(20),
+                                                      size:
+                                                          const Size.fromRadius(
+                                                              20),
                                                       // Image radius
                                                       child: Image.network(
                                                         decodeToLatin(
                                                             dataController
-                                                                .afishaList[index]
+                                                                .afishaList[
+                                                                    index]
                                                                 .img!),
                                                         fit: BoxFit.cover,
                                                         width: double.infinity,
                                                         height: double.infinity,
                                                         headers: const {
                                                           'Cookie':
-                                                          'bpc=06784db3c02ba52d5d279ccb5e944ce6',
+                                                              'bpc=06784db3c02ba52d5d279ccb5e944ce6',
                                                         },
-                                                        loadingBuilder: (BuildContext
-                                                        context,
-                                                            Widget child,
-                                                            ImageChunkEvent?
-                                                            loadingProgress) {
+                                                        loadingBuilder:
+                                                            (BuildContext
+                                                                    context,
+                                                                Widget child,
+                                                                ImageChunkEvent?
+                                                                    loadingProgress) {
                                                           if (loadingProgress ==
                                                               null) {
                                                             return child;
                                                           }
                                                           return Shimmer
                                                               .fromColors(
-                                                            baseColor: Colors.grey
-                                                                .withOpacity(0.8),
-                                                            highlightColor: Colors
+                                                            baseColor: Colors
                                                                 .grey
-                                                                .withOpacity(0.3),
+                                                                .withOpacity(
+                                                                    0.8),
+                                                            highlightColor:
+                                                                Colors.grey
+                                                                    .withOpacity(
+                                                                        0.3),
                                                             child: Container(
                                                               width: Dimensions
-                                                                  .width172 +
+                                                                      .width172 +
                                                                   5,
                                                               decoration: BoxDecoration(
                                                                   color: Colors
-                                                                      .grey[300],
-                                                                  borderRadius: BorderRadius.all(
-                                                                      Radius.circular(
-                                                                          Dimensions
-                                                                              .radius10))),
+                                                                          .grey[
+                                                                      300],
+                                                                  borderRadius:
+                                                                      BorderRadius.all(
+                                                                          Radius.circular(
+                                                                              Dimensions.radius10))),
                                                             ),
                                                           );
                                                         },
                                                         errorBuilder:
-                                                            (BuildContext context,
-                                                            Object exception,
-                                                            StackTrace?
-                                                            stackTrace) {
+                                                            (BuildContext
+                                                                    context,
+                                                                Object
+                                                                    exception,
+                                                                StackTrace?
+                                                                    stackTrace) {
                                                           return Image.asset(
                                                               'assets/images/picture.png');
                                                         },
@@ -632,18 +677,23 @@ class _PosterEventsOutputState extends State<PosterEventsOutput> {
                                                 ),
                                                 SizedBox(
                                                   width:
-                                                  Dimensions.width172 + 5,
+                                                      Dimensions.width172 + 5,
                                                   height: 150,
                                                   child: ClipRRect(
-                                                    borderRadius: BorderRadius.circular(10), // Ima
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10), // Ima
                                                     child: SizedBox.fromSize(
-                                                      size: const Size.fromRadius(20),
+                                                      size:
+                                                          const Size.fromRadius(
+                                                              20),
                                                       // Image radius
                                                       child: Image.asset(
                                                         'assets/images/top_overlay.png',
                                                         color: Colors.black,
-                                                        width:
-                                                        Dimensions.width172 + 5,
+                                                        width: Dimensions
+                                                                .width172 +
+                                                            5,
                                                         fit: BoxFit.fill,
                                                       ),
                                                     ),
@@ -776,23 +826,146 @@ class _PosterEventsOutputState extends State<PosterEventsOutput> {
               )),
         )
       ]),
-      bottomNavigationBar: Container(
-        width: 120,
-        height: 43,
-        margin: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
-        decoration: const BoxDecoration(
-            color: Color(0xFF2F3A4B),
-            borderRadius: BorderRadius.all(Radius.circular(15))),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(),
-            const Text('Купить билет',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500)),
-          ],
+      bottomNavigationBar: InkWell(
+        onTap: () async {
+          if (widget.afishaList!.vip == false) {
+            showModalBottomSheet(
+                isScrollControlled: true,
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+                context: context,
+                builder: (BuildContext context) {
+                  return Container(
+                    height: Dimensions.height600,
+                    padding: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(Dimensions.radius30),
+                          topRight: Radius.circular(Dimensions.radius30)),
+                    ),
+                    child: Column(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: SizedBox(
+                            width: 30,
+                            child: Divider(
+                              thickness: 5,
+                              color: Color(0xFFB2B2B2),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        BigTextWidget(
+                          text: "Записаться на событие",
+                          size: 24,
+                          fontWeight: FontWeight.w500,
+                          color: Color(0xFF120D26),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Form(
+                          child: Column(
+                            children: [
+                              TextField(
+                                  decoration: InputDecoration(
+                                      hintText: "Как вас зовут?",
+                                      hintStyle: TextStyle(
+                                          fontSize: 18,
+                                          color: Color(0xFF120D26),
+                                          fontWeight: FontWeight.w400)),
+                                  keyboardType: TextInputType.text),
+                              TextField(
+                                decoration: InputDecoration(
+                                    hintText: "Контактный телефон",
+                                    hintStyle: TextStyle(
+                                        fontSize: 18,
+                                        color: Color(0xFF120D26),
+                                        fontWeight: FontWeight.w400)),
+                                keyboardType: TextInputType.phone,
+                              ),
+                              TextField(
+                                decoration: InputDecoration(
+                                    hintText: "Контактный email",
+                                    hintStyle: TextStyle(
+                                        fontSize: 18,
+                                        color: Color(0xFF120D26),
+                                        fontWeight: FontWeight.w400)),
+                                keyboardType: TextInputType.emailAddress,
+                              ),
+                              TextField(
+                                decoration: InputDecoration(
+                                  hintText: "Планируемая дата и время события",
+                                  hintStyle: TextStyle(
+                                      fontSize: 18,
+                                      color: Color(0xFF120D26),
+                                      fontWeight: FontWeight.w400),
+                                ),
+                                keyboardType: TextInputType.datetime,
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Container(
+                          width: double.maxFinite,
+                          height: 48,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(14),
+                            color: Color(0xFF2F3A4B),
+                          ),
+                          child: Center(
+                              child: BigTextWidget(
+                            text: "Оставить заявку",
+                            size: 15,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white,
+                          )),
+                        )
+                      ],
+                    ),
+                  );
+                });
+          } else {
+            var url = widget.afishaList!.link ?? '';
+            if (await canLaunchUrl(Uri.parse(url))) {
+              await launchUrl(
+                Uri.parse(url),
+              );
+            } else {
+              throw 'Could not launch $url';
+            }
+          }
+        },
+        child: Container(
+          width: 120,
+          height: 43,
+          margin: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+          decoration: const BoxDecoration(
+              color: Color(0xFF2F3A4B),
+              borderRadius: BorderRadius.all(Radius.circular(15))),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(),
+              Text(
+                  widget.afishaList!.vip == false
+                      ? "Записаться"
+                      : "Купить билет",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500)),
+            ],
+          ),
         ),
       ),
     );

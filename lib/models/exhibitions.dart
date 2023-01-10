@@ -19,11 +19,11 @@ class ExhibitionsModel {
 
   ExhibitionsModel.fromJson(Map<String, dynamic> json) {
     name = json['name'];
-    type_afisha =TypeAfisha.fromJson(json['type_afisha']);
+    type_afisha = TypeAfisha.fromJson(json['type_afisha']);
     link = json['link'];
     img = json['img'];
     description = json['description'];
-    gallery = json['gallery'];
+    gallery = json['gallery'] == false ? null : json['gallery'];
     inform = json['inform'];
   }
 }
