@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:convert';
 import 'dart:developer';
 
@@ -12,7 +13,7 @@ class AfishaController extends GetxController implements GetxService {
   List<AfishaModel>? afishaItems;
   List<AfishaModel> afishaList = [];
   List<String>? afishaTypes = [];
-
+  dynamic afishaListEvents = [];
   var isDataLoading = false;
   var isError = false;
   var error = '';
@@ -72,6 +73,7 @@ class AfishaController extends GetxController implements GetxService {
         });
         afishaList = [];
         var list = newMap[true] as dynamic;
+        afishaListEvents = list;
         if (list != null) {
           list.forEach((element) {
             element.value.forEach((el) {
@@ -115,11 +117,19 @@ getGroup(List<AfishaModel> afishaEvents) {
       .compareTo(DateFormat('yyyy-MM-dd')
           .parse(b.split(' ')[0], true)
           .millisecondsSinceEpoch));
-  dates.toSet().forEach((d) {
+  var arr = [];
+  for (var el in dates) {
+    var str = el.split(" ");
+    var dd = arr.where((it) => it == str[0]).toList();
+    if (dd.isEmpty) {
+      arr.add(str[0]);
+    }
+  }
+  for (var d in arr) {
     resultData[d] = [];
     for (var element in afishaEvents) {
       var dd =
-          element.seanses.firstWhere((it) => it['date'] == d, orElse: () {});
+          element.seanses.firstWhere((it) => it['date'].split(" ")[0] == d, orElse: () {});
       if (dd != null) {
         resultData[d].add({
           "name": element.name,
@@ -148,6 +158,6 @@ getGroup(List<AfishaModel> afishaEvents) {
         }
       }
     }
-  });
+  }
   return resultData;
 }

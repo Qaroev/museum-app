@@ -9,6 +9,7 @@ import '../../utils/dimensions.dart';
 import '../../utils/local_storage_service.dart';
 import '../../utils/utils.dart';
 import '../../widget/big-text-widget.dart';
+import '../home/page/home-page.dart';
 
 class SouvenirsEventsOutput extends StatefulWidget {
   final Products? products;
@@ -21,6 +22,18 @@ class SouvenirsEventsOutput extends StatefulWidget {
 
 class _SouvenirsEventsOutputState extends State<SouvenirsEventsOutput> {
   ProductController productController = Get.find();
+  int numBasket = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    addToBasket.stream.listen((event) {
+      if (event != null) {
+        numBasket = event;
+        setState(() {});
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,9 +95,43 @@ class _SouvenirsEventsOutputState extends State<SouvenirsEventsOutput> {
                               ),
                               Row(
                                 children: [
-                                  Icon(
-                                    Icons.ios_share,
-                                    size: Dimensions.iconSize20,
+                                  Stack(
+                                    children: [
+                                      IconButton(
+                                        onPressed: () {
+                                          pageController.jumpToPage(2);
+                                        },
+                                        icon: const Icon(
+                                          Icons.shopping_cart_outlined,
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                      numBasket == 0
+                                          ? Container()
+                                          : Positioned(
+                                              top: 10,
+                                              left: 10,
+                                              child: Container(
+                                                width: 14,
+                                                height: 14,
+                                                alignment: Alignment.center,
+                                                decoration: BoxDecoration(
+                                                    color: Colors.red,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20)),
+                                                child: Text(
+                                                  '$numBasket',
+                                                  textAlign: TextAlign.center,
+                                                  style: const TextStyle(
+                                                      color: Colors.red,
+                                                      fontSize: 10,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                              ),
+                                            )
+                                    ],
                                   ),
                                   SizedBox(
                                     width: Dimensions.width5,
@@ -158,40 +205,96 @@ class _SouvenirsEventsOutputState extends State<SouvenirsEventsOutput> {
                           ),
                           Row(
                             children: [
-                              Container(
-                                width: Dimensions.width40,
-                                height: Dimensions.height40,
-                                decoration: BoxDecoration(
-                                    color: const Color(0xFF434670)
-                                        .withOpacity(0.25),
-                                    borderRadius: BorderRadius.circular(
-                                        Dimensions.radius10)),
-                                child: Center(
-                                  child: IconButton(
-                                      onPressed: () {},
-                                      icon: Icon(
-                                        Icons.ios_share,
-                                        size: Dimensions.iconSize15,
-                                        color: Colors.white,
-                                      )),
-                                ),
+                              Stack(
+                                children: [
+                                  Container(
+                                    width: Dimensions.width40,
+                                    height: Dimensions.height40,
+                                    decoration: BoxDecoration(
+                                        color: const Color(0xFF434670)
+                                            .withOpacity(0.25),
+                                        borderRadius: BorderRadius.circular(
+                                            Dimensions.radius10)),
+                                    child: Center(
+                                      child: IconButton(
+                                          onPressed: () async {
+                                            var res =
+                                                await LocalStorageService()
+                                                    .getData('favorites');
+                                            if (res == null) {
+                                              dynamic user = {
+                                                "id": widget.products!.id,
+                                              };
+                                              LocalStorageService().saveData(
+                                                'favorites',
+                                                encode([user]),
+                                              );
+                                              addToBasket.add(1);
+                                            } else {
+                                              List<dynamic> childrens =
+                                                  decode(res);
+                                              var newArr = childrens
+                                                  .where((e) =>
+                                                      e['id'] ==
+                                                      widget.products!.id)
+                                                  .toList();
+                                              if (newArr.isEmpty) {
+                                                dynamic user = {
+                                                  "id": widget.products!.id,
+                                                };
+                                                childrens.add(user);
+                                                LocalStorageService().saveData(
+                                                  'favorites',
+                                                  encode(childrens),
+                                                );
+                                                addToBasket
+                                                    .add(childrens.length);
+                                              }
+                                            }
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(const SnackBar(
+                                                    content: Text(
+                                                        'Добавлено в корзину')));
+                                          },
+                                          icon: Icon(
+                                            Icons.shopping_cart_outlined,
+                                            size: Dimensions.iconSize15,
+                                            color: Colors.white,
+                                          )),
+                                    ),
+                                  ),
+                                  numBasket == 0
+                                      ? Container()
+                                      : Positioned(
+                                          child: Container(
+                                            width: 15,
+                                            height: 15,
+                                            alignment: Alignment.center,
+                                            decoration: BoxDecoration(
+                                                color: Color(0xFF2F2E41),
+                                                borderRadius:
+                                                    BorderRadius.circular(20)),
+                                            child: Text(
+                                              '$numBasket',
+                                              textAlign: TextAlign.center,
+                                              style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 10,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ),
+                                        )
+                                ],
                               ),
                               SizedBox(
                                 width: Dimensions.width5,
                               ),
-                              // Container(
-                              //     width: Dimensions.width40,
-                              //     height: Dimensions.height40,
-                              //     decoration: BoxDecoration(
-                              //         color: const Color(0xFF434670).withOpacity(0.25),
-                              //         borderRadius: BorderRadius.circular(Dimensions.radius10)),
-                              //     child: IconButton(
-                              //       onPressed: () {},
-                              //       icon: Image.asset(
-                              //         "assets/images/menu.png",
-                              //         color: Colors.white,
-                              //       ),
-                              //     )),
+                              // Image.asset(
+                              //   "assets/images/menu.png",
+                              //   color: Colors.black,
+                              //   width: Dimensions.width20,
+                              //   height: Dimensions.height20,
+                              // ),
                             ],
                           ),
                         ],
@@ -278,12 +381,18 @@ class _SouvenirsEventsOutputState extends State<SouvenirsEventsOutput> {
                             return const Center(
                                 child: CircularProgressIndicator());
                           }
+                          var items = evt.products!
+                              .where((element) =>
+                                  element.id != widget.products!.id &&
+                                  element.categories[0]['name'] ==
+                                      widget.products!.categories[0]['name'])
+                              .toList();
+                          print(items);
                           return SizedBox(
                             height: Dimensions.height120,
                             child: ListView.builder(
-                                itemCount: evt.products!.length >= 10
-                                    ? 10
-                                    : evt.products!.length,
+                                itemCount:
+                                    items.length >= 10 ? 10 : items.length,
                                 scrollDirection: Axis.horizontal,
                                 itemBuilder: (context, index) {
                                   return Container(
@@ -301,9 +410,7 @@ class _SouvenirsEventsOutputState extends State<SouvenirsEventsOutput> {
                                             MaterialPageRoute(
                                                 builder: (context) =>
                                                     SouvenirsEventsOutput(
-                                                      products:
-                                                          productController
-                                                              .products![index],
+                                                      products: items[index],
                                                     )));
                                       },
                                       child: Row(
@@ -337,8 +444,7 @@ class _SouvenirsEventsOutputState extends State<SouvenirsEventsOutput> {
                                                         20),
                                                     // Image radius
                                                     child: Image.network(
-                                                      evt.products![index]
-                                                                  .images[0]
+                                                      items[index].images[0]
                                                               ['src'] ??
                                                           '',
                                                       fit: BoxFit.cover,
@@ -405,16 +511,16 @@ class _SouvenirsEventsOutputState extends State<SouvenirsEventsOutput> {
                                                   CrossAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                    widget.products!
-                                                        .categories[0]['name'],
+                                                    items[index].categories[0]
+                                                        ['name'],
                                                     style: TextStyle(
-                                                        color: const Color(0XFF747688),
+                                                        color: const Color(
+                                                            0XFF747688),
                                                         fontSize:
                                                             Dimensions.font13,
                                                         fontWeight:
                                                             FontWeight.w400)),
-                                                Text(
-                                                    widget.products!.name ?? '',
+                                                Text(items[index].name ?? '',
                                                     maxLines: 2,
                                                     style: TextStyle(
                                                         color: Colors.black,
@@ -425,7 +531,7 @@ class _SouvenirsEventsOutputState extends State<SouvenirsEventsOutput> {
                                                         fontWeight:
                                                             FontWeight.w400)),
                                                 Text(
-                                                    '${widget.products!.price} руб.',
+                                                    '${items[index].price} руб.',
                                                     style: TextStyle(
                                                         color: Colors.black,
                                                         fontSize:
@@ -438,13 +544,55 @@ class _SouvenirsEventsOutputState extends State<SouvenirsEventsOutput> {
                                           SizedBox(
                                             width: Dimensions.height20,
                                           ),
-                                          Container(
-                                              alignment: Alignment.topRight,
-                                              margin: EdgeInsets.only(
-                                                  right: Dimensions.width10,
-                                                  top: Dimensions.height10),
-                                              child: const Icon(
-                                                  Icons.shopping_cart_outlined))
+                                          InkWell(
+                                            onTap: () async {
+                                              var res =
+                                                  await LocalStorageService()
+                                                      .getData('favorites');
+                                              if (res == null) {
+                                                dynamic user = {
+                                                  "id": items[index].id,
+                                                };
+                                                LocalStorageService().saveData(
+                                                  'favorites',
+                                                  encode([user]),
+                                                );
+                                                addToBasket.add(1);
+                                              } else {
+                                                List<dynamic> childrens =
+                                                    decode(res);
+                                                var newArr = childrens
+                                                    .where((e) =>
+                                                        e['id'] ==
+                                                        items[index].id)
+                                                    .toList();
+                                                if (newArr.isEmpty) {
+                                                  dynamic user = {
+                                                    "id": items[index].id,
+                                                  };
+                                                  childrens.add(user);
+                                                  LocalStorageService()
+                                                      .saveData(
+                                                    'favorites',
+                                                    encode(childrens),
+                                                  );
+                                                  addToBasket
+                                                      .add(childrens.length);
+                                                }
+                                              }
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(const SnackBar(
+                                                      content: Text(
+                                                          'Добавлено в корзину')));
+                                            },
+                                            child: Container(
+                                                alignment: Alignment.topRight,
+                                                margin: EdgeInsets.only(
+                                                    right: Dimensions.width10,
+                                                    top: Dimensions.height10),
+                                                child: const Icon(Icons
+                                                    .shopping_cart_outlined)),
+                                          )
                                         ],
                                       ),
                                     ),
@@ -465,6 +613,7 @@ class _SouvenirsEventsOutputState extends State<SouvenirsEventsOutput> {
           child: ElevatedButton(
             onPressed: () async {
               var res = await LocalStorageService().getData('favorites');
+
               if (res == null) {
                 dynamic user = {
                   "id": widget.products!.id,
@@ -491,8 +640,8 @@ class _SouvenirsEventsOutputState extends State<SouvenirsEventsOutput> {
                   addToBasket.add(childrens.length);
                 }
               }
-              ScaffoldMessenger.of(context)
-                  .showSnackBar(const SnackBar(content: Text('Добавлено в корзину')));
+              ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Добавлено в корзину')));
             },
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.symmetric(horizontal: 80),

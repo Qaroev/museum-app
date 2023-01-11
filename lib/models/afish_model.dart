@@ -6,6 +6,7 @@ class AfishaModel {
   bool? vip;
   dynamic img;
   String? datatcevent;
+  String? datatcsource;
   bool? datatctoken;
   bool? datatcmeta;
   String? short_desc;
@@ -27,6 +28,7 @@ class AfishaModel {
     this.vip,
     this.img,
     this.datatcevent,
+    this.datatcsource,
     this.datatctoken,
     this.datatcmeta,
     this.short_desc,
@@ -42,6 +44,8 @@ class AfishaModel {
   });
 
   AfishaModel.fromJson(Map<String, dynamic> json) {
+    print(json['data-tc-source']);
+    print(json['id']);
     name = json['name'];
     id = json['id'];
     link = json['link'];
@@ -49,8 +53,9 @@ class AfishaModel {
     vip = json['vip'];
     img = json['img'];
     datatcevent = json['data-tc-event'];
+    datatcsource = json['data-tc-source'];
     datatctoken = json['data-tc-token'];
-    datatcmeta = json['ddata-tc-meta'];
+    datatcmeta = json['data-tc-meta'];
     short_desc = json['short_desc'];
     price = json['price'];
     description = json['description'];

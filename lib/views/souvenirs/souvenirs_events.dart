@@ -120,8 +120,9 @@ class _SouvenirsEventsState extends State<SouvenirsEvents> {
                                   MaterialPageRoute(
                                       builder: (context) =>
                                           SouvenirsEventsOutput(
-                                            products: productController
-                                                .products![index],
+                                            products: sortItems.isNotEmpty
+                                                ? sortItems[index]
+                                                : productController.products![index],
                                           )));
                             },
                             child: listItems(sortItems.isNotEmpty

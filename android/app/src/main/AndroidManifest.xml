@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.museum_resource_center">
+    package="com.museumnoyabrsk.museumapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <queries>
@@ -11,7 +11,7 @@
     <application
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
-        android:label="museum_resource_center">
+        android:label="Музейный Ресурсный Центр">
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"

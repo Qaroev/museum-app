@@ -282,7 +282,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       InkWell(
                         onTap: () async {
-                          var url = 'http://Museum-noyabrsk.ru/feedback';
+                          var url = 'https://Museum-noyabrsk.ru/feedback';
                           if (await canLaunchUrl(Uri.parse(url))) {
                             await launchUrl(
                               Uri.parse(url),

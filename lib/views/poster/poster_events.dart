@@ -360,9 +360,6 @@ class _PosterEventsState extends State<PosterEvents> {
                             icon: Image.asset("assets/icons/icon-calendar.png"))
                       ],
                     ),
-                    SizedBox(
-                      height: Dimensions.height20,
-                    ),
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
@@ -386,7 +383,6 @@ class _PosterEventsState extends State<PosterEvents> {
                                 elevation: 1,
                                 backgroundColor: typeIndex == index
                                     ? const Color(0xFF4579FF).withOpacity(0.50)
-
                                     : const Color(0xFFF3F8F9),
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(
@@ -405,8 +401,58 @@ class _PosterEventsState extends State<PosterEvents> {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: Dimensions.height20,
+                    SingleChildScrollView(
+                      child: Container(
+                        child: Column(
+                          children: [
+                            ...evt.afishaListEvents.map((e) {
+                              return Column(
+                                children: [
+                                  const SizedBox(height: 8),
+                                  Container(
+                                    width: MediaQuery.of(context).size.width,
+                                    height: 35,
+                                    alignment: Alignment.center,
+                                    decoration:  BoxDecoration(
+                                        color: Color(0xFFFFFFFF),
+                                        border: Border.all(color:  Color(0xFFD98639)),
+                                        borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(5),
+                                            bottomRight: Radius.circular(5))),
+                                    padding: const EdgeInsets.all(5),
+                                    child: Text(
+                                      '${DateFormat('EEEE', 'ru').format(DateFormat('yyyy-MM-dd')
+                                          .parse(e.key, true)).toCapitalized()} ${getMonth(e.key ?? '')}',
+                                      style: const TextStyle(
+                                          fontSize: 18,
+                                          color: Color(0xFF333333),
+                                          fontWeight: FontWeight.w700),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 8),
+                                  ...e.value.map((it) {
+                                    var afishaList = AfishaModel.fromJson(it);
+                                    return GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    PosterEventsOutput(
+                                                      afishaList: afishaList,
+                                                    )));
+                                      },
+                                      child: listItems(
+                                        afishaList,
+                                      ),
+                                    );
+                                  })
+                                ],
+                              );
+                            })
+                          ],
+                        ),
+                      ),
                     ),
                     ListView.builder(
                         itemCount: sortItems.isNotEmpty
@@ -421,8 +467,10 @@ class _PosterEventsState extends State<PosterEvents> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => PosterEventsOutput(
-                                            afishaList: dataController
-                                                .afishaList[index],
+                                            afishaList: sortItems.isNotEmpty
+                                                ? sortItems[index]
+                                                : dataController
+                                                    .afishaList[index],
                                           )));
                             },
                             child: listItems(
@@ -557,4 +605,8 @@ class _PosterEventsState extends State<PosterEvents> {
     }
     return '';
   }
+}
+extension StringCasingExtension on String {
+  String toCapitalized() => length > 0 ?'${this[0].toUpperCase()}${substring(1).toLowerCase()}':'';
+  String toTitleCase() => replaceAll(RegExp(' +'), ' ').split(' ').map((str) => str.toCapitalized()).join(' ');
 }

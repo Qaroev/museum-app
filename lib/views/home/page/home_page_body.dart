@@ -76,7 +76,7 @@ class _HomePageBodyState extends State<HomePageBody> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   BigTextWidget(
-                    text: "Вставки",
+                    text: "Выставки",
                     size: Dimensions.font20,
                     fontWeight: FontWeight.w800,
                   ),
@@ -94,7 +94,7 @@ class _HomePageBodyState extends State<HomePageBody> {
                   )
                 ],
               ),
-              SizedBox(height: Dimensions.height20,),
+              SizedBox(height: 10,),
               const ShowPageBody(),
               SizedBox(height: Dimensions.height20,),
               Row(

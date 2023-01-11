@@ -5,6 +5,7 @@ import 'package:shimmer/shimmer.dart';
 
 import '../../controller/exhibitions_controller.dart';
 import '../../utils/dimensions.dart';
+import '../../utils/utils.dart';
 import '../../widget/big-text-widget.dart';
 import '../../widget/small-text-widget.dart';
 
@@ -31,76 +32,63 @@ class _ShowEventsOutputState extends State<ShowEventsOutput> {
         scrollDirection: Axis.vertical,
         slivers: [
           SliverAppBar(
-            toolbarHeight: Dimensions.height100,
+            expandedHeight: 400.0,
+            toolbarHeight: 50,
             toolbarTextStyle: const TextStyle(color: Colors.black),
             automaticallyImplyLeading: false,
-            primary: false,
+            primary: true,
             pinned: true,
-            expandedHeight: Dimensions.height362,
+            floating: false,
+            centerTitle: true,
             backgroundColor: Colors.white,
             flexibleSpace: LayoutBuilder(
               builder: (context, constraints) {
                 return FlexibleSpaceBar(
                   centerTitle: true,
-                  titlePadding: EdgeInsets.only(top: Dimensions.height10),
                   title: constraints.maxHeight >= 160
                       ? Container()
-                      : Container(
-                          width: double.infinity,
-                          margin: EdgeInsets.only(
-                              left: Dimensions.width20,
-                              bottom: Dimensions.height10,
-                              top: Dimensions.height10,
-                              right: Dimensions.width20),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  IconButton(
-                                    icon: Icon(
-                                      Icons.arrow_back_ios,
-                                      color: Colors.black,
-                                      size: Dimensions.iconSize20,
-                                    ),
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                  ),
-                                  SizedBox(
-                                    width: Dimensions.width10,
-                                  ),
-                                  SizedBox(
-                                    width: Dimensions.width200,
-                                    child: BigTextWidget(
-                                      text: "Сумка женская",
-                                      size: Dimensions.font16,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w800,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.ios_share,
-                                    size: Dimensions.iconSize20,
-                                  ),
-                                  SizedBox(
-                                    width: Dimensions.width5,
-                                  ),
-                                  // Image.asset(
-                                  //   "assets/images/menu.png",
-                                  //   color: Colors.black,
-                                  //   width: Dimensions.width20,
-                                  //   height: Dimensions.height20,
-                                  // ),
-                                ],
-                              ),
-                            ],
+                      : Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 18.0),
+                          child: Icon(
+                            Icons.arrow_back_ios,
+                            color: Colors.black,
+                            size: Dimensions.iconSize20,
                           ),
                         ),
+                      ),
+                      SizedBox(
+                        width: Dimensions.width10,
+                      ),
+                      SizedBox(
+                        width: Dimensions.width200,
+                        child: Text(
+                          widget.exhibitionsModel!.name ?? '',
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      SizedBox(
+                        width: Dimensions.width60,
+                      ),
+                      Icon(
+                        Icons.ios_share,
+                        size: Dimensions.iconSize20,
+                      ),
+                      SizedBox(
+                        width: Dimensions.width5,
+                      ),
+                    ],
+                  ),
                   background: Stack(children: [
                     widget.exhibitionsModel!.gallery == null
                         ? Image.network(
@@ -328,12 +316,15 @@ class _ShowEventsOutputState extends State<ShowEventsOutput> {
                             return const Center(
                                 child: CircularProgressIndicator());
                           }
-                          return SizedBox(
-                              height: 280,
+                          var items = exhibitionsController.exhibitions!.where(
+                                  (element) => element.name != widget.exhibitionsModel!.name &&element.type_afisha!.name==widget.exhibitionsModel!.type_afisha!.name).toList();
+                          print(items);
+                          return Container(
+                              height: 200,
                               child: ListView.builder(
-                                  itemCount: evt.exhibitions!.length >= 10
+                                  itemCount: items.length >= 10
                                       ? 10
-                                      : evt.exhibitions!.length,
+                                      : items.length,
                                   scrollDirection: Axis.horizontal,
                                   itemBuilder: (context, index) {
                                     return InkWell(
@@ -343,14 +334,13 @@ class _ShowEventsOutputState extends State<ShowEventsOutput> {
                                             MaterialPageRoute(
                                                 builder: (context) =>
                                                     ShowEventsOutput(
-                                                      exhibitionsModel: evt
-                                                          .exhibitions![index],
+                                                      exhibitionsModel: items[index],
                                                     )));
                                       },
                                       child: Container(
                                         height: Dimensions.height220,
                                         padding:
-                                            const EdgeInsets.only(left: 10),
+                                             EdgeInsets.only(left: index==0?0:5),
                                         child: Stack(
                                           alignment:
                                               AlignmentDirectional.bottomCenter,
@@ -367,7 +357,7 @@ class _ShowEventsOutputState extends State<ShowEventsOutput> {
                                                       const Size.fromRadius(20),
                                                   // Image radius
                                                   child: Image.network(
-                                                    evt.exhibitions![index]
+                                                    items[index]
                                                         .img!,
                                                     fit: BoxFit.cover,
                                                     headers: const {
@@ -444,7 +434,7 @@ class _ShowEventsOutputState extends State<ShowEventsOutput> {
                                                   ),
                                                   child: Center(
                                                     child: Text(
-                                                      evt.exhibitions![index]
+                                                      items[index]
                                                               .name ??
                                                           '',
                                                       maxLines: 2,
@@ -462,9 +452,6 @@ class _ShowEventsOutputState extends State<ShowEventsOutput> {
                                     );
                                   }));
                         }),
-                    SizedBox(
-                      height: Dimensions.height100,
-                    ),
                   ],
                 )),
           )
