@@ -218,6 +218,7 @@ class _BasketPageBodyState extends State<BasketPageBody> {
                                         ),
                                         GestureDetector(
                                           onTap: () async {
+                                            showLoaderDialog(context);
                                             await sendMail();
                                             Navigator.of(context).pop();
 
@@ -507,5 +508,20 @@ class _BasketPageBodyState extends State<BasketPageBody> {
           e.toString()); //print if the email is not sent
       // e.toString() will show why the email is not sending
     }
+  }
+  showLoaderDialog(BuildContext context){
+    AlertDialog alert=AlertDialog(
+      content:  Row(
+        children: [
+          const CircularProgressIndicator(),
+          Container(margin: const EdgeInsets.only(left: 7),child:const Text("Загрузка..." )),
+        ],),
+    );
+    showDialog(barrierDismissible: false,
+      context:context,
+      builder:(BuildContext context){
+        return alert;
+      },
+    );
   }
 }

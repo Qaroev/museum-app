@@ -184,6 +184,7 @@ class _SouvenirsEventsOutputState extends State<SouvenirsEventsOutput> {
                           right: Dimensions.width20),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
                             width: Dimensions.width40,
@@ -218,43 +219,8 @@ class _SouvenirsEventsOutputState extends State<SouvenirsEventsOutput> {
                                     child: Center(
                                       child: IconButton(
                                           onPressed: () async {
-                                            var res =
-                                                await LocalStorageService()
-                                                    .getData('favorites');
-                                            if (res == null) {
-                                              dynamic user = {
-                                                "id": widget.products!.id,
-                                              };
-                                              LocalStorageService().saveData(
-                                                'favorites',
-                                                encode([user]),
-                                              );
-                                              addToBasket.add(1);
-                                            } else {
-                                              List<dynamic> childrens =
-                                                  decode(res);
-                                              var newArr = childrens
-                                                  .where((e) =>
-                                                      e['id'] ==
-                                                      widget.products!.id)
-                                                  .toList();
-                                              if (newArr.isEmpty) {
-                                                dynamic user = {
-                                                  "id": widget.products!.id,
-                                                };
-                                                childrens.add(user);
-                                                LocalStorageService().saveData(
-                                                  'favorites',
-                                                  encode(childrens),
-                                                );
-                                                addToBasket
-                                                    .add(childrens.length);
-                                              }
-                                            }
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(const SnackBar(
-                                                    content: Text(
-                                                        'Добавлено в корзину')));
+                                            Navigator.of(context).pop();
+                                            pageController.jumpToPage(2);
                                           },
                                           icon: Icon(
                                             Icons.shopping_cart_outlined,
@@ -286,15 +252,6 @@ class _SouvenirsEventsOutputState extends State<SouvenirsEventsOutput> {
                                         )
                                 ],
                               ),
-                              SizedBox(
-                                width: Dimensions.width5,
-                              ),
-                              // Image.asset(
-                              //   "assets/images/menu.png",
-                              //   color: Colors.black,
-                              //   width: Dimensions.width20,
-                              //   height: Dimensions.height20,
-                              // ),
                             ],
                           ),
                         ],

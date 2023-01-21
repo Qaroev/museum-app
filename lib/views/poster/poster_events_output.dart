@@ -1,5 +1,9 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mailer/mailer.dart';
+import 'package:mailer/smtp_server/yandex.dart';
 import 'package:museum_resource_center/utils/dimensions.dart';
 import 'package:museum_resource_center/utils/utils.dart';
 import 'package:museum_resource_center/widget/big-text-widget.dart';
@@ -23,6 +27,15 @@ class PosterEventsOutput extends StatefulWidget {
 
 class _PosterEventsOutputState extends State<PosterEventsOutput> {
   AfishaController dataController = Get.find();
+  final date = TextEditingController();
+  final name = TextEditingController();
+  final phone = TextEditingController();
+  final email = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -126,6 +139,91 @@ class _PosterEventsOutputState extends State<PosterEventsOutput> {
                             },
                           ),
                           Stack(
+                            alignment: Alignment.bottomCenter,
+                            children: [
+                              Image.asset(
+                                'assets/images/bottom_overlay.png',
+                                height: 90,
+                                width: MediaQuery.of(context).size.width,
+                                fit: BoxFit.fill,
+                                color: Colors.black,
+                              ),
+                              Container(
+                                height: Dimensions.height300,
+                                padding: EdgeInsets.only(
+                                    left: Dimensions.width20,
+                                    right: Dimensions.width20,
+                                    bottom: Dimensions.height5),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Column(
+                                          children: [
+                                            (widget.afishaList!.pushkin_card ==
+                                                    true)
+                                                ? SmallTextWidget(
+                                                    text: "Пушкинская карта",
+                                                    size: Dimensions.font11,
+                                                    color: Colors.white
+                                                        .withOpacity(0.8),
+                                                    overflow: TextOverflow.clip,
+                                                  )
+                                                : Container(),
+                                            SizedBox(
+                                              width: 264,
+                                              child: Text(
+                                                decodeToLatin(
+                                                    widget.afishaList!.name ??
+                                                        ''),
+                                                style: const TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 18,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        BigTextWidget(
+                                          text: decodeToLatin(widget
+                                              .afishaList!.type_afisha['name']),
+                                          size: Dimensions.font15,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w500,
+                                        )
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: Dimensions.height5,
+                                    ),
+                                    Container(
+                                      height: 20,
+                                    )
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                alignment: Alignment.bottomRight,
+                                color: Colors.transparent,
+                                child: ElevatedButton(
+                                  onPressed: () async {},
+                                  style: ElevatedButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(14.0),
+                                    ),
+                                    backgroundColor: Colors.transparent,
+                                  ),
+                                  child: Text(''),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Stack(
                             alignment: Alignment.topCenter,
                             children: [
                               Image.asset(
@@ -159,92 +257,6 @@ class _PosterEventsOutputState extends State<PosterEventsOutput> {
                                       fit: BoxFit.fill,
                                     ),
                                   ],
-                                ),
-                              ),
-                            ],
-                          ),
-                          Stack(
-                            alignment: Alignment.bottomCenter,
-                            children: [
-                              Image.asset(
-                                'assets/images/bottom_overlay.png',
-                                height: 90,
-                                width: MediaQuery.of(context).size.width,
-                                fit: BoxFit.fill,
-                                color: Colors.black,
-                              ),
-                              Container(
-                                height: Dimensions.height300,
-                                padding: EdgeInsets.only(
-                                    left: Dimensions.width20,
-                                    right: Dimensions.width20,
-                                    bottom: Dimensions.height5),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Column(
-                                           children: [
-                                             (widget.afishaList!.pushkin_card ==
-                                                 true)
-                                                 ? SmallTextWidget(
-                                               text: "Пушкинская карта",
-                                               size: Dimensions.font11,
-                                               color: Colors.white
-                                                   .withOpacity(0.8),
-                                               overflow: TextOverflow.clip,
-                                             )
-                                                 : Container(),
-                                             SizedBox(
-                                               width: 264,
-                                               child: Text(
-                                                 decodeToLatin(
-                                                     widget.afishaList!.name ?? ''),
-                                                 style: const TextStyle(
-                                                     color: Colors.white,
-                                                     fontSize: 18,
-                                                     fontWeight: FontWeight.bold),
-                                               ),
-                                             ),
-                                           ],
-                                        ),
-                                        BigTextWidget(
-                                          text: decodeToLatin(widget
-                                              .afishaList!.type_afisha['name']),
-                                          size: Dimensions.font15,
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w500,
-                                        )
-                                      ],
-                                    ),
-
-                                    SizedBox(
-                                      height: Dimensions.height5,
-                                    ),
-                                    Container(
-                                      height: 20,
-                                    )
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                alignment: Alignment.bottomRight,
-                                color: Colors.transparent,
-                                child: ElevatedButton(
-                                  onPressed: () async {
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(14.0),
-                                    ),
-                                   backgroundColor:Colors.transparent,
-                                  ),
-                                  child: Text(''
-                                  ),
                                 ),
                               ),
                             ],
@@ -681,6 +693,7 @@ class _PosterEventsOutputState extends State<PosterEventsOutput> {
                           child: Column(
                             children: [
                               TextField(
+                                  controller: name,
                                   decoration: InputDecoration(
                                       hintText: "Как вас зовут?",
                                       hintStyle: TextStyle(
@@ -689,6 +702,7 @@ class _PosterEventsOutputState extends State<PosterEventsOutput> {
                                           fontWeight: FontWeight.w400)),
                                   keyboardType: TextInputType.text),
                               TextField(
+                                controller: phone,
                                 decoration: InputDecoration(
                                     hintText: "Контактный телефон",
                                     hintStyle: TextStyle(
@@ -698,6 +712,7 @@ class _PosterEventsOutputState extends State<PosterEventsOutput> {
                                 keyboardType: TextInputType.phone,
                               ),
                               TextField(
+                                controller: email,
                                 decoration: InputDecoration(
                                     hintText: "Контактный email",
                                     hintStyle: TextStyle(
@@ -707,6 +722,25 @@ class _PosterEventsOutputState extends State<PosterEventsOutput> {
                                 keyboardType: TextInputType.emailAddress,
                               ),
                               TextField(
+                                controller: date,
+                                onTap: () {
+                                  showDatePicker(
+                                      locale: const Locale('ru', 'ru_RU'),
+                                      context: context,
+                                      initialDate: DateTime.now(),
+                                      firstDate: DateTime(2019, 1),
+                                      lastDate: DateTime(2023, 12),
+                                      builder: (context, picker) {
+                                        return picker!;
+                                      }).then((selectedDate) {
+                                    //TODO: handle selected date
+                                    if (selectedDate != null) {
+                                      date.text =
+                                          '${selectedDate.year}-${selectedDate.month.toString().length == 1 ? '0${selectedDate.month}' : "${selectedDate.month}"}-${selectedDate.day}';
+                                    }
+                                  });
+                                },
+                                readOnly: true,
                                 decoration: InputDecoration(
                                   hintText: "Планируемая дата и время события",
                                   hintStyle: TextStyle(
@@ -714,7 +748,6 @@ class _PosterEventsOutputState extends State<PosterEventsOutput> {
                                       color: Color(0xFF120D26),
                                       fontWeight: FontWeight.w400),
                                 ),
-                                keyboardType: TextInputType.datetime,
                               ),
                             ],
                           ),
@@ -722,20 +755,86 @@ class _PosterEventsOutputState extends State<PosterEventsOutput> {
                         SizedBox(
                           height: 20,
                         ),
-                        Container(
-                          width: double.maxFinite,
-                          height: 48,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(14),
-                            color: Color(0xFF2F3A4B),
+                        InkWell(
+                          onTap: () async {
+                            showLoaderDialog(context);
+                            await sendMail();
+                            Navigator.of(context).pop();
+                            showModalBottomSheet(
+                                isScrollControlled: true,
+                                backgroundColor: Colors.transparent,
+                                elevation: 0,
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return Container(
+                                      alignment: Alignment.center,
+                                      height: Dimensions.height500,
+                                      padding: const EdgeInsets.all(20),
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(
+                                                Dimensions.radius30),
+                                            topRight: Radius.circular(
+                                                Dimensions.radius30)),
+                                      ),
+                                      child: Column(
+                                        children: [
+                                          GestureDetector(
+                                            onTap: () {
+                                              Navigator.pop(context);
+                                            },
+                                            child: SizedBox(
+                                              width: Dimensions.width30,
+                                              child: const Divider(
+                                                thickness: 5,
+                                                color: Color(0xFFB2B2B2),
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: Dimensions.height10,
+                                          ),
+                                          BigTextWidget(
+                                            text: "Записаться на событие",
+                                            size: 24,
+                                            fontWeight: FontWeight.w500,
+                                            color: Color(0xFF120D26),
+                                          ),
+                                          SizedBox(
+                                            height: Dimensions.height100,
+                                          ),
+                                          SizedBox(
+                                            width: 204,
+                                            child: Text(
+                                              "Спасибо. Мы получили Вашу заявку и очень скоро с Вами свяжемся",
+                                              style: TextStyle(
+                                                fontSize: Dimensions.font16,
+                                                fontWeight: FontWeight.w400,
+                                                color: const Color(0xFF120D26),
+                                              ),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ),
+                                        ],
+                                      ));
+                                });
+                          },
+                          child: Container(
+                            width: double.maxFinite,
+                            height: 48,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(14),
+                              color: Color(0xFF2F3A4B),
+                            ),
+                            child: Center(
+                                child: BigTextWidget(
+                              text: "Оставить заявку",
+                              size: 15,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white,
+                            )),
                           ),
-                          child: Center(
-                              child: BigTextWidget(
-                            text: "Оставить заявку",
-                            size: 15,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.white,
-                          )),
                         )
                       ],
                     ),
@@ -780,6 +879,50 @@ class _PosterEventsOutputState extends State<PosterEventsOutput> {
     );
   }
 
+  sendMail() async {
+    String username = 'mailgo@binarywd.com';
+    String password = 'K4y-e9G-7hp-z2c';
+    String r = Random().nextInt(999999).toString().padLeft(6, '0');
+    print(r);
+    final smtpServer = yandex(username, password);
+    var order = '';
+    final message = Message()
+      ..from = Address(username)
+      ..ccRecipients.addAll(
+          ['pr-museum89@mail.ru', 'gulboyqaroev@mail.ru']) //cc Recipents emails
+      ..bccRecipients.add(const Address(
+          'pr-museum89@mail.ru', 'gulboyqaroev@mail.ru')) //bcc Recipents emails
+      ..subject =
+          'Тема: Запись на событие  "${decodeToLatin(widget.afishaList!.name ?? '')}"  с мобильного приложения МРЦ' //subject of the email
+      ..text =
+          'Письмо\n На событие "${decodeToLatin(widget.afishaList!.name ?? '')}" был оформлена запись \nИнформация о заказчике \nКак зовут: ${name.text}\nКонтактный телефон: ${phone.text}\nКонтакный email: ${email.text}\n\nДата создания заказа: ${date.text}'; //body of the email
+
+    try {
+      final sendReport = await send(message, smtpServer);
+      Navigator.of(context).pop();
+      print('Message sent: ' +
+          sendReport.toString()); //print if the email is sent
+    } on MailerException catch (e) {
+      print('Message not sent. \n' +
+          e.toString()); //print if the email is not sent
+      // e.toString() will show why the email is not sending
+    }
+  }
+  showLoaderDialog(BuildContext context){
+    AlertDialog alert=AlertDialog(
+      content:  Row(
+        children: [
+          const CircularProgressIndicator(),
+          Container(margin: const EdgeInsets.only(left: 7),child:const Text("Загрузка..." )),
+        ],),
+    );
+    showDialog(barrierDismissible: false,
+      context:context,
+      builder:(BuildContext context){
+        return alert;
+      },
+    );
+  }
   getNameMonth(AfishaModel afishaItems) {
     if (afishaItems.seanses2 != null) {
       var month1 = getMonth(afishaItems.seanses2[0]['date']);

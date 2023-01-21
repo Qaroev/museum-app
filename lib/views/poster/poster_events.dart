@@ -45,7 +45,7 @@ class _PosterEventsState extends State<PosterEvents> {
     sortItems = [];
     for (var element in afishaTypes) {
       var dates = DateFormat('yyyy-MM-dd')
-          .parse(element.seanses[0]['date'], true)
+          .parse(element.seanses2[0]['date'], true)
           .millisecondsSinceEpoch;
       var dates2 = DateFormat('yyyy-MM-dd')
           .parse('${date.year}-${date.month}-${date.day}', true)
@@ -401,85 +401,86 @@ class _PosterEventsState extends State<PosterEvents> {
                         ),
                       ),
                     ),
-                    SingleChildScrollView(
-                      child: Container(
-                        child: Column(
-                          children: [
-                            ...evt.afishaListEvents.map((e) {
-                              return Column(
-                                children: [
-                                  const SizedBox(height: 8),
-                                  Container(
-                                    width: MediaQuery.of(context).size.width,
-                                    height: 35,
-                                    alignment: Alignment.center,
-                                    decoration:  BoxDecoration(
-                                        color: Color(0xFFFFFFFF),
-                                        border: Border.all(color:  Color(0xFFD98639)),
-                                        borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(5),
-                                            bottomRight: Radius.circular(5))),
-                                    padding: const EdgeInsets.all(5),
-                                    child: Text(
-                                      '${DateFormat('EEEE', 'ru').format(DateFormat('yyyy-MM-dd')
-                                          .parse(e.key, true)).toCapitalized()} ${getMonth(e.key ?? '')}',
-                                      style: const TextStyle(
-                                          fontSize: 18,
-                                          color: Color(0xFF333333),
-                                          fontWeight: FontWeight.w700),
-                                    ),
+                    if(sortItems.isEmpty) SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          ...evt.afishaListEvents.map((e) {
+                            return Column(
+                              children: [
+                                const SizedBox(height: 8),
+                                Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  height: 35,
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                      color: Color(0xFFFFFFFF),
+                                      border: Border.all(
+                                          color: Color(0xFFD98639)),
+                                      borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(5),
+                                          bottomRight: Radius.circular(5))),
+                                  padding: const EdgeInsets.all(5),
+                                  child: Text(
+                                    '${DateFormat('EEEE', 'ru').format(DateFormat('yyyy-MM-dd').parse(e.key, true)).toCapitalized()} ${getMonth(e.key ?? '')}',
+                                    style: const TextStyle(
+                                        fontSize: 18,
+                                        color: Color(0xFF333333),
+                                        fontWeight: FontWeight.w700),
                                   ),
-                                  const SizedBox(height: 8),
-                                  ...e.value.map((it) {
-                                    var afishaList = AfishaModel.fromJson(it);
-                                    return GestureDetector(
-                                      onTap: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    PosterEventsOutput(
-                                                      afishaList: afishaList,
-                                                    )));
-                                      },
-                                      child: listItems(
-                                        afishaList,
-                                      ),
-                                    );
-                                  })
-                                ],
-                              );
-                            })
-                          ],
-                        ),
+                                ),
+                                const SizedBox(height: 8),
+                                ...e.value.map((it) {
+                                  var afishaList = AfishaModel.fromJson(it);
+                                  return GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  PosterEventsOutput(
+                                                    afishaList: afishaList,
+                                                  )));
+                                    },
+                                    child: listItems(
+                                      afishaList,
+                                    ),
+                                  );
+                                })
+                              ],
+                            );
+                          })
+                        ],
                       ),
                     ),
-                    ListView.builder(
-                        itemCount: sortItems.isNotEmpty
-                            ? sortItems.length
-                            : dataController.afishaList.length,
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          return GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => PosterEventsOutput(
-                                            afishaList: sortItems.isNotEmpty
-                                                ? sortItems[index]
-                                                : dataController
-                                                    .afishaList[index],
-                                          )));
-                            },
-                            child: listItems(
-                              sortItems.isNotEmpty
-                                  ? sortItems[index]
-                                  : dataController.afishaList[index],
-                            ),
-                          );
-                        })
+                    sortItems.isNotEmpty
+                        ? ListView.builder(
+                            itemCount: sortItems.isNotEmpty
+                                ? sortItems.length
+                                : dataController.afishaList.length,
+                            physics: const NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              return GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              PosterEventsOutput(
+                                                afishaList: sortItems.isNotEmpty
+                                                    ? sortItems[index]
+                                                    : dataController
+                                                        .afishaList[index],
+                                              )));
+                                },
+                                child: listItems(
+                                  sortItems.isNotEmpty
+                                      ? sortItems[index]
+                                      : dataController.afishaList[index],
+                                ),
+                              );
+                            })
+                        : Container()
                   ],
                 ),
               ),
@@ -606,7 +607,13 @@ class _PosterEventsState extends State<PosterEvents> {
     return '';
   }
 }
+
 extension StringCasingExtension on String {
-  String toCapitalized() => length > 0 ?'${this[0].toUpperCase()}${substring(1).toLowerCase()}':'';
-  String toTitleCase() => replaceAll(RegExp(' +'), ' ').split(' ').map((str) => str.toCapitalized()).join(' ');
+  String toCapitalized() =>
+      length > 0 ? '${this[0].toUpperCase()}${substring(1).toLowerCase()}' : '';
+
+  String toTitleCase() => replaceAll(RegExp(' +'), ' ')
+      .split(' ')
+      .map((str) => str.toCapitalized())
+      .join(' ');
 }
