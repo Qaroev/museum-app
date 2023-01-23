@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_share/flutter_share.dart';
 import 'package:get/get.dart';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server/yandex.dart';
@@ -89,9 +90,22 @@ class _PosterEventsOutputState extends State<PosterEventsOutput> {
                               SizedBox(
                                 width: Dimensions.width60,
                               ),
-                              Icon(
-                                Icons.ios_share,
-                                size: Dimensions.iconSize20,
+                              InkWell(
+                                onTap: () async {
+                                  await FlutterShare.share(
+                                      title: decodeToLatin(
+                                          widget.afishaList!.name ?? ''),
+                                      text: decodeToLatin(
+                                          widget.afishaList!.name ?? ''),
+                                      linkUrl: decodeToLatin(
+                                          widget.afishaList!.name ?? ''),
+                                      chooserTitle: decodeToLatin(
+                                          widget.afishaList!.name ?? ''));
+                                },
+                                child: Icon(
+                                  Icons.ios_share,
+                                  size: Dimensions.iconSize20,
+                                ),
                               ),
                               SizedBox(
                                 width: Dimensions.width5,
@@ -250,11 +264,24 @@ class _PosterEventsOutputState extends State<PosterEventsOutput> {
                                           width: 40,
                                           fit: BoxFit.fill,
                                         )),
-                                    Image.asset(
-                                      'assets/images/share.png',
-                                      height: 40,
-                                      width: 40,
-                                      fit: BoxFit.fill,
+                                    InkWell(
+                                      onTap: () async {
+                                        await FlutterShare.share(
+                                            title: decodeToLatin(
+                                                widget.afishaList!.name ?? ''),
+                                            text: decodeToLatin(
+                                                widget.afishaList!.name ?? ''),
+                                            linkUrl: decodeToLatin(
+                                                widget.afishaList!.name ?? ''),
+                                            chooserTitle: decodeToLatin(
+                                                widget.afishaList!.name ?? ''));
+                                      },
+                                      child: Image.asset(
+                                        'assets/images/share.png',
+                                        height: 40,
+                                        width: 40,
+                                        fit: BoxFit.fill,
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -908,21 +935,27 @@ class _PosterEventsOutputState extends State<PosterEventsOutput> {
       // e.toString() will show why the email is not sending
     }
   }
-  showLoaderDialog(BuildContext context){
-    AlertDialog alert=AlertDialog(
-      content:  Row(
+
+  showLoaderDialog(BuildContext context) {
+    AlertDialog alert = AlertDialog(
+      content: Row(
         children: [
           const CircularProgressIndicator(),
-          Container(margin: const EdgeInsets.only(left: 7),child:const Text("Загрузка..." )),
-        ],),
+          Container(
+              margin: const EdgeInsets.only(left: 7),
+              child: const Text("Загрузка...")),
+        ],
+      ),
     );
-    showDialog(barrierDismissible: false,
-      context:context,
-      builder:(BuildContext context){
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
         return alert;
       },
     );
   }
+
   getNameMonth(AfishaModel afishaItems) {
     if (afishaItems.seanses2 != null) {
       var month1 = getMonth(afishaItems.seanses2[0]['date']);

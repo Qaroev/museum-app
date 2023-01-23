@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_share/flutter_share.dart';
 import 'package:get/get.dart';
 import 'package:museum_resource_center/models/exhibitions.dart';
 import 'package:shimmer/shimmer.dart';
@@ -80,9 +81,18 @@ class _ShowEventsOutputState extends State<ShowEventsOutput> {
                       SizedBox(
                         width: Dimensions.width60,
                       ),
-                      Icon(
-                        Icons.ios_share,
-                        size: Dimensions.iconSize20,
+                      InkWell(
+                        onTap: () async {
+                          await FlutterShare.share(
+                              title: widget.exhibitionsModel!.name ?? '',
+                              text: widget.exhibitionsModel!.name ?? '',
+                              linkUrl: widget.exhibitionsModel!.name ?? '',
+                              chooserTitle: widget.exhibitionsModel!.name ?? '');
+                        },
+                        child: Icon(
+                          Icons.ios_share,
+                          size: Dimensions.iconSize20,
+                        ),
                       ),
                       SizedBox(
                         width: Dimensions.width5,
@@ -201,7 +211,13 @@ class _ShowEventsOutputState extends State<ShowEventsOutput> {
                                     borderRadius: BorderRadius.circular(10)),
                                 child: Center(
                                   child: IconButton(
-                                      onPressed: () {},
+                                      onPressed: () async{
+                                        await FlutterShare.share(
+                                            title: widget.exhibitionsModel!.name ?? '',
+                                            text: widget.exhibitionsModel!.name ?? '',
+                                            linkUrl: widget.exhibitionsModel!.name ?? '',
+                                            chooserTitle: widget.exhibitionsModel!.name ?? '');
+                                      },
                                       icon: const Icon(
                                         Icons.ios_share,
                                         size: 15,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_share/flutter_share.dart';
 import 'package:get/get.dart';
 import 'package:museum_resource_center/utils/dimensions.dart';
 import 'package:museum_resource_center/utils/utils.dart';
@@ -78,9 +79,22 @@ class _CollectionsEventsOutputState extends State<CollectionsEventsOutput> {
                             SizedBox(
                               width: Dimensions.width60,
                             ),
-                            Icon(
-                              Icons.ios_share,
-                              size: Dimensions.iconSize20,
+                            InkWell(
+                              onTap: () async {
+                                await FlutterShare.share(
+                                    title: decodeToLatin(
+                                        widget.collection!.name ?? ''),
+                                    text: decodeToLatin(
+                                        widget.collection!.name ?? ''),
+                                    linkUrl: decodeToLatin(
+                                        widget.collection!.name ?? ''),
+                                    chooserTitle: decodeToLatin(
+                                        widget.collection!.name ?? ''));
+                              },
+                              child: Icon(
+                                Icons.ios_share,
+                                size: Dimensions.iconSize20,
+                              ),
                             ),
                             SizedBox(
                               width: Dimensions.width5,
@@ -160,7 +174,18 @@ class _CollectionsEventsOutputState extends State<CollectionsEventsOutput> {
                                     borderRadius: BorderRadius.circular(10)),
                                 child: Center(
                                   child: IconButton(
-                                      onPressed: () {},
+                                      onPressed: () async{
+                                        await FlutterShare.share(
+                                            title: decodeToLatin(
+                                                widget.collection!.name ?? ''),
+                                            text: decodeToLatin(
+                                                widget.collection!.name ?? ''),
+                                            linkUrl: decodeToLatin(
+                                                widget.collection!.name ?? ''),
+                                            chooserTitle: decodeToLatin(
+                                                widget.collection!.name ?? ''));
+
+                                      },
                                       icon: const Icon(
                                         Icons.ios_share,
                                         size: 15,

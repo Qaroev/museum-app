@@ -38,7 +38,10 @@ class _HomePageState extends State<HomePage> {
   List<dynamic> posters = [];
   List<dynamic> souveners = [];
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-
+  final answer = TextEditingController();
+  final name = TextEditingController();
+  final phone = TextEditingController();
+  final email = TextEditingController();
   @override
   void initState() {
     super.initState();
@@ -282,14 +285,180 @@ class _HomePageState extends State<HomePage> {
                       ),
                       InkWell(
                         onTap: () async {
-                          var url = 'https://Museum-noyabrsk.ru/feedback';
-                          if (await canLaunchUrl(Uri.parse(url))) {
-                            await launchUrl(
-                              Uri.parse(url),
-                            );
-                          } else {
-                            throw 'Could not launch $url';
-                          }
+                          showModalBottomSheet(
+                              isScrollControlled: true,
+                              backgroundColor: Colors.transparent,
+                              elevation: 0,
+                              context: context,
+                              builder: (BuildContext context) {
+                                return Container(
+                                  height: Dimensions.height600,
+                                  padding: const EdgeInsets.all(20),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(Dimensions.radius30),
+                                        topRight: Radius.circular(Dimensions.radius30)),
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: SizedBox(
+                                          width: 30,
+                                          child: Divider(
+                                            thickness: 5,
+                                            color: Color(0xFFB2B2B2),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      BigTextWidget(
+                                        text: "Записаться на событие",
+                                        size: 24,
+                                        fontWeight: FontWeight.w500,
+                                        color: Color(0xFF120D26),
+                                      ),
+                                      SizedBox(
+                                        height: 20,
+                                      ),
+                                      Form(
+                                        child: Column(
+                                          children: [
+                                            TextField(
+                                                controller: name,
+                                                decoration: InputDecoration(
+                                                    hintText: "Как вас зовут?",
+                                                    hintStyle: TextStyle(
+                                                        fontSize: 18,
+                                                        color: Color(0xFF120D26),
+                                                        fontWeight: FontWeight.w400)),
+                                                keyboardType: TextInputType.text),
+                                            TextField(
+                                              controller: phone,
+                                              decoration: InputDecoration(
+                                                  hintText: "Контактный телефон",
+                                                  hintStyle: TextStyle(
+                                                      fontSize: 18,
+                                                      color: Color(0xFF120D26),
+                                                      fontWeight: FontWeight.w400)),
+                                              keyboardType: TextInputType.phone,
+                                            ),
+                                            TextField(
+                                              controller: email,
+                                              decoration: InputDecoration(
+                                                  hintText: "Контактный email",
+                                                  hintStyle: TextStyle(
+                                                      fontSize: 18,
+                                                      color: Color(0xFF120D26),
+                                                      fontWeight: FontWeight.w400)),
+                                              keyboardType: TextInputType.emailAddress,
+                                            ),
+                                            TextField(
+                                              controller: email,
+                                              decoration: InputDecoration(
+                                                  hintText: "Текст вопроса",
+                                                  hintStyle: TextStyle(
+                                                      fontSize: 18,
+                                                      color: Color(0xFF120D26),
+                                                      fontWeight: FontWeight.w400)),
+                                              keyboardType: TextInputType.emailAddress,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 20,
+                                      ),
+                                      InkWell(
+                                        onTap: () async {
+                                          // showLoaderDialog(context);
+                                          // await sendMail();
+                                          Navigator.of(context).pop();
+                                          showModalBottomSheet(
+                                              isScrollControlled: true,
+                                              backgroundColor: Colors.transparent,
+                                              elevation: 0,
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return Container(
+                                                    alignment: Alignment.center,
+                                                    height: Dimensions.height500,
+                                                    padding: const EdgeInsets.all(20),
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.white,
+                                                      borderRadius: BorderRadius.only(
+                                                          topLeft: Radius.circular(
+                                                              Dimensions.radius30),
+                                                          topRight: Radius.circular(
+                                                              Dimensions.radius30)),
+                                                    ),
+                                                    child: Column(
+                                                      children: [
+                                                        GestureDetector(
+                                                          onTap: () {
+                                                            Navigator.pop(context);
+                                                          },
+                                                          child: SizedBox(
+                                                            width: Dimensions.width30,
+                                                            child: const Divider(
+                                                              thickness: 5,
+                                                              color: Color(0xFFB2B2B2),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          height: Dimensions.height10,
+                                                        ),
+                                                        BigTextWidget(
+                                                          text: "Написать нам",
+                                                          size: 24,
+                                                          fontWeight: FontWeight.w500,
+                                                          color: Color(0xFF120D26),
+                                                        ),
+                                                        SizedBox(
+                                                          height: Dimensions.height100,
+                                                        ),
+                                                        SizedBox(
+                                                          width: 204,
+                                                          child: Text(
+                                                            "Спасибо. Мы получили Вашу заявку и очень скоро с Вами свяжемся",
+                                                            style: TextStyle(
+                                                              fontSize: Dimensions.font16,
+                                                              fontWeight: FontWeight.w400,
+                                                              color: const Color(0xFF120D26),
+                                                            ),
+                                                            textAlign: TextAlign.center,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ));
+                                              });
+                                        },
+                                        child: Container(
+                                          width: double.maxFinite,
+                                          height: 48,
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(14),
+                                            color: Color(0xFF2F3A4B),
+                                          ),
+                                          child: Center(
+                                              child: BigTextWidget(
+                                                text: "Заказать",
+                                                size: 15,
+                                                fontWeight: FontWeight.w500,
+                                                color: Colors.white,
+                                              )),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                );
+                              });
                         },
                         child: Container(
                           width: Dimensions.width233,
